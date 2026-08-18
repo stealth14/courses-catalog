@@ -12,7 +12,7 @@
   },
   "PaymentPage": {
     "metadataTitle": "Pago — USDT",
-    "metadataDescription": "Paga con USDT. Envía tu pago a una de las direcciones de billetera indicadas abajo.",
+    "metadataDescription": "Pagar con USDT. Envía tu pago a una de las direcciones de billetera indicadas abajo.",
     "subtitle": "Envía tu pago en USDT a una de las direcciones de billetera indicadas abajo.",
     "walletErc20": "Ethereum (ERC-20)",
     "walletBsc": "BSC (BEP-20)",
@@ -29,7 +29,7 @@
   },
   "BtcPage": {
     "metadataTitle": "Pago — Bitcoin",
-    "metadataDescription": "Paga con Bitcoin (BTC). Envía tu pago a la dirección de billetera indicada abajo.",
+    "metadataDescription": "Pagar con Bitcoin (BTC). Envía tu pago a la dirección de billetera indicada abajo.",
     "subtitle": "Envía tu pago en BTC a la dirección de billetera indicada abajo.",
     "walletLabel": "Bitcoin (BTC)",
     "qrAlt": "Código QR de la dirección de billetera de Bitcoin",
@@ -39,8 +39,8 @@
     "metadataTitle": "Pago",
     "metadataDescription": "Elige cómo deseas pagar a Ronny Cajas.",
     "subtitle": "Elige tu método de pago",
-    "methodUsdtDesc": "Paga con Tether (USDT)",
-    "methodBtcDesc": "Paga con Bitcoin (BTC)"
+    "methodUsdtDesc": "Pagar con Tether (USDT)",
+    "methodBtcDesc": "Pagar con Bitcoin (BTC)"
   },
   "PaymentHeader": {
     "photoAlt": "Foto de perfil de Ronny Cajas",
