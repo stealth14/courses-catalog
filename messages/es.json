@@ -21,6 +21,8 @@
     "roleLeader": "Líder técnico",
     "walletErc20": "Ethereum (ERC-20)",
     "walletBsc": "BSC (BEP-20)",
+    "networksLabel": "Selecciona la red de USDT",
+    "qrAlt": "Código QR de la dirección de billetera {network}",
     "copy": "Copiar",
     "copied": "Copiado",
     "warning": "Envía USDT únicamente en las redes Ethereum (ERC-20) o BSC (BEP-20) a estas direcciones. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."

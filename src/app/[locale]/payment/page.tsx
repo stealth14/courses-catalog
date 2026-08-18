@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import QRCode from "qrcode";
 import { getTranslations } from "next-intl/server";
 import { ProfilePhoto } from "@/components/profile-photo";
-import { CopyButton } from "./copy-button";
+import { WalletTabs, type NetworkWallet } from "./wallet-tabs";
 
 // Public USDT wallet addresses used to collect payments.
 // Override with NEXT_PUBLIC_USDT_ERC20 / NEXT_PUBLIC_USDT_BSC in .env.local.
@@ -24,24 +25,28 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-function WalletRow({ label, address }: { label: string; address: string }) {
-  return (
-    <div className="flex flex-col gap-3">
-      <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-        {label}
-      </span>
-      <div className="flex items-center gap-2 rounded-xl border border-black/[.08] bg-zinc-50 p-4 dark:border-white/[.145] dark:bg-black">
-        <code className="min-w-0 flex-1 break-all font-mono text-sm text-black dark:text-zinc-50">
-          {address}
-        </code>
-        <CopyButton address={address} />
-      </div>
-    </div>
-  );
+async function buildWallet(
+  id: NetworkWallet["id"],
+  label: string,
+  address: string
+): Promise<NetworkWallet> {
+  const qr = await QRCode.toDataURL(address, {
+    width: 240,
+    margin: 1,
+    errorCorrectionLevel: "M",
+    color: { dark: "#000000", light: "#ffffff" },
+  });
+
+  return { id, label, address, qr };
 }
 
 export default async function PaymentPage() {
   const t = await getTranslations("PaymentPage");
+
+  const wallets = await Promise.all([
+    buildWallet("erc20", t("walletErc20"), USDT_ERC20),
+    buildWallet("bsc", t("walletBsc"), USDT_BSC),
+  ]);
 
   return (
     <main className="flex flex-1 flex-col items-center justify-center bg-zinc-50 px-6 py-24 font-sans dark:bg-black">
@@ -106,8 +111,7 @@ export default async function PaymentPage() {
           <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
             {t("subtitle")}
           </p>
-          <WalletRow label={t("walletErc20")} address={USDT_ERC20} />
-          <WalletRow label={t("walletBsc")} address={USDT_BSC} />
+          <WalletTabs wallets={wallets} />
         </div>
 
         <p className="rounded-lg bg-amber-50 px-4 py-3 text-xs leading-5 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200">

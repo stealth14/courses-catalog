@@ -21,6 +21,8 @@
     "roleLeader": "Technical leader",
     "walletErc20": "Ethereum (ERC-20)",
     "walletBsc": "BSC (BEP-20)",
+    "networksLabel": "Select USDT network",
+    "qrAlt": "QR code for the {network} wallet address",
     "copy": "Copy",
     "copied": "Copied",
     "warning": "Only send USDT on the Ethereum (ERC-20) or BSC (BEP-20) networks to these addresses. Payments sent on other networks or using other tokens may be lost permanently."
