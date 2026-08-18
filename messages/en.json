@@ -47,8 +47,6 @@
     "linkedinLabel": "LinkedIn profile",
     "backLabel": "Back to payment methods",
     "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
-    "roleDeveloper": "Software developer",
-    "roleLeader": "Technical leader",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin"
   },

@@ -1,4 +1,5 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { getProfileTitles } from "@/lib/profile-titles";
 import { ProfilePhoto } from "@/components/profile-photo";
 
 const PROFILE_NAME = "Ronny Cajas";
@@ -10,6 +11,8 @@ export async function PaymentHeader({
   variant?: "full" | "compact";
 }) {
   const t = await getTranslations("PaymentHeader");
+  const locale = await getLocale();
+  const profileTitles = await getProfileTitles(locale);
 
   if (variant === "compact") {
     return (
@@ -76,12 +79,17 @@ export async function PaymentHeader({
             </span>
           </h2>
           <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-500">
-            <span>{t("roleDeveloper")}</span>
-            <span
-              aria-hidden="true"
-              className="h-0.5 w-0.5 rounded-full bg-zinc-400 dark:bg-zinc-600"
-            />
-            <span>{t("roleLeader")}</span>
+            {profileTitles.map((title, index) => (
+              <span key={title} className="flex items-center gap-2">
+                {index > 0 ? (
+                  <span
+                    aria-hidden="true"
+                    className="h-0.5 w-0.5 rounded-full bg-zinc-400 dark:bg-zinc-600"
+                  />
+                ) : null}
+                <span>{title}</span>
+              </span>
+            ))}
           </p>
         </div>
         <a
