@@ -18,6 +18,13 @@
     "walletBsc": "BSC (BEP-20)",
     "networksLabel": "Select USDT network",
     "qrAlt": "QR code for the {network} wallet address",
+    "stepsTitle": "How to pay",
+    "stepErc201": "Open your USDT wallet and select <b>(ERC-20) Ethereum</b>.",
+    "stepErc202": "Copy and paste the address or scan the QR code.",
+    "stepErc203": "Enter the amount and confirm the transaction.",
+    "stepBsc1": "Open your USDT wallet and select <b>(BEP-20) Binance Smart Chain</b>.",
+    "stepBsc2": "Copy and paste the address or scan the QR code.",
+    "stepBsc3": "Enter the amount and confirm the transaction.",
     "warning": "Only send USDT on the Ethereum (ERC-20) or BSC (BEP-20) networks to these addresses. Payments sent on other networks or using other tokens may be lost permanently."
   },
   "BtcPage": {
