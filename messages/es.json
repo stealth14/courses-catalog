@@ -12,12 +12,17 @@
   },
   "PaymentPage": {
     "metadataTitle": "Pago — USDT",
-    "metadataDescription": "Paga con USDT (ERC-20). Envía tu pago a la dirección de billetera indicada abajo.",
-    "title": "Pagar con USDT",
-    "subtitle": "Envía tu pago en USDT (ERC-20) a la dirección de billetera indicada abajo.",
-    "walletLabel": "Dirección de billetera",
+    "metadataDescription": "Paga con USDT. Envía tu pago a una de las direcciones de billetera indicadas abajo.",
+    "subtitle": "Envía tu pago en USDT a una de las direcciones de billetera indicadas abajo.",
+    "photoAlt": "Foto de perfil de Ronny Cajas",
+    "linkedinLabel": "Perfil de LinkedIn",
+    "roleSelfCustody": "Especialista técnico en <btc>Bitcoin</btc> & Autocustodia",
+    "roleDeveloper": "Desarrollador de software",
+    "roleLeader": "Líder técnico",
+    "walletErc20": "Ethereum (ERC-20)",
+    "walletBsc": "BSC (BEP-20)",
     "copy": "Copiar",
     "copied": "Copiado",
-    "warning": "Envía USDT únicamente en la red Ethereum (ERC-20) a esta dirección. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."
+    "warning": "Envía USDT únicamente en las redes Ethereum (ERC-20) o BSC (BEP-20) a estas direcciones. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."
   }
 }

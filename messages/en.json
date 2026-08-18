@@ -12,12 +12,17 @@
   },
   "PaymentPage": {
     "metadataTitle": "Payment — USDT",
-    "metadataDescription": "Pay with USDT (ERC-20). Send your payment to the wallet address below.",
-    "title": "Pay with USDT",
-    "subtitle": "Send your payment in USDT (ERC-20) to the wallet address below.",
-    "walletLabel": "Wallet address",
+    "metadataDescription": "Pay with USDT. Send your payment to one of the wallet addresses below.",
+    "subtitle": "Send your payment in USDT to one of the wallet addresses below.",
+    "photoAlt": "Ronny Cajas profile photo",
+    "linkedinLabel": "LinkedIn profile",
+    "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
+    "roleDeveloper": "Software developer",
+    "roleLeader": "Technical leader",
+    "walletErc20": "Ethereum (ERC-20)",
+    "walletBsc": "BSC (BEP-20)",
     "copy": "Copy",
     "copied": "Copied",
-    "warning": "Only send USDT on the Ethereum (ERC-20) network to this address. Payments sent on other networks or using other tokens may be lost permanently."
+    "warning": "Only send USDT on the Ethereum (ERC-20) or BSC (BEP-20) networks to these addresses. Payments sent on other networks or using other tokens may be lost permanently."
   }
 }
