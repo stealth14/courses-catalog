@@ -14,17 +14,39 @@
     "metadataTitle": "Payment — USDT",
     "metadataDescription": "Pay with USDT. Send your payment to one of the wallet addresses below.",
     "subtitle": "Send your payment in USDT to one of the wallet addresses below.",
+    "walletErc20": "Ethereum (ERC-20)",
+    "walletBsc": "BSC (BEP-20)",
+    "networksLabel": "Select USDT network",
+    "qrAlt": "QR code for the {network} wallet address",
+    "warning": "Only send USDT on the Ethereum (ERC-20) or BSC (BEP-20) networks to these addresses. Payments sent on other networks or using other tokens may be lost permanently."
+  },
+  "BtcPage": {
+    "metadataTitle": "Payment — Bitcoin",
+    "metadataDescription": "Pay with Bitcoin (BTC). Send your payment to the wallet address below.",
+    "subtitle": "Send your payment in BTC to the wallet address below.",
+    "walletLabel": "Bitcoin (BTC)",
+    "qrAlt": "QR code of the Bitcoin wallet address",
+    "warning": "Only send BTC on the Bitcoin network to this address. Payments sent on other networks or using other tokens may be lost permanently."
+  },
+  "PaymentHub": {
+    "metadataTitle": "Payment",
+    "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
+    "subtitle": "Choose your payment method",
+    "methodUsdtDesc": "Pay with Tether (USDT) on Ethereum or BSC",
+    "methodBtcDesc": "Pay with Bitcoin (BTC) on the Bitcoin network"
+  },
+  "PaymentHeader": {
     "photoAlt": "Ronny Cajas profile photo",
     "linkedinLabel": "LinkedIn profile",
     "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
     "roleDeveloper": "Software developer",
     "roleLeader": "Technical leader",
-    "walletErc20": "Ethereum (ERC-20)",
-    "walletBsc": "BSC (BEP-20)",
-    "networksLabel": "Select USDT network",
-    "qrAlt": "QR code for the {network} wallet address",
+    "methodsLabel": "Select payment method",
+    "methodUsdt": "USDT",
+    "methodBtc": "Bitcoin"
+  },
+  "Common": {
     "copy": "Copy",
-    "copied": "Copied",
-    "warning": "Only send USDT on the Ethereum (ERC-20) or BSC (BEP-20) networks to these addresses. Payments sent on other networks or using other tokens may be lost permanently."
+    "copied": "Copied"
   }
 }

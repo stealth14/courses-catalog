@@ -14,17 +14,39 @@
     "metadataTitle": "Pago — USDT",
     "metadataDescription": "Paga con USDT. Envía tu pago a una de las direcciones de billetera indicadas abajo.",
     "subtitle": "Envía tu pago en USDT a una de las direcciones de billetera indicadas abajo.",
+    "walletErc20": "Ethereum (ERC-20)",
+    "walletBsc": "BSC (BEP-20)",
+    "networksLabel": "Selecciona la red de USDT",
+    "qrAlt": "Código QR de la dirección de billetera {network}",
+    "warning": "Envía USDT únicamente en las redes Ethereum (ERC-20) o BSC (BEP-20) a estas direcciones. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."
+  },
+  "BtcPage": {
+    "metadataTitle": "Pago — Bitcoin",
+    "metadataDescription": "Paga con Bitcoin (BTC). Envía tu pago a la dirección de billetera indicada abajo.",
+    "subtitle": "Envía tu pago en BTC a la dirección de billetera indicada abajo.",
+    "walletLabel": "Bitcoin (BTC)",
+    "qrAlt": "Código QR de la dirección de billetera de Bitcoin",
+    "warning": "Envía BTC únicamente en la red Bitcoin a esta dirección. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."
+  },
+  "PaymentHub": {
+    "metadataTitle": "Pago",
+    "metadataDescription": "Elige cómo deseas pagar a Ronny Cajas.",
+    "subtitle": "Elige tu método de pago",
+    "methodUsdtDesc": "Paga con Tether (USDT) en Ethereum o BSC",
+    "methodBtcDesc": "Paga con Bitcoin (BTC) en la red Bitcoin"
+  },
+  "PaymentHeader": {
     "photoAlt": "Foto de perfil de Ronny Cajas",
     "linkedinLabel": "Perfil de LinkedIn",
     "roleSelfCustody": "Especialista técnico en <btc>Bitcoin</btc> & Autocustodia",
     "roleDeveloper": "Desarrollador de software",
     "roleLeader": "Líder técnico",
-    "walletErc20": "Ethereum (ERC-20)",
-    "walletBsc": "BSC (BEP-20)",
-    "networksLabel": "Selecciona la red de USDT",
-    "qrAlt": "Código QR de la dirección de billetera {network}",
+    "methodsLabel": "Selecciona el método de pago",
+    "methodUsdt": "USDT",
+    "methodBtc": "Bitcoin"
+  },
+  "Common": {
     "copy": "Copiar",
-    "copied": "Copiado",
-    "warning": "Envía USDT únicamente en las redes Ethereum (ERC-20) o BSC (BEP-20) a estas direcciones. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."
+    "copied": "Copiado"
   }
 }

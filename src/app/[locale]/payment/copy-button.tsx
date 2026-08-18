@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 export function CopyButton({ address }: { address: string }) {
-  const t = useTranslations("PaymentPage");
+  const t = useTranslations("Common");
   const [copied, setCopied] = useState(false);
   const timeoutRef = useRef<number | undefined>(undefined);
 

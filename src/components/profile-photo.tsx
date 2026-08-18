@@ -3,15 +3,27 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export function ProfilePhoto({ alt }: { alt: string }) {
+const SIZES = {
+  full: { box: "h-24 w-24", text: "text-2xl", dims: 96 },
+  compact: { box: "h-12 w-12", text: "text-sm", dims: 48 },
+} as const;
+
+export function ProfilePhoto({
+  alt,
+  size = "full",
+}: {
+  alt: string;
+  size?: keyof typeof SIZES;
+}) {
   const [failed, setFailed] = useState(false);
+  const s = SIZES[size];
 
   if (failed) {
     return (
       <div
         role="img"
         aria-label={alt}
-        className="flex h-24 w-24 items-center justify-center rounded-full bg-foreground text-2xl font-semibold text-background ring-2 ring-black/[.08] dark:ring-white/[.145]"
+        className={`flex ${s.box} shrink-0 items-center justify-center rounded-full bg-foreground ${s.text} font-semibold text-background ring-2 ring-black/[.08] dark:ring-white/[.145]`}
       >
         RC
       </div>
@@ -22,9 +34,9 @@ export function ProfilePhoto({ alt }: { alt: string }) {
     <Image
       src="/profile.jpg"
       alt={alt}
-      width={96}
-      height={96}
-      className="h-24 w-24 rounded-full object-cover ring-2 ring-black/[.08] dark:ring-white/[.145]"
+      width={s.dims}
+      height={s.dims}
+      className={`${s.box} shrink-0 rounded-full object-cover ring-2 ring-black/[.08] dark:ring-white/[.145]`}
       priority
       onError={() => setFailed(true)}
     />
