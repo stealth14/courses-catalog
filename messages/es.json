@@ -1,0 +1,23 @@
+{
+  "Layout": {
+    "title": "Catálogo de Cursos",
+    "description": "Catálogo de cursos con cobro de pagos en USDT."
+  },
+  "HomePage": {
+    "title": "Para empezar, edita el archivo <code>page.tsx</code>.",
+    "subtitle": "¿Buscas un punto de partida o más instrucciones? Echa un vistazo a las <templatesLink>Plantillas</templatesLink> o al centro de <learningLink>Aprendizaje</learningLink>.",
+    "payWithUsdt": "Pagar con USDT",
+    "deployNow": "Implementar ahora",
+    "documentation": "Documentación"
+  },
+  "PaymentPage": {
+    "metadataTitle": "Pago — USDT",
+    "metadataDescription": "Paga con USDT (ERC-20). Envía tu pago a la dirección de billetera indicada abajo.",
+    "title": "Pagar con USDT",
+    "subtitle": "Envía tu pago en USDT (ERC-20) a la dirección de billetera indicada abajo.",
+    "walletLabel": "Dirección de billetera",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "warning": "Envía USDT únicamente en la red Ethereum (ERC-20) a esta dirección. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."
+  }
+}
