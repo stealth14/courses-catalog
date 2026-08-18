@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import { BackToPaymentButton } from "@/components/back-to-payment-button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -44,7 +45,10 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
-          <LocaleSwitcher />
+          <div className="flex items-center gap-3 px-4 pt-2 pb-2 sm:px-6 sm:pt-6 sm:pb-0">
+            <BackToPaymentButton />
+            <LocaleSwitcher />
+          </div>
           {children}
         </NextIntlClientProvider>
       </body>

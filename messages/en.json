@@ -38,6 +38,7 @@
   "PaymentHeader": {
     "photoAlt": "Ronny Cajas profile photo",
     "linkedinLabel": "LinkedIn profile",
+    "backLabel": "Back to payment methods",
     "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
     "roleDeveloper": "Software developer",
     "roleLeader": "Technical leader",

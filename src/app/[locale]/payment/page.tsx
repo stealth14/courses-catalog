@@ -27,9 +27,9 @@ export default async function PaymentIndexPage() {
 
         <Link
           href="/payment/usdt"
-          className="group flex items-center gap-4 rounded-xl border border-black/[.08] p-4 transition-colors hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-white/[.06]"
+          className="group flex items-center gap-4 rounded-2xl border border-black/[.08] p-4 text-left transition-all hover:border-black/[.15] hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.99] dark:border-white/[.145] dark:hover:border-white/[.25] sm:p-5"
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-base font-bold text-emerald-600 dark:bg-white/[.08] dark:text-emerald-400">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-emerald-600 dark:bg-white/[.08] dark:text-emerald-400">
             ₮
           </span>
           <span className="min-w-0 flex-1">
@@ -40,19 +40,24 @@ export default async function PaymentIndexPage() {
               {t("methodUsdtDesc")}
             </span>
           </span>
-          <span
+          <svg
+            viewBox="0 0 20 20"
             aria-hidden="true"
-            className="text-zinc-400 transition-transform group-hover:translate-x-0.5"
+            className="h-4 w-4 shrink-0 fill-current text-zinc-400 transition-transform group-hover:translate-x-0.5"
           >
-            →
-          </span>
+            <path
+              fillRule="evenodd"
+              d="M7.21 14.77a.75.75 0 0 1 .02-1.06L11.168 10 7.23 6.29a.75.75 0 1 1 1.04-1.08l4.5 4.25a.75.75 0 0 1 0 1.08l-4.5 4.25a.75.75 0 0 1-1.06-.02Z"
+              clipRule="evenodd"
+            />
+          </svg>
         </Link>
 
         <Link
           href="/payment/btc"
-          className="group flex items-center gap-4 rounded-xl border border-black/[.08] p-4 transition-colors hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-white/[.06]"
+          className="group flex items-center gap-4 rounded-2xl border border-black/[.08] p-4 text-left transition-all hover:border-black/[.15] hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.99] dark:border-white/[.145] dark:hover:border-white/[.25] sm:p-5"
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-base font-bold text-[#F7931A] dark:bg-white/[.08]">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-[#F7931A] dark:bg-white/[.08]">
             ₿
           </span>
           <span className="min-w-0 flex-1">
@@ -63,12 +68,17 @@ export default async function PaymentIndexPage() {
               {t("methodBtcDesc")}
             </span>
           </span>
-          <span
+          <svg
+            viewBox="0 0 20 20"
             aria-hidden="true"
-            className="text-zinc-400 transition-transform group-hover:translate-x-0.5"
+            className="h-4 w-4 shrink-0 fill-current text-zinc-400 transition-transform group-hover:translate-x-0.5"
           >
-            →
-          </span>
+            <path
+              fillRule="evenodd"
+              d="M7.21 14.77a.75.75 0 0 1 .02-1.06L11.168 10 7.23 6.29a.75.75 0 1 1 1.04-1.08l4.5 4.25a.75.75 0 0 1 0 1.08l-4.5 4.25a.75.75 0 0 1-1.06-.02Z"
+              clipRule="evenodd"
+            />
+          </svg>
         </Link>
       </div>
     </>

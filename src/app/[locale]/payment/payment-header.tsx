@@ -32,7 +32,7 @@ export async function PaymentHeader({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t("linkedinLabel")}
-          className="shrink-0 rounded-full border border-black/[.08] p-2 text-zinc-600 transition-colors hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-300 dark:hover:bg-white/[.06]"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/[.08] text-zinc-600 transition-colors hover:bg-black/[.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:border-white/[.145] dark:text-zinc-300 dark:hover:bg-white/[.06]"
         >
           <svg
             viewBox="0 0 24 24"

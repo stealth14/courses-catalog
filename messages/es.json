@@ -38,7 +38,8 @@
   "PaymentHeader": {
     "photoAlt": "Foto de perfil de Ronny Cajas",
     "linkedinLabel": "Perfil de LinkedIn",
-    "roleSelfCustody": "Especialista técnico en <btc>Bitcoin</btc> & Autocustodia",
+    "backLabel": "Volver a los métodos de pago",
+    "roleSelfCustody": "Técnico en <btc>Bitcoin</btc> & Autocustodia",
     "roleDeveloper": "Desarrollador de software",
     "roleLeader": "Líder técnico",
     "methodsLabel": "Selecciona el método de pago",
