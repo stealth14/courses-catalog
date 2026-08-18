@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import QRCode from "qrcode";
 import { getTranslations } from "next-intl/server";
+import { getPaymentAddresses } from "@/lib/payment-addresses";
 import { PaymentHeader } from "../payment-header";
 import { WalletDisplay } from "../wallet-display";
-
-// Public BTC wallet address used to collect payments.
-// Override with NEXT_PUBLIC_BTC_WALLET in .env.local.
-const BTC_WALLET =
-  process.env.NEXT_PUBLIC_BTC_WALLET ?? "SET_YOUR_BTC_WALLET_IN_ENV_LOCAL";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("BtcPage");
@@ -20,8 +16,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BtcPaymentPage() {
   const t = await getTranslations("BtcPage");
+  const { btc } = await getPaymentAddresses();
 
-  const qr = await QRCode.toDataURL(BTC_WALLET, {
+  const qr = await QRCode.toDataURL(btc.mainnet, {
     width: 240,
     margin: 1,
     errorCorrectionLevel: "M",
@@ -38,7 +35,7 @@ export default async function BtcPaymentPage() {
         </p>
         <WalletDisplay
           label={t("walletLabel")}
-          address={BTC_WALLET}
+          address={btc.mainnet}
           qr={qr}
           qrAlt={t("qrAlt")}
         />

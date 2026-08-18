@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
 import QRCode from "qrcode";
 import { getTranslations } from "next-intl/server";
+import { getPaymentAddresses } from "@/lib/payment-addresses";
 import { PaymentHeader } from "../payment-header";
 import { WalletTabs, type NetworkWallet } from "../wallet-tabs";
-
-// Public USDT wallet addresses used to collect payments.
-// Override with NEXT_PUBLIC_USDT_ERC20 / NEXT_PUBLIC_USDT_BSC in .env.local.
-const USDT_ERC20 =
-  process.env.NEXT_PUBLIC_USDT_ERC20 ??
-  "0x15afF0830f275c9691a73B2DFCB001cc33f9AB5E";
-const USDT_BSC =
-  process.env.NEXT_PUBLIC_USDT_BSC ??
-  "0x15afF0830f275c9691a73B2DFCB001cc33f9AB5E";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("PaymentPage");
@@ -39,10 +31,11 @@ async function buildWallet(
 
 export default async function UsdtPaymentPage() {
   const t = await getTranslations("PaymentPage");
+  const { usdt } = await getPaymentAddresses();
 
   const wallets = await Promise.all([
-    buildWallet("erc20", t("walletErc20"), USDT_ERC20),
-    buildWallet("bsc", t("walletBsc"), USDT_BSC),
+    buildWallet("erc20", t("walletErc20"), usdt.erc20),
+    buildWallet("bsc", t("walletBsc"), usdt.bsc),
   ]);
 
   return (
