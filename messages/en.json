@@ -32,8 +32,8 @@
     "metadataTitle": "Payment",
     "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
     "subtitle": "Choose your payment method",
-    "methodUsdtDesc": "Pay with Tether (USDT) on Ethereum or BSC",
-    "methodBtcDesc": "Pay with Bitcoin (BTC) on the Bitcoin network"
+    "methodUsdtDesc": "Pay with Tether (USDT)",
+    "methodBtcDesc": "Pay with Bitcoin (BTC)"
   },
   "PaymentHeader": {
     "photoAlt": "Ronny Cajas profile photo",

@@ -15,7 +15,7 @@ export function BackToPaymentButton() {
     <Link
       href="/payment"
       aria-label={t("backLabel")}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-black/[.08] bg-white text-zinc-600 transition-colors hover:bg-black/[.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:border-white/[.145] dark:bg-[#111] dark:text-zinc-300 dark:hover:bg-white/[.06]"
+      className="flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-zinc-300"
     >
       <svg
         viewBox="0 0 20 20"
