@@ -42,7 +42,6 @@
     "roleSelfCustody": "Técnico en <btc>Bitcoin</btc> & Autocustodia",
     "roleDeveloper": "Desarrollador de software",
     "roleLeader": "Líder técnico",
-    "methodsLabel": "Selecciona el método de pago",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin"
   },

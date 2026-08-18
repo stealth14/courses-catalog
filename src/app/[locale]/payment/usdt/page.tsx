@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import QRCode from "qrcode";
 import { getTranslations } from "next-intl/server";
 import { PaymentHeader } from "../payment-header";
-import { PaymentMethodNav } from "../payment-method-nav";
 import { WalletTabs, type NetworkWallet } from "../wallet-tabs";
 
 // Public USDT wallet addresses used to collect payments.
@@ -49,7 +48,6 @@ export default async function UsdtPaymentPage() {
   return (
     <>
       <PaymentHeader variant="compact" />
-      <PaymentMethodNav />
 
       <div className="flex flex-col gap-4">
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
