@@ -7,14 +7,31 @@ export type ProductInfo = {
 };
 
 /**
+ * Enumerated values for the `variant` field
+ * (Strapi v5 `enumeration` attribute).
+ */
+export enum ProductVariant {
+  /** One-off purchase. */
+  SINGLE = "single",
+  SUBSCRIPTION = "subscription",
+  /** Mentorship / companion service. */
+  MENTORSHIP = "mentorship",
+}
+
+/**
  * Raw record shape as stored in `public/products.json` (Strapi v5-style
- * content entry: custom `slug`, localized `information`, `price` plus the
- * standard `id`, `documentId`, `createdAt`, `updatedAt`, `publishedAt`).
+ * content entry: custom `slug`, `variant`, `duration`, localized
+ * `information`, `price` plus the standard `id`, `documentId`,
+ * `createdAt`, `updatedAt`, `publishedAt`).
  */
 export type ProductData = {
   id: number;
   documentId: string;
   slug: string;
+  /** Strapi v5 enumeration field. */
+  variant: ProductVariant;
+  /** Subscription duration in months; null when not applicable. */
+  duration?: number | null;
   information: {
     en: ProductInfo;
     es: ProductInfo;
@@ -33,6 +50,10 @@ export type LocalizedProduct = {
   title: string;
   description: string;
   price: number;
+  /** Strapi v5 enumeration field. */
+  variant: ProductVariant;
+  /** Subscription duration in months; null when not applicable. */
+  duration: number | null;
 };
 
 /**
@@ -50,6 +71,10 @@ export class Product {
   readonly id: number;
   readonly documentId: string;
   readonly slug: string;
+  /** Strapi v5 enumeration field. */
+  readonly variant: ProductVariant;
+  /** Subscription duration in months; null when not applicable. */
+  readonly duration: number | null;
   readonly information: {
     en: ProductInfo;
     es: ProductInfo;
@@ -64,6 +89,8 @@ export class Product {
     this.id = data.id;
     this.documentId = data.documentId;
     this.slug = data.slug;
+    this.variant = data.variant;
+    this.duration = data.duration ?? null;
     this.information = data.information;
     this.price = data.price;
     this.createdAt = data.createdAt;
@@ -96,6 +123,8 @@ export class Product {
       title: info.title,
       description: info.description,
       price: product.price,
+      variant: product.variant,
+      duration: product.duration,
     };
   }
 }

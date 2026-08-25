@@ -54,8 +54,8 @@
   },
   "AppointmentPage": {
     "metadataTitle": "Agenda tu sesión",
-    "metadataDescription": "Elige un día de la semana actual y un horario de 2 horas para tu sesión.",
-    "subtitle": "Selecciona un día de la semana actual y elige un intervalo de 2 horas para tu sesión.",
+    "metadataDescription": "Selecciona el día y la hora de la primera sesión.",
+    "subtitle": "Selecciona el día y la hora de la primera sesión.",
     "weekLabel": "Esta semana",
     "slotsTitle": "Horarios disponibles",
     "unavailable": "No disponible",
@@ -65,7 +65,11 @@
   "Shop": {
     "metadataTitle": "Tienda — Cursos de Bitcoin",
     "metadataDescription": "Compra cursos digitales sobre autocustodia y seguridad en Bitcoin.",
-    "buy": "Comprar"
+    "buy": "Comprar",
+    "variantSingle": "Pago único",
+    "variantSubscription": "Suscripción",
+    "variantMentorship": "Mentoría",
+    "durationMonths": "{months, plural, =1 {# mes} other {# meses}}"
   },
   "PaymentHub": {
     "metadataTitle": "Pago",

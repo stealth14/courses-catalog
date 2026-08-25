@@ -54,8 +54,8 @@
   },
   "AppointmentPage": {
     "metadataTitle": "Schedule your session",
-    "metadataDescription": "Pick a day of the current week and a 2-hour time slot for your session.",
-    "subtitle": "Select a day of the current week and choose a 2-hour time slot for your session.",
+    "metadataDescription": "Select Date & Time of the first session.",
+    "subtitle": "Select Date & Time of the first session.",
     "weekLabel": "This week",
     "slotsTitle": "Available time slots",
     "unavailable": "Not available",
@@ -65,7 +65,11 @@
   "Shop": {
     "metadataTitle": "Shop — Bitcoin Courses",
     "metadataDescription": "Buy digital courses about Bitcoin self-custody and security.",
-    "buy": "Buy"
+    "buy": "Buy",
+    "variantSingle": "One-off",
+    "variantSubscription": "Subscription",
+    "variantMentorship": "Mentorship",
+    "durationMonths": "{months, plural, =1 {# month} other {# months}}"
   },
   "PaymentHub": {
     "metadataTitle": "Payment",
