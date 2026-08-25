@@ -18,10 +18,26 @@ type BackTarget = {
  */
 const BACK_OVERRIDES: Record<string, BackTarget> = {
   "/payment/methods": { href: "/payment", labelKey: "backToPaymentLabel" },
-  "/payment/usdt": { href: "/payment/methods", labelKey: "backLabel" },
-  "/payment/btc": { href: "/payment/methods", labelKey: "backLabel" },
-  "/payment/binance": { href: "/payment/methods", labelKey: "backLabel" },
-  "/payment/whatsapp": { href: "/payment/methods", labelKey: "backLabel" },
+  "/payment/usdt": {
+    href: "/payment/methods",
+    labelKey: "backLabel",
+    queryFrom: ["product"],
+  },
+  "/payment/btc": {
+    href: "/payment/methods",
+    labelKey: "backLabel",
+    queryFrom: ["product"],
+  },
+  "/payment/binance": {
+    href: "/payment/methods",
+    labelKey: "backLabel",
+    queryFrom: ["product"],
+  },
+  "/payment/whatsapp": {
+    href: "/payment/methods",
+    labelKey: "backLabel",
+    queryFrom: ["product"],
+  },
   "/appointment": {
     href: "/payment/methods",
     labelKey: "backLabel",
