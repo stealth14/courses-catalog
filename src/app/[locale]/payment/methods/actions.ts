@@ -28,15 +28,15 @@ export async function createPurchase(formData: FormData) {
     return;
   }
 
-  await Purchase.create({
+  const purchase = await Purchase.create({
     paymentMethod: method as PaymentMethod,
     product: product.id,
   });
 
   redirect({
     href: {
-      pathname: `/payment/${method}`,
-      query: { product: productSlug },
+      pathname: "/appointment",
+      query: { purchase: String(purchase.id) },
     },
     locale,
   });

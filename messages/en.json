@@ -52,6 +52,16 @@
     "templateDefault": "Hello Ronny, I just sent my payment. Please confirm my purchase.",
     "openWhatsapp": "Continue on WhatsApp"
   },
+  "AppointmentPage": {
+    "metadataTitle": "Schedule your session",
+    "metadataDescription": "Pick a day of the current week and a 2-hour time slot for your session.",
+    "subtitle": "Select a day of the current week and choose a 2-hour time slot for your session.",
+    "weekLabel": "This week",
+    "slotsTitle": "Available time slots",
+    "unavailable": "Not available",
+    "confirm": "Confirm appointment",
+    "selected": "Selected: {date} · {start} – {end}"
+  },
   "Shop": {
     "metadataTitle": "Shop — Bitcoin Courses",
     "metadataDescription": "Buy digital courses about Bitcoin self-custody and security.",

@@ -52,6 +52,16 @@
     "templateDefault": "Hola Ronny, acabo de enviar mi pago. Por favor confirma mi compra.",
     "openWhatsapp": "Continuar en WhatsApp"
   },
+  "AppointmentPage": {
+    "metadataTitle": "Agenda tu sesión",
+    "metadataDescription": "Elige un día de la semana actual y un horario de 2 horas para tu sesión.",
+    "subtitle": "Selecciona un día de la semana actual y elige un intervalo de 2 horas para tu sesión.",
+    "weekLabel": "Esta semana",
+    "slotsTitle": "Horarios disponibles",
+    "unavailable": "No disponible",
+    "confirm": "Confirmar cita",
+    "selected": "Seleccionado: {date} · {start} – {end}"
+  },
   "Shop": {
     "metadataTitle": "Tienda — Cursos de Bitcoin",
     "metadataDescription": "Compra cursos digitales sobre autocustodia y seguridad en Bitcoin.",
