@@ -2,12 +2,15 @@
 
 import { Fragment } from "react";
 import { useLocale } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
 export function LocaleSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const query = Object.fromEntries(searchParams.entries());
 
   return (
     <div className="ml-auto flex h-10 items-center gap-2 text-xs font-semibold uppercase tracking-wide">
@@ -30,7 +33,7 @@ export function LocaleSwitcher() {
               />
             )}
             <Link
-              href={pathname}
+              href={{ pathname, query }}
               locale={loc}
               aria-current={active ? "true" : undefined}
               className={`inline-flex min-h-10 select-none items-center rounded-md px-1.5 transition-colors [-webkit-tap-highlight-color:transparent] ${

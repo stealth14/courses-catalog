@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { BackButton } from "@/components/back-button";
@@ -34,6 +35,11 @@ export async function generateMetadata(
   return {
     title: t("title"),
     description: t("description"),
+    icons: {
+      icon: "/profile.jpg",
+      shortcut: "/profile.jpg",
+      apple: "/profile.jpg",
+    },
   };
 }
 
@@ -55,7 +61,9 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <div className="flex items-center gap-3 px-4 pt-1 pb-1 sm:px-6">
             <BackButton />
-            <LocaleSwitcher />
+            <Suspense fallback={null}>
+              <LocaleSwitcher />
+            </Suspense>
           </div>
           {children}
         </NextIntlClientProvider>
