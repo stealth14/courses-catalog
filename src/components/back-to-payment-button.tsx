@@ -3,18 +3,21 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
-const ROUTES_WITH_BACK = ["/payment/usdt", "/payment/btc"];
+const WALLET_ROUTES = ["/payment/usdt", "/payment/btc", "/payment/binance"];
 
 export function BackToPaymentButton() {
   const t = useTranslations("PaymentHeader");
   const pathname = usePathname();
 
-  if (!ROUTES_WITH_BACK.includes(pathname)) return null;
+  const isMethodsPage = pathname === "/payment/methods";
+  const isWalletPage = WALLET_ROUTES.includes(pathname);
+
+  if (!isMethodsPage && !isWalletPage) return null;
 
   return (
     <Link
-      href="/payment"
-      aria-label={t("backLabel")}
+      href={isMethodsPage ? "/payment" : "/payment/methods"}
+      aria-label={t(isMethodsPage ? "backToPaymentLabel" : "backLabel")}
       className="flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-zinc-300"
     >
       <svg

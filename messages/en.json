@@ -51,6 +51,7 @@
     "metadataTitle": "Payment",
     "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
     "subtitle": "Choose your payment method",
+    "cta": "Choose payment method",
     "methodUsdtDesc": "Pay with Tether (USDT)",
     "methodBtcDesc": "Pay with Bitcoin (BTC)",
     "methodBinanceDesc": "Pay with Binance"
@@ -59,6 +60,7 @@
     "photoAlt": "Ronny Cajas profile photo",
     "linkedinLabel": "LinkedIn profile",
     "backLabel": "Back to payment methods",
+    "backToPaymentLabel": "Back to payment",
     "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",

@@ -31,7 +31,7 @@ export default async function BtcPaymentPage() {
 
       <div className="flex flex-col gap-4">
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {t("subtitle")}f
+          {t("subtitle")}
         </p>
         <WalletDisplay
           label={t("walletLabel")}
