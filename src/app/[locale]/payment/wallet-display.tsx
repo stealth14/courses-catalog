@@ -1,11 +1,6 @@
 import { CopyButton } from "./copy-button";
 
-export function WalletDisplay({
-  label,
-  address,
-  qr,
-  qrAlt,
-}: {
+export function WalletDisplay({ label, address, qr, qrAlt, }: {
   label?: string;
   address: string;
   qr: string;

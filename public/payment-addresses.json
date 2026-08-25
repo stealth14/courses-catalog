@@ -5,5 +5,8 @@
   },
   "btc": {
     "mainnet": "SET_YOUR_BTC_WALLET_ADDRESS"
+  },
+  "binance": {
+    "email": "SET_YOUR_BINANCE_EMAIL"
   }
 }

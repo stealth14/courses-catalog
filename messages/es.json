@@ -35,12 +35,25 @@
     "qrAlt": "Código QR de la dirección de billetera de Bitcoin",
     "warning": "Envía BTC únicamente en la red Bitcoin a esta dirección. Los pagos enviados en otras redes o con otros tokens podrían perderse de forma permanente."
   },
+  "BinancePage": {
+    "metadataTitle": "Pago — Binance",
+    "metadataDescription": "Pagar con Binance. Envía tu pago desde tu cuenta de Binance al correo indicado abajo.",
+    "subtitle": "Envía tu pago desde tu cuenta de Binance al correo indicado abajo.",
+    "emailLabel": "Correo de Binance",
+    "qrAlt": "Código QR del correo de Binance",
+    "stepsTitle": "Cómo pagar desde Binance",
+    "step1": "Abre tu app de Binance y toca <b>Pay</b>.",
+    "step2": "Toca <b>Send</b> y elige <b>Email</b> como método de envío.",
+    "step3": "Ingresa el correo indicado arriba y el monto, luego confirma el envío.",
+    "warning": "Envía tu pago únicamente desde tu cuenta de Binance al correo indicado arriba. Verifica el correo antes de confirmar; los pagos enviados a otras cuentas podrían perderse de forma permanente."
+  },
   "PaymentHub": {
     "metadataTitle": "Pago",
     "metadataDescription": "Elige cómo deseas pagar a Ronny Cajas.",
     "subtitle": "Elige tu método de pago",
     "methodUsdtDesc": "Pagar con Tether (USDT)",
-    "methodBtcDesc": "Pagar con Bitcoin (BTC)"
+    "methodBtcDesc": "Pagar con Bitcoin (BTC)",
+    "methodBinanceDesc": "Pagar con Binance"
   },
   "PaymentHeader": {
     "photoAlt": "Foto de perfil de Ronny Cajas",
@@ -48,7 +61,8 @@
     "backLabel": "Volver a los métodos de pago",
     "roleSelfCustody": "Técnico en <btc>Bitcoin</btc> & Autocustodia",
     "methodUsdt": "USDT",
-    "methodBtc": "Bitcoin"
+    "methodBtc": "Bitcoin",
+    "methodBinance": "Binance"
   },
   "Common": {
     "copy": "Copiar",

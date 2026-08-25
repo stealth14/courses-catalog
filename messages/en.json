@@ -35,12 +35,25 @@
     "qrAlt": "QR code of the Bitcoin wallet address",
     "warning": "Only send BTC on the Bitcoin network to this address. Payments sent on other networks or using other tokens may be lost permanently."
   },
+  "BinancePage": {
+    "metadataTitle": "Payment — Binance",
+    "metadataDescription": "Pay with Binance. Send your payment from your Binance account to the email below.",
+    "subtitle": "Send your payment from your Binance account to the email below.",
+    "emailLabel": "Binance email",
+    "qrAlt": "QR code of the Binance email address",
+    "stepsTitle": "How to pay from Binance",
+    "step1": "Open your Binance app and tap <b>Pay</b>.",
+    "step2": "Tap <b>Send</b> and choose <b>Email</b> as the transfer method.",
+    "step3": "Enter the email address above and the amount, then confirm the transfer.",
+    "warning": "Only send your payment from your Binance account to the email address above. Double-check the email before confirming; payments sent to other accounts may be lost permanently."
+  },
   "PaymentHub": {
     "metadataTitle": "Payment",
     "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
     "subtitle": "Choose your payment method",
     "methodUsdtDesc": "Pay with Tether (USDT)",
-    "methodBtcDesc": "Pay with Bitcoin (BTC)"
+    "methodBtcDesc": "Pay with Bitcoin (BTC)",
+    "methodBinanceDesc": "Pay with Binance"
   },
   "PaymentHeader": {
     "photoAlt": "Ronny Cajas profile photo",
@@ -48,7 +61,8 @@
     "backLabel": "Back to payment methods",
     "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
     "methodUsdt": "USDT",
-    "methodBtc": "Bitcoin"
+    "methodBtc": "Bitcoin",
+    "methodBinance": "Binance"
   },
   "Common": {
     "copy": "Copy",

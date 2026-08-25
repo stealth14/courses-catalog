@@ -9,6 +9,9 @@ export type PaymentAddresses = {
   btc: {
     mainnet: string;
   };
+  binance: {
+    email: string;
+  };
 };
 
 const FILE_PATH = path.join(process.cwd(), "public", "payment-addresses.json");
@@ -24,16 +27,18 @@ export async function getPaymentAddresses(): Promise<PaymentAddresses> {
   const erc20 = data.usdt?.erc20;
   const bsc = data.usdt?.bsc;
   const mainnet = data.btc?.mainnet;
+  const email = data.binance?.email;
 
   if (
     typeof erc20 !== "string" ||
     typeof bsc !== "string" ||
-    typeof mainnet !== "string"
+    typeof mainnet !== "string" ||
+    typeof email !== "string"
   ) {
     throw new Error(
-      'Invalid public/payment-addresses.json: expected { "usdt": { "erc20": string, "bsc": string }, "btc": { "mainnet": string } }'
+      'Invalid public/payment-addresses.json: expected { "usdt": { "erc20": string, "bsc": string }, "btc": { "mainnet": string }, "binance": { "email": string } }'
     );
   }
 
-  return { usdt: { erc20, bsc }, btc: { mainnet } };
+  return { usdt: { erc20, bsc }, btc: { mainnet }, binance: { email } };
 }
