@@ -47,6 +47,15 @@
     "step3": "Enter the email address above and the amount, then confirm the transfer.",
     "warning": "Only send your payment from your Binance account to the email address above. Double-check the email before confirming; payments sent to other accounts may be lost permanently."
   },
+  "Shop": {
+    "metadataTitle": "Shop — Digital Courses",
+    "metadataDescription": "Buy digital courses about software development and Bitcoin.",
+    "addToCart": "Add to cart",
+    "remove": "Remove",
+    "cartTitle": "Your cart",
+    "cartEmpty": "Your cart is empty.",
+    "total": "Total"
+  },
   "PaymentHub": {
     "metadataTitle": "Payment",
     "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
@@ -61,6 +70,7 @@
     "linkedinLabel": "LinkedIn profile",
     "backLabel": "Back to payment methods",
     "backToPaymentLabel": "Back to payment",
+    "back": "Back",
     "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",

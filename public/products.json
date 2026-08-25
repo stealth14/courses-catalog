@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "documentId": "c7f1a0b2-4e6d-4b8a-9f3c-1d2e5a7b9c01",
+    "locale": "en",
+    "title": "Bitcoin Self-Custody for individuals",
+    "description": "Secure your personal bitcoin using the same techniques as AAA crypto exchanges.",
+    "price": 49.99,
+    "createdAt": "2026-06-01T10:00:00.000Z",
+    "updatedAt": "2026-08-10T10:00:00.000Z",
+    "publishedAt": "2026-06-01T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "documentId": "a3b8d2e1-7c4f-4e9a-8b1d-5f6a2c0e8d42",
+    "locale": "en",
+    "title": "Modern Full-Stack Development with Next.js",
+    "description": "Build production-ready web applications.",
+    "price": 129.0,
+    "createdAt": "2026-06-15T10:00:00.000Z",
+    "updatedAt": "2026-08-18T10:00:00.000Z",
+    "publishedAt": "2026-06-15T10:00:00.000Z"
+  }
+]

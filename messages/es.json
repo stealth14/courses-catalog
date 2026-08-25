@@ -47,6 +47,15 @@
     "step3": "Ingresa el correo indicado arriba y el monto, luego confirma el envío.",
     "warning": "Envía tu pago únicamente desde tu cuenta de Binance al correo indicado arriba. Verifica el correo antes de confirmar; los pagos enviados a otras cuentas podrían perderse de forma permanente."
   },
+  "Shop": {
+    "metadataTitle": "Tienda — Cursos digitales",
+    "metadataDescription": "Compra cursos digitales sobre desarrollo de software y Bitcoin.",
+    "addToCart": "Añadir al carrito",
+    "remove": "Quitar",
+    "cartTitle": "Tu carrito",
+    "cartEmpty": "Tu carrito está vacío.",
+    "total": "Total"
+  },
   "PaymentHub": {
     "metadataTitle": "Pago",
     "metadataDescription": "Elige cómo deseas pagar a Ronny Cajas.",
@@ -61,6 +70,7 @@
     "linkedinLabel": "Perfil de LinkedIn",
     "backLabel": "Volver a los métodos de pago",
     "backToPaymentLabel": "Volver al pago",
+    "back": "Volver",
     "roleSelfCustody": "Técnico en <btc>Bitcoin</btc> & Autocustodia",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
