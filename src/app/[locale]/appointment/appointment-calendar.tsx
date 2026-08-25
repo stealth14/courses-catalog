@@ -155,7 +155,7 @@ export function AppointmentCalendar({ purchaseId }: { purchaseId: number }) {
               {t("slotDuration")}
             </span>
           </div>
-          <div className="grid grid-cols-4 gap-1.5">
+          <div className="grid grid-cols-7 gap-1 sm:grid-cols-4 sm:gap-1.5">
             {SLOTS.map((slot) => {
               const available = slotAvailable(selectedDate, slot.start);
               const active = selectedSlot?.start === slot.start;
@@ -171,7 +171,7 @@ export function AppointmentCalendar({ purchaseId }: { purchaseId: number }) {
                   title={
                     available ? `${slot.start} – ${slot.end}` : t("unavailable")
                   }
-                  className={`rounded-lg border px-1.5 py-2 text-xs font-medium tabular-nums transition-colors ${
+                  className={`rounded-lg border px-0 py-1.5 text-[11px] font-medium tabular-nums transition-colors sm:px-1.5 sm:py-2 sm:text-xs ${
                     !available
                       ? "cursor-not-allowed border-black/[.05] text-zinc-300 line-through dark:border-white/[.06] dark:text-zinc-600"
                       : active
