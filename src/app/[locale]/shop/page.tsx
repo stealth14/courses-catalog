@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Shop } from "@/components/shop";
-import { getProducts } from "@/lib/products";
+import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment/payment-header";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,7 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ShopPage() {
-  const products = await getProducts();
+  const locale = await getLocale();
+  const products = (await Product.getProducts()).map((product) =>
+    Product.localize(product, locale)
+  );
 
   return (
     <main className="flex flex-1 flex-col items-center justify-center bg-zinc-50 px-4 pt-1 pb-12 font-sans dark:bg-black sm:px-6 sm:py-24">

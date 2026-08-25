@@ -2,9 +2,17 @@
   {
     "id": 1,
     "documentId": "c7f1a0b2-4e6d-4b8a-9f3c-1d2e5a7b9c01",
-    "locale": "en",
-    "title": "Bitcoin Self-Custody for individuals",
-    "description": "Secure your personal bitcoin using the same techniques as AAA crypto exchanges.",
+    "slug": "bitcoin-self-custody-for-individuals",
+    "information": {
+      "en": {
+        "title": "Bitcoin Self-Custody for individuals",
+        "description": "Secure your bitcoin using the same techniques as AAA crypto exchanges."
+      },
+      "es": {
+        "title": "Autocustodia de Bitcoin para individuos",
+        "description": "Protege tu bitcoin usando las mismas técnicas que los exchanges AAA."
+      }
+    },
     "price": 49.99,
     "createdAt": "2026-06-01T10:00:00.000Z",
     "updatedAt": "2026-08-10T10:00:00.000Z",
@@ -13,9 +21,17 @@
   {
     "id": 2,
     "documentId": "a3b8d2e1-7c4f-4e9a-8b1d-5f6a2c0e8d42",
-    "locale": "en",
-    "title": "Modern Full-Stack Development with Next.js",
-    "description": "Build production-ready web applications.",
+    "slug": "modern-full-stack-development-with-nextjs",
+    "information": {
+      "en": {
+        "title": "Modern Full-Stack Development with Next.js",
+        "description": "Build production-ready web applications."
+      },
+      "es": {
+        "title": "Desarrollo Full-Stack Moderno con Next.js",
+        "description": "Construye aplicaciones web listas para producción."
+      }
+    },
     "price": 129.0,
     "createdAt": "2026-06-15T10:00:00.000Z",
     "updatedAt": "2026-08-18T10:00:00.000Z",

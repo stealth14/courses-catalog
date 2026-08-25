@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import type { Product } from "@/lib/products";
+import type { LocalizedProduct } from "@/models/product";
 
 type CartItem = {
-  product: Product;
+  product: LocalizedProduct;
   quantity: number;
 };
 
-export function Shop({ products }: { products: Product[] }) {
+export function Shop({ products }: { products: LocalizedProduct[] }) {
   const t = useTranslations("Shop");
   const locale = useLocale();
   const [items, setItems] = useState<CartItem[]>([]);
@@ -19,7 +19,7 @@ export function Shop({ products }: { products: Product[] }) {
     currency: "USD",
   });
 
-  function add(product: Product) {
+  function add(product: LocalizedProduct) {
     setItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {
