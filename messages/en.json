@@ -58,6 +58,7 @@
     "subtitle": "Select Date & Time of the first session.",
     "weekLabel": "This week",
     "slotsTitle": "Available time slots",
+    "slotDuration": "25 min per session",
     "unavailable": "Not available",
     "confirm": "Confirm appointment",
     "selected": "Selected: {date} · {start} – {end}"

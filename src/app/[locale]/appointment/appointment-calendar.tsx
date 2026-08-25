@@ -9,14 +9,28 @@ type Slot = {
   end: string;
 };
 
-const SLOTS: Slot[] = [
-  { start: "08:00", end: "10:00" },
-  { start: "10:00", end: "12:00" },
-  { start: "12:00", end: "14:00" },
-  { start: "14:00", end: "16:00" },
-  { start: "16:00", end: "18:00" },
-  { start: "18:00", end: "20:00" },
-];
+/** Session length in minutes. */
+const SESSION_MINUTES = 25;
+/** Bookable window: 08:00 – 20:00 local time. */
+const DAY_START_MINUTES = 8 * 60;
+const DAY_END_MINUTES = 20 * 60;
+
+function buildSlots(): Slot[] {
+  const slots: Slot[] = [];
+  for (
+    let start = DAY_START_MINUTES;
+    start + SESSION_MINUTES <= DAY_END_MINUTES;
+    start += SESSION_MINUTES
+  ) {
+    const startLabel = `${pad(Math.floor(start / 60))}:${pad(start % 60)}`;
+    const end = start + SESSION_MINUTES;
+    const endLabel = `${pad(Math.floor(end / 60))}:${pad(end % 60)}`;
+    slots.push({ start: startLabel, end: endLabel });
+  }
+  return slots;
+}
+
+const SLOTS: Slot[] = buildSlots();
 
 function pad(value: number): string {
   return String(value).padStart(2, "0");
@@ -75,7 +89,7 @@ export function AppointmentCalendar({ purchaseId }: { purchaseId: number }) {
     if (dateKey === todayKey) {
       const [hours, minutes] = start.split(":").map(Number);
       const end = new Date();
-      end.setHours(hours + 2, minutes, 0, 0);
+      end.setHours(hours, minutes + SESSION_MINUTES, 0, 0);
       if (end <= now) return false;
     }
     return !isBooked(dateKey, start);
@@ -133,10 +147,15 @@ export function AppointmentCalendar({ purchaseId }: { purchaseId: number }) {
 
       {selectedDate ? (
         <div className="flex flex-col gap-2">
-          <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            {t("slotsTitle")}
-          </span>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              {t("slotsTitle")}
+            </span>
+            <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-semibold text-zinc-500 dark:bg-white/[.08] dark:text-zinc-400">
+              {t("slotDuration")}
+            </span>
+          </div>
+          <div className="grid grid-cols-4 gap-1.5">
             {SLOTS.map((slot) => {
               const available = slotAvailable(selectedDate, slot.start);
               const active = selectedSlot?.start === slot.start;
@@ -149,7 +168,10 @@ export function AppointmentCalendar({ purchaseId }: { purchaseId: number }) {
                   aria-label={
                     available ? `${slot.start} – ${slot.end}` : t("unavailable")
                   }
-                  className={`rounded-xl border px-3 py-2 text-sm font-medium transition-colors ${
+                  title={
+                    available ? `${slot.start} – ${slot.end}` : t("unavailable")
+                  }
+                  className={`rounded-lg border px-1.5 py-2 text-xs font-medium tabular-nums transition-colors ${
                     !available
                       ? "cursor-not-allowed border-black/[.05] text-zinc-300 line-through dark:border-white/[.06] dark:text-zinc-600"
                       : active
@@ -157,7 +179,7 @@ export function AppointmentCalendar({ purchaseId }: { purchaseId: number }) {
                         : "border-black/[.08] text-zinc-600 hover:border-black/[.2] dark:border-white/[.145] dark:text-zinc-300 dark:hover:border-white/[.3]"
                   }`}
                 >
-                  {slot.start} – {slot.end}
+                  {slot.start}
                 </button>
               );
             })}
