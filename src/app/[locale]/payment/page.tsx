@@ -21,7 +21,7 @@ export default async function PaymentIndexPage() {
 
       <div className="flex flex-col gap-3">
         <Link
-          href="/payment/methods"
+          href="/shop"
           className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
         >
           {t("cta")}

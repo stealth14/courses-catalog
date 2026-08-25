@@ -8,5 +8,8 @@
   },
   "binance": {
     "email": "SET_YOUR_BINANCE_EMAIL"
+  },
+  "whatsapp": {
+    "phone": "593992825956"
   }
 }

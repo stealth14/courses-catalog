@@ -4,11 +4,8 @@
     "description": "Course catalog with USDT payment collection."
   },
   "HomePage": {
-    "title": "To get started, edit the <code>page.tsx</code> file.",
-    "subtitle": "Looking for a starting point or more instructions? Head over to <templatesLink>Templates</templatesLink> or the <learningLink>Learning</learningLink> center.",
-    "payWithUsdt": "Pay with USDT",
-    "deployNow": "Deploy Now",
-    "documentation": "Documentation"
+    "intro": "I help individuals and teams protect their wealth with Bitcoin.",
+    "cta": "Start your purchase"
   },
   "PaymentPage": {
     "metadataTitle": "Payment — USDT",
@@ -47,23 +44,29 @@
     "step3": "Enter the email address above and the amount, then confirm the transfer.",
     "warning": "Only send your payment from your Binance account to the email address above. Double-check the email before confirming; payments sent to other accounts may be lost permanently."
   },
+  "WhatsappPage": {
+    "metadataTitle": "Payment — WhatsApp",
+    "metadataDescription": "Pay via WhatsApp with one tap.",
+    "subtitle": "Continue with the payment details through WhatsApp. You'll complete your payment with a peer-to-peer bank transfer in the chat.",
+    "template": "Hello Ronny, I just sent my payment for {product} ({price}). Please confirm my purchase.",
+    "templateDefault": "Hello Ronny, I just sent my payment. Please confirm my purchase.",
+    "openWhatsapp": "Continue on WhatsApp"
+  },
   "Shop": {
-    "metadataTitle": "Shop — Digital Courses",
-    "metadataDescription": "Buy digital courses about software development and Bitcoin.",
-    "addToCart": "Add to cart",
-    "remove": "Remove",
-    "cartTitle": "Your cart",
-    "cartEmpty": "Your cart is empty.",
-    "total": "Total"
+    "metadataTitle": "Shop — Bitcoin Courses",
+    "metadataDescription": "Buy digital courses about Bitcoin self-custody and security.",
+    "buy": "Buy"
   },
   "PaymentHub": {
     "metadataTitle": "Payment",
     "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
     "subtitle": "Choose your payment method",
-    "cta": "Choose payment method",
+    "purchasingLabel": "You are purchasing",
+    "cta": "Browse products",
     "methodUsdtDesc": "Pay with Tether (USDT)",
     "methodBtcDesc": "Pay with Bitcoin (BTC)",
-    "methodBinanceDesc": "Pay with Binance"
+    "methodBinanceDesc": "Pay with Binance",
+    "methodWhatsappDesc": "Pay via WhatsApp"
   },
   "PaymentHeader": {
     "photoAlt": "Ronny Cajas profile photo",
@@ -74,7 +77,8 @@
     "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
-    "methodBinance": "Binance"
+    "methodBinance": "Binance",
+    "methodWhatsapp": "WhatsApp"
   },
   "Common": {
     "copy": "Copy",

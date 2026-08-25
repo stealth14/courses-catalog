@@ -18,6 +18,7 @@ const BACK_OVERRIDES: Record<string, BackTarget> = {
   "/payment/usdt": { href: "/payment/methods", labelKey: "backLabel" },
   "/payment/btc": { href: "/payment/methods", labelKey: "backLabel" },
   "/payment/binance": { href: "/payment/methods", labelKey: "backLabel" },
+  "/payment/whatsapp": { href: "/payment/methods", labelKey: "backLabel" },
 };
 
 function parentOf(pathname: string): string | null {
