@@ -1,11 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { Link, usePathname } from "@/i18n/navigation";
 
 type BackTarget = {
   href: string;
   labelKey: "backLabel" | "backToPaymentLabel" | "back";
+  /** Query params to preserve from the current URL onto the back link. */
+  queryFrom?: string[];
 };
 
 /**
@@ -19,7 +22,11 @@ const BACK_OVERRIDES: Record<string, BackTarget> = {
   "/payment/btc": { href: "/payment/methods", labelKey: "backLabel" },
   "/payment/binance": { href: "/payment/methods", labelKey: "backLabel" },
   "/payment/whatsapp": { href: "/payment/methods", labelKey: "backLabel" },
-  "/appointment": { href: "/shop", labelKey: "back" },
+  "/appointment": {
+    href: "/payment/methods",
+    labelKey: "backLabel",
+    queryFrom: ["product"],
+  },
 };
 
 function parentOf(pathname: string): string | null {
@@ -37,15 +44,27 @@ function parentOf(pathname: string): string | null {
 export function BackButton() {
   const t = useTranslations("PaymentHeader");
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const target =
     BACK_OVERRIDES[pathname] ?? { href: parentOf(pathname), labelKey: "back" };
 
   if (!target.href) return null;
 
+  const query: Record<string, string> = {};
+  for (const key of target.queryFrom ?? []) {
+    const value = searchParams.get(key);
+    if (value) query[key] = value;
+  }
+
+  const href =
+    Object.keys(query).length > 0
+      ? { pathname: target.href, query }
+      : target.href;
+
   return (
     <Link
-      href={target.href}
+      href={href}
       aria-label={t(target.labelKey)}
       className="flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-zinc-300"
     >

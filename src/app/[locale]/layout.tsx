@@ -60,8 +60,8 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider>
           <div className="flex items-center gap-3 px-4 pt-1 pb-1 sm:px-6">
-            <BackButton />
             <Suspense fallback={null}>
+              <BackButton />
               <LocaleSwitcher />
             </Suspense>
           </div>

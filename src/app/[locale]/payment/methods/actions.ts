@@ -36,7 +36,7 @@ export async function createPurchase(formData: FormData) {
   redirect({
     href: {
       pathname: "/appointment",
-      query: { purchase: String(purchase.id) },
+      query: { purchase: String(purchase.id), product: productSlug },
     },
     locale,
   });
