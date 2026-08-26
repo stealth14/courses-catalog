@@ -5,7 +5,7 @@
   },
   "HomePage": {
     "intro": "I help individuals and companies protect their wealth with Bitcoin.",
-    "cta": "Start your purchase"
+    "cta": "Book an appointment"
   },
   "PaymentPage": {
     "metadataTitle": "Payment — USDT",
@@ -61,13 +61,22 @@
     "slotDuration": "25 min per session",
     "unavailable": "Not available",
     "confirm": "Confirm session",
-    "nextHint": "Next: payment & confirmation",
+    "nextHint": "Next: review & payment",
     "selected": "Selected: {date} · {start} – {end}"
+  },
+  "SummaryPage": {
+    "metadataTitle": "Review your booking",
+    "metadataDescription": "Review the details of your session before continuing to payment.",
+    "subtitle": "Review the details of your session before continuing to payment.",
+    "appointmentLabel": "Appointment",
+    "serviceLabel": "Service",
+    "priceLabel": "Price",
+    "confirm": "Confirm and continue to payment"
   },
   "Shop": {
     "metadataTitle": "Shop — Bitcoin Courses",
-    "metadataDescription": "Buy digital courses about Bitcoin self-custody and security.",
-    "buy": "Buy",
+    "metadataDescription": "Book an appointment to learn more about Bitcoin self-custody and security.",
+    "learnMore": "I want to know more",
     "variantSingle": "One-off",
     "variantSubscription": "Subscription",
     "variantMentorship": "Mentorship",
@@ -78,6 +87,7 @@
     "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
     "subtitle": "Choose your payment method",
     "purchasingLabel": "You are purchasing",
+    "bookingLabel": "You are booking a session about",
     "cta": "Browse products",
     "methodUsdtDesc": "Pay with Tether (USDT)",
     "methodBtcDesc": "Pay with Bitcoin (BTC)",

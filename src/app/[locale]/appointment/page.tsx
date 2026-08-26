@@ -36,21 +36,16 @@ export default async function AppointmentPage({
   }
 
   const localized = Product.localize(product, locale);
-  const currency = new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: "USD",
-  });
 
   return (
     <StepCard>
       <PaymentHeader variant="compact" />
 
       <p className="rounded-xl border border-black/[.08] bg-zinc-50 px-4 py-3 text-sm leading-6 text-zinc-600 dark:border-white/[.145] dark:bg-black dark:text-zinc-300">
-        {th("purchasingLabel")}{" "}
+        {th("bookingLabel")}{" "}
         <strong className="font-semibold text-black dark:text-zinc-50">
           {localized.title}
-        </strong>{" "}
-        · {currency.format(product.price)}
+        </strong>
       </p>
 
       <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">

@@ -27,7 +27,7 @@ export async function bookAppointment(formData: FormData) {
 
   redirect({
     href: {
-      pathname: "/payment/methods",
+      pathname: "/summary",
       query: { product: product.slug, appointment: String(appointment.id) },
     },
     locale,

@@ -18,9 +18,9 @@ type BackTarget = {
  */
 const BACK_OVERRIDES: Record<string, BackTarget> = {
   "/payment/methods": {
-    href: "/appointment",
+    href: "/summary",
     labelKey: "back",
-    queryFrom: ["product"],
+    queryFrom: ["product", "appointment"],
   },
   "/payment/usdt": {
     href: "/payment/methods",
@@ -43,6 +43,11 @@ const BACK_OVERRIDES: Record<string, BackTarget> = {
     queryFrom: ["product"],
   },
   "/appointment": { href: "/shop", labelKey: "back" },
+  "/summary": {
+    href: "/appointment",
+    labelKey: "back",
+    queryFrom: ["product"],
+  },
 };
 
 function parentOf(pathname: string): string | null {

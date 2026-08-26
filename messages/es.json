@@ -5,7 +5,7 @@
   },
   "HomePage": {
     "intro": "Ayudo a individuos y empresas a proteger su patrimonio con bitcoin.",
-    "cta": "Inicia tu compra"
+    "cta": "Agenda una cita"
   },
   "PaymentPage": {
     "metadataTitle": "Pago — USDT",
@@ -61,13 +61,22 @@
     "slotDuration": "25 minutos por sesión",
     "unavailable": "No disponible",
     "confirm": "Confirmar sesión",
-    "nextHint": "Siguiente: pago y confirmación",
+    "nextHint": "Siguiente: revisión y pago",
     "selected": "Seleccionado: {date} · {start} – {end}"
+  },
+  "SummaryPage": {
+    "metadataTitle": "Revisa tu reserva",
+    "metadataDescription": "Revisa los detalles de tu sesión antes de continuar al pago.",
+    "subtitle": "Revisa los detalles de tu sesión antes de continuar al pago.",
+    "appointmentLabel": "Cita",
+    "serviceLabel": "Servicio",
+    "priceLabel": "Precio",
+    "confirm": "Confirmar y continuar al pago"
   },
   "Shop": {
     "metadataTitle": "Tienda — Cursos de Bitcoin",
-    "metadataDescription": "Compra cursos digitales sobre autocustodia y seguridad en Bitcoin.",
-    "buy": "Comprar",
+    "metadataDescription": "Agenda una cita para conocer más sobre la autocustodia y seguridad en Bitcoin.",
+    "learnMore": "Quiero saber más",
     "variantSingle": "Pago único",
     "variantSubscription": "Suscripción",
     "variantMentorship": "Mentoría",
@@ -78,6 +87,7 @@
     "metadataDescription": "Elige cómo deseas pagar a Ronny Cajas.",
     "subtitle": "Elige tu método de pago",
     "purchasingLabel": "Estás comprando",
+    "bookingLabel": "Estás agendando una sesión sobre",
     "cta": "Ver productos",
     "methodUsdtDesc": "Pagar con Tether (USDT)",
     "methodBtcDesc": "Pagar con Bitcoin (BTC)",

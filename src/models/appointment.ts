@@ -79,6 +79,14 @@ export class Appointment {
     return appointment;
   }
 
+  /**
+   * Finds an appointment record by its numeric id.
+   */
+  static async findById(id: number): Promise<Appointment | null> {
+    const appointments = await Appointment.readAll();
+    return appointments.find((item) => item.id === id) ?? null;
+  }
+
   private static toJson(appointment: Appointment): AppointmentData {
     return {
       id: appointment.id,

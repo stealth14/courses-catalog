@@ -32,11 +32,6 @@ export default async function ShopPage() {
     Product.localize(product, locale)
   );
 
-  const currency = new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: "USD",
-  });
-
   const variantLabels: Record<ProductVariant, string> = {
     [ProductVariant.SINGLE]: t("variantSingle"),
     [ProductVariant.SUBSCRIPTION]: t("variantSubscription"),
@@ -53,14 +48,9 @@ export default async function ShopPage() {
               key={product.id}
               className="flex flex-col gap-3 rounded-2xl border border-black/[.08] p-4 dark:border-white/[.145]"
             >
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="min-w-0 text-base font-semibold tracking-tight text-black dark:text-zinc-50">
-                  {product.title}
-                </h2>
-                <span className="shrink-0 text-lg font-semibold text-black dark:text-zinc-50">
-                  {currency.format(product.price)}
-                </span>
-              </div>
+              <h2 className="min-w-0 text-base font-semibold tracking-tight text-black dark:text-zinc-50">
+                {product.title}
+              </h2>
               <div className="flex flex-wrap items-center gap-2">
                 <span
                   className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${VARIANT_CHIP_CLASSES[product.variant]}`}
@@ -80,7 +70,7 @@ export default async function ShopPage() {
                 href={`/appointment?product=${product.slug}`}
                 className="self-start rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
               >
-                {t("buy")}
+                {t("learnMore")}
               </Link>
             </article>
           ))}
