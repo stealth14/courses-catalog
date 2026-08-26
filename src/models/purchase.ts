@@ -80,6 +80,7 @@ export class Purchase {
   static async create(input: {
     paymentMethod: PaymentMethod;
     product: number;
+    appointment?: number | null;
   }): Promise<Purchase> {
     const purchases = await Purchase.readAll();
     const now = new Date().toISOString();
@@ -89,7 +90,7 @@ export class Purchase {
       documentId: crypto.randomUUID(),
       paymentMethod: input.paymentMethod,
       product: input.product,
-      appointment: null,
+      appointment: input.appointment ?? null,
       createdAt: now,
       updatedAt: now,
       publishedAt: now,

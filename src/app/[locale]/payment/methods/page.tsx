@@ -42,8 +42,12 @@ export default async function PaymentMethodsPage({
   const t = await getTranslations("PaymentHub");
   const th = await getTranslations("PaymentHeader");
 
-  const { product: slugParam } = await searchParams;
+  const { product: slugParam, appointment: appointmentParam } =
+    await searchParams;
   const productSlug = Array.isArray(slugParam) ? slugParam[0] : slugParam;
+  const appointmentId = Array.isArray(appointmentParam)
+    ? appointmentParam[0]
+    : appointmentParam;
 
   const products = await Product.getProducts();
   const product = products.find((item) => item.slug === productSlug);
@@ -64,9 +68,6 @@ export default async function PaymentMethodsPage({
       <PaymentHeader variant="compact" />
 
       <div className="flex flex-col gap-3">
-        <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {t("subtitle")}
-        </p>
 
         <p className="rounded-xl border border-black/[.08] bg-zinc-50 px-4 py-3 text-sm leading-6 text-zinc-600 dark:border-white/[.145] dark:bg-black dark:text-zinc-300">
           {t("purchasingLabel")}{" "}
@@ -76,9 +77,15 @@ export default async function PaymentMethodsPage({
           · {currency.format(product.price)}
         </p>
 
+        <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+          {t("subtitle")}
+        </p>
+
+
         <form action={createPurchase}>
           <input type="hidden" name="locale" value={locale} />
           <input type="hidden" name="productSlug" value={product.slug} />
+          <input type="hidden" name="appointment" value={appointmentId} />
           <input type="hidden" name="method" value="usdt" />
           <button type="submit" className={METHOD_CARD_CLASS}>
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-emerald-600 dark:bg-white/[.08] dark:text-emerald-400">
@@ -99,6 +106,7 @@ export default async function PaymentMethodsPage({
         <form action={createPurchase}>
           <input type="hidden" name="locale" value={locale} />
           <input type="hidden" name="productSlug" value={product.slug} />
+          <input type="hidden" name="appointment" value={appointmentId} />
           <input type="hidden" name="method" value="btc" />
           <button type="submit" className={METHOD_CARD_CLASS}>
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-[#F7931A] dark:bg-white/[.08]">
@@ -119,6 +127,7 @@ export default async function PaymentMethodsPage({
         <form action={createPurchase}>
           <input type="hidden" name="locale" value={locale} />
           <input type="hidden" name="productSlug" value={product.slug} />
+          <input type="hidden" name="appointment" value={appointmentId} />
           <input type="hidden" name="method" value="whatsapp" />
           <button type="submit" className={METHOD_CARD_CLASS}>
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-[#25D366] dark:bg-white/[.08]">

@@ -28,15 +28,22 @@ export async function createPurchase(formData: FormData) {
     return;
   }
 
-  const purchase = await Purchase.create({
+  const appointmentParam = Number(formData.get("appointment") || NaN);
+  const appointmentId =
+    Number.isFinite(appointmentParam) && appointmentParam > 0
+      ? appointmentParam
+      : null;
+
+  await Purchase.create({
     paymentMethod: method as PaymentMethod,
     product: product.id,
+    appointment: appointmentId,
   });
 
   redirect({
     href: {
-      pathname: "/appointment",
-      query: { purchase: String(purchase.id), product: productSlug },
+      pathname: `/payment/${method}`,
+      query: { product: productSlug },
     },
     locale,
   });

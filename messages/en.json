@@ -60,7 +60,8 @@
     "slotsTitle": "Available time slots",
     "slotDuration": "25 min per session",
     "unavailable": "Not available",
-    "confirm": "Confirm appointment",
+    "confirm": "Confirm session",
+    "nextHint": "Next: payment & confirmation",
     "selected": "Selected: {date} · {start} – {end}"
   },
   "Shop": {

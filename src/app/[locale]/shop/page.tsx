@@ -77,7 +77,7 @@ export default async function ShopPage() {
                 {product.description}
               </p>
               <Link
-                href={`/payment/methods?product=${product.slug}`}
+                href={`/appointment?product=${product.slug}`}
                 className="self-start rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
               >
                 {t("buy")}
