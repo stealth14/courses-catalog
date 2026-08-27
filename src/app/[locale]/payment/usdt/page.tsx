@@ -59,7 +59,9 @@ export default async function UsdtPaymentPage() {
 
   return (
     <>
-      <PaymentHeader variant="compact" />
+      <div className="hidden sm:block">
+        <PaymentHeader variant="compact" />
+      </div>
 
       <div className="flex flex-col gap-4">
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">

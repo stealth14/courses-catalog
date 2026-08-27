@@ -65,7 +65,9 @@ export default async function PaymentMethodsPage({
 
   return (
     <>
-      <PaymentHeader variant="compact" />
+      <div className="hidden sm:block">
+        <PaymentHeader variant="compact" />
+      </div>
 
       <div className="flex flex-col gap-3">
 

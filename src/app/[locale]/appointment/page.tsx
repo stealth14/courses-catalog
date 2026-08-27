@@ -39,7 +39,9 @@ export default async function AppointmentPage({
 
   return (
     <StepCard>
-      <PaymentHeader variant="compact" />
+      <div className="hidden sm:block">
+        <PaymentHeader variant="compact" />
+      </div>
 
       <p className="rounded-xl border border-black/[.08] bg-zinc-50 px-4 py-3 text-sm leading-6 text-zinc-600 dark:border-white/[.145] dark:bg-black dark:text-zinc-300">
         {th("bookingLabel")}{" "}
