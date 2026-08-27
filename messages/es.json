@@ -60,8 +60,9 @@
     "slotsTitle": "Horarios disponibles",
     "slotDuration": "30 minutos por sesión",
     "unavailable": "No disponible",
-    "confirm": "Confirmar sesión",
-    "nextHint": "Siguiente: revisión y pago",
+    "confirm": "Agendar",
+    "confirmHint": "Selecciona un día y una hora",
+    "confirmHintTime": "Selecciona una hora",
     "selected": "Seleccionado: {date} · {start} – {end}"
   },
   "SummaryPage": {

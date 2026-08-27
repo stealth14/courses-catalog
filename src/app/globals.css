@@ -54,26 +54,26 @@ body {
   }
 }
 
-/* Slim, subtly styled scrollbar for the mobile time-slot grid.
-   Skipped on iOS / mobile WebKit, where the native overlay scrollbar already
-   matches the other mobile browsers. */
-@supports not (-webkit-touch-callout: none) {
-  .styled-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in oklab, var(--foreground) 30%, transparent)
-      transparent;
-  }
+/* Slim, permanently visible scrollbar for the mobile time-slot grid.
+   Styling the WebKit pseudo-elements switches the scrollbar from overlay to
+   classic mode, so it stays visible whenever the grid is scrollable.
+   Firefox gets a thin permanent scrollbar via scrollbar-width/color. */
+.styled-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--foreground) 30%, transparent)
+    transparent;
+}
 
-  .styled-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
+.styled-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
 
-  .styled-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
+.styled-scrollbar::-webkit-scrollbar-track {
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--foreground) 6%, transparent);
+}
 
-  .styled-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 9999px;
-    background: color-mix(in oklab, var(--foreground) 25%, transparent);
-  }
+.styled-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--foreground) 25%, transparent);
 }

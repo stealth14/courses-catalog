@@ -83,6 +83,11 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
     month: "long",
     day: "numeric",
   });
+  const longDayFormatter = new Intl.DateTimeFormat(locale, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
 
   function slotAvailable(dateKey: string, start: string): boolean {
     if (dateKey < todayKey) return false;
@@ -100,13 +105,17 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
     setSelectedSlot(null);
   }
 
-  const selectedTime =
+  function capitalize(value: string): string {
+    return value.charAt(0).toLocaleUpperCase(locale) + value.slice(1);
+  }
+
+  const ready = Boolean(selectedDate && selectedSlot);
+
+  const confirmDetails =
     selectedDate && selectedSlot
-      ? t("selected", {
-          date: dayFormatter.format(new Date(`${selectedDate}T12:00:00`)),
-          start: selectedSlot.start,
-          end: selectedSlot.end,
-        })
+      ? `${capitalize(
+          longDayFormatter.format(new Date(`${selectedDate}T12:00:00`))
+        )} · ${selectedSlot.start} – ${selectedSlot.end}`
       : null;
 
   return (
@@ -201,21 +210,53 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
         ) : null}
         <button
           type="submit"
-          disabled={!selectedDate || !selectedSlot}
-          className="flex h-12 w-full items-center justify-center rounded-full bg-foreground px-5 text-sm font-medium text-background transition-colors hover:bg-[#383838] disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-[#ccc]"
+          disabled={!ready}
+          className={`flex h-16 w-full flex-col items-center justify-center gap-1 rounded-2xl px-5 transition-all active:scale-[0.98] ${
+            ready
+              ? "bg-foreground text-background shadow-md hover:bg-[#383838] hover:shadow-lg dark:hover:bg-[#ccc]"
+              : "border border-dashed border-black/[.15] bg-black/[.02] text-foreground/45 dark:border-white/[.2] dark:bg-white/[.04] dark:text-white/45"
+          }`}
         >
-          {t("confirm")}
+          <span className="flex items-center gap-2 text-sm font-semibold">
+            {ready ? (
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            ) : (
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <path d="M16 2v4M8 2v4M3 10h18" />
+              </svg>
+            )}
+            {t("confirm")}
+          </span>
+          <span className="text-xs tabular-nums opacity-75">
+            {ready
+              ? confirmDetails
+              : selectedDate
+                ? t("confirmHintTime")
+                : t("confirmHint")}
+          </span>
         </button>
-        <p className="text-center text-xs leading-5 text-zinc-500 dark:text-zinc-400">
-          {t("nextHint")}
-        </p>
       </form>
-
-      {selectedTime ? (
-        <p className="text-center text-xs leading-5 text-zinc-500 dark:text-zinc-400">
-          {selectedTime}
-        </p>
-      ) : null}
     </div>
   );
 }
