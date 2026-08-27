@@ -56,7 +56,7 @@
     "metadataTitle": "Schedule your session",
     "metadataDescription": "Select Date & Time of the first session.",
     "subtitle": "Select Date & Time of the first session.",
-    "weekLabel": "This week",
+    "weekLabel": "Select a day",
     "slotsTitle": "Available time slots",
     "slotDuration": "30 min per session",
     "unavailable": "Not available",

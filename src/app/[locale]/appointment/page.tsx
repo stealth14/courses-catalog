@@ -21,7 +21,6 @@ export default async function AppointmentPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const locale = await getLocale();
-  const t = await getTranslations("AppointmentPage");
   const th = await getTranslations("PaymentHub");
 
   const { product: slugParam } = await searchParams;
@@ -48,10 +47,6 @@ export default async function AppointmentPage({
         <strong className="font-semibold text-black dark:text-zinc-50">
           {localized.title}
         </strong>
-      </p>
-
-      <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-        {t("subtitle")}
       </p>
 
       <AppointmentCalendar productSlug={product.slug} />
