@@ -10,7 +10,7 @@ type Slot = {
 };
 
 /** Session length in minutes. */
-const SESSION_MINUTES = 25;
+const SESSION_MINUTES = 30;
 /** Bookable window: 08:00 – 20:00 local time. */
 const DAY_START_MINUTES = 8 * 60;
 const DAY_END_MINUTES = 20 * 60;
@@ -155,7 +155,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
               {t("slotDuration")}
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-4">
+          <div className="styled-scrollbar slot-fix grid max-h-80 grid-cols-3 gap-1.5 overflow-y-auto overscroll-contain pr-1 sm:max-h-none sm:grid-cols-4 sm:overflow-visible sm:pr-0">
             {SLOTS.map((slot) => {
               const available = slotAvailable(selectedDate, slot.start);
               const active = selectedSlot?.start === slot.start;
