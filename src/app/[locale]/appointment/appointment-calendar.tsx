@@ -110,8 +110,8 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
       : null;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
+    <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)_auto_auto] gap-4 sm:flex sm:flex-col">
+      <div className="flex shrink-0 flex-col gap-2">
         <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           {t("weekLabel")}
         </span>
@@ -146,8 +146,8 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
       </div>
 
       {selectedDate ? (
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between gap-2">
+        <div className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)] gap-2 sm:flex sm:flex-col">
+          <div className="flex shrink-0 items-center justify-between gap-2">
             <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               {t("slotsTitle")}
             </span>
@@ -155,7 +155,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
               {t("slotDuration")}
             </span>
           </div>
-          <div className="styled-scrollbar slot-fix grid max-h-80 grid-cols-3 gap-1.5 overflow-y-auto overscroll-contain pr-1 sm:max-h-none sm:grid-cols-4 sm:overflow-visible sm:pr-0">
+          <div className="styled-scrollbar slot-fix grid min-h-0 flex-1 grid-cols-3 gap-1.5 overflow-y-auto overscroll-contain pr-1 sm:max-h-none sm:flex-none sm:grid-cols-4 sm:overflow-visible sm:pr-0">
             {SLOTS.map((slot) => {
               const available = slotAvailable(selectedDate, slot.start);
               const active = selectedSlot?.start === slot.start;
@@ -187,7 +187,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
         </div>
       ) : null}
 
-      <form action={bookAppointment} className="flex flex-col gap-3">
+      <form action={bookAppointment} className="flex shrink-0 flex-col gap-3">
         <input type="hidden" name="locale" value={locale} />
         <input type="hidden" name="productSlug" value={productSlug} />
         {selectedDate ? (
