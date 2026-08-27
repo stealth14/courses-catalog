@@ -8,11 +8,11 @@
     "information": {
       "en": {
         "title": "Bitcoin Self-Custody",
-        "description": "One-to-one guidance to master self-custody: hands-on creation and use of your own self-custody wallet, followed by direct support with technical advice and issue resolution whenever you need it."
+        "description": "One-to-one guidance to master self-custody: hands-on creation and use of your own wallet, followed by direct support with technical advice and issue resolution whenever you need it."
       },
       "es": {
         "title": "Autocustodia de Bitcoin",
-        "description": "Guía uno a uno para dominar la autocustodia: creación y uso práctico de tu propia billetera de autocustodia, y soporte directo con asesoría técnica y resolución de problemas cuando lo necesites."
+        "description": "Guía uno a uno para dominar la autocustodia: creación y uso práctico de tu propia billetera de bitcoin, y soporte directo con asesoría técnica y resolución de problemas cuando lo necesites."
       }
     },
     "price": 49.99,
