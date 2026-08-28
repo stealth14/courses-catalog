@@ -72,6 +72,7 @@
     "appointmentLabel": "Cita",
     "serviceLabel": "Servicio",
     "priceLabel": "Precio",
+    "totalLabel": "Total",
     "confirm": "Confirmar y continuar al pago"
   },
   "Shop": {

@@ -72,6 +72,7 @@
     "appointmentLabel": "Appointment",
     "serviceLabel": "Service",
     "priceLabel": "Price",
+    "totalLabel": "Total",
     "confirm": "Confirm and continue to payment"
   },
   "Shop": {
