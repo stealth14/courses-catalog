@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { bookAppointment } from "./actions";
+import { useBookingStore } from "@/stores/booking-store";
 
 type Slot = {
   start: string;
@@ -72,8 +73,39 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
     return date;
   });
 
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
+  const selectDayStore = useBookingStore((state) => state.selectDay);
+  const selectSlotStore = useBookingStore((state) => state.selectSlot);
+  const storedProduct = useBookingStore((state) => state.productSlug);
+  const storedDate = useBookingStore((state) => state.selectedDate);
+  const storedSlot = useBookingStore((state) => state.selectedSlot);
+
+  // Load persisted booking data from localStorage on the client.
+  useEffect(() => {
+    useBookingStore.persist.rehydrate();
+  }, []);
+
+  // True once persisted data has been restored.
+  const hydrated = useSyncExternalStore(
+    (onStoreChange) => useBookingStore.persist.onFinishHydration(onStoreChange),
+    () => useBookingStore.persist.hasHydrated(),
+    () => false
+  );
+
+  // The saved selection is only valid while it belongs to THIS product.
+  useEffect(() => {
+    const state = useBookingStore.getState();
+    if (state.productSlug !== productSlug) {
+      state.setProduct(productSlug);
+      state.clearSelection();
+    }
+  }, [productSlug]);
+
+  const scoped = hydrated && storedProduct === productSlug;
+  const selectedDate = scoped ? storedDate : null;
+  const selectedSlot: Slot | null =
+    scoped && storedSlot
+      ? { start: storedSlot.startTime, end: storedSlot.endTime }
+      : null;
 
   const weekdayFormatter = new Intl.DateTimeFormat(locale, {
     weekday: "short",
@@ -101,8 +133,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
   }
 
   function selectDay(date: Date) {
-    setSelectedDate(toDateKey(date));
-    setSelectedSlot(null);
+    selectDayStore(toDateKey(date));
   }
 
   function capitalize(value: string): string {
@@ -173,7 +204,12 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
                   key={slot.start}
                   type="button"
                   disabled={!available}
-                  onClick={() => setSelectedSlot(slot)}
+                  onClick={() =>
+                    selectSlotStore({
+                      startTime: slot.start,
+                      endTime: slot.end,
+                    })
+                  }
                   aria-label={
                     available ? `${slot.start} – ${slot.end}` : t("unavailable")
                   }
