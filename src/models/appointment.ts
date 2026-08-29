@@ -43,6 +43,14 @@ type StrapiAppointmentSingle = {
   data: StrapiAppointmentEntry | null;
 };
 
+/**
+ * Strapi v5 `time` fields serialize as "HH:mm:ss.SSS" — normalize the
+ * calendar's "HH:mm" selection before posting.
+ */
+function toStrapiTime(value: string): string {
+  return /^\d{2}:\d{2}$/.test(value) ? `${value}:00.000` : value;
+}
+
 /** Strapi v5 collection response for `GET /api/appointments`. */
 type StrapiAppointmentCollection = {
   data: StrapiAppointmentEntry[];
@@ -96,8 +104,8 @@ export class Appointment {
       {
         data: {
           date: input.date,
-          startTime: input.startTime,
-          endTime: input.endTime,
+          startTime: toStrapiTime(input.startTime),
+          endTime: toStrapiTime(input.endTime),
         },
       }
     );
