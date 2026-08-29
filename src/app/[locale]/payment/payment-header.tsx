@@ -19,10 +19,10 @@ export async function PaymentHeader({
       <div className="flex items-center gap-3">
         <ProfilePhoto alt={t("photoAlt")} size="compact" />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-base font-semibold tracking-tight text-black dark:text-zinc-50">
+          <p className="text-base font-semibold tracking-tight text-black dark:text-zinc-50">
             {PROFILE_NAME}
           </p>
-          <p className="truncate text-xs font-medium tracking-wide text-zinc-500 dark:text-zinc-400">
+          <p className="text-xs font-medium tracking-wide text-zinc-500 dark:text-zinc-400">
             {t.rich("roleSelfCustody", {
               btc: (chunks) => (
                 <span className="font-semibold text-[#F7931A]">{chunks}</span>
