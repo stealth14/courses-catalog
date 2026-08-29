@@ -60,6 +60,9 @@
     "slotsTitle": "Horarios disponibles",
     "slotDuration": "30 minutos por sesión",
     "unavailable": "No disponible",
+    "loadingSlots": "Cargando horarios disponibles…",
+    "slotsError": "No se pudieron cargar los horarios disponibles.",
+    "retry": "Reintentar",
     "confirm": "Agendar",
     "confirmHint": "Selecciona un día y una hora",
     "confirmHintTime": "Selecciona una hora",
@@ -67,8 +70,8 @@
   },
   "SummaryPage": {
     "metadataTitle": "Revisa tu reserva",
-    "metadataDescription": "Revisa los detalles de tu sesión antes de continuar al pago.",
-    "subtitle": "Revisa los detalles de tu sesión antes de continuar al pago.",
+    "metadataDescription": "Revisa los detalles antes de continuar al pago.",
+    "subtitle": "Revisa los detalles antes de continuar al pago.",
     "appointmentLabel": "Cita",
     "serviceLabel": "Servicio",
     "priceLabel": "Precio",
@@ -98,7 +101,7 @@
     "methodUsdtDesc": "Pagar con Tether (USDT)",
     "methodBtcDesc": "Pagar con Bitcoin (BTC)",
     "methodBinanceDesc": "Pagar con Binance",
-    "methodWhatsappDesc": "Pagar por WhatsApp"
+    "methodWhatsappDesc": "Continuar compra en WhatsApp"
   },
   "PaymentHeader": {
     "photoAlt": "Foto de perfil de Ronny Cajas",

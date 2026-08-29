@@ -3,6 +3,8 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { bookAppointment } from "./actions";
+import { RequestError } from "@/components/request-error";
+import useAppointments from "@/hooks/appointments";
 import { useBookingStore } from "@/stores/booking-store";
 
 type Slot = {
@@ -49,14 +51,34 @@ function startOfWeek(today: Date): Date {
   return date;
 }
 
-/** Deterministic dummy "booked" marker until availability comes from Strapi. */
-function isBooked(dateKey: string, start: string): boolean {
-  const value = `${dateKey}|${start}`;
-  let hash = 0;
-  for (let index = 0; index < value.length; index += 1) {
-    hash = (hash * 31 + value.charCodeAt(index)) % 9973;
-  }
-  return hash % 3 === 0;
+/** Spinner shown while the occupied slots are loading from Strapi. */
+function SlotsLoader({ label }: { label: string }) {
+  return (
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-3 py-10">
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        fill="none"
+        className="h-6 w-6 animate-spin text-zinc-400 dark:text-zinc-500"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="3"
+          className="opacity-20"
+        />
+        <path
+          d="M22 12a10 10 0 0 0-10-10"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span className="text-sm text-zinc-500 dark:text-zinc-400">{label}</span>
+    </div>
+  );
 }
 
 export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
@@ -78,6 +100,16 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
   const storedProduct = useBookingStore((state) => state.productSlug);
   const storedDate = useBookingStore((state) => state.selectedDate);
   const storedSlot = useBookingStore((state) => state.selectedSlot);
+
+  // Occupied slots come from Strapi (the created appointment records) —
+  // the backend is the single source of truth; there is no local fallback.
+  const appointments = useAppointments();
+  const occupied =
+    appointments.status === "success"
+      ? new Set(
+          appointments.items.map((item) => `${item.date}|${item.startTime}`)
+        )
+      : null;
 
   // Load persisted booking data from localStorage on the client.
   useEffect(() => {
@@ -122,6 +154,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
   });
 
   function slotAvailable(dateKey: string, start: string): boolean {
+    if (occupied?.has(`${dateKey}|${start}`)) return false;
     if (dateKey < todayKey) return false;
     if (dateKey === todayKey) {
       const [hours, minutes] = start.split(":").map(Number);
@@ -129,7 +162,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
       end.setHours(hours, minutes + SESSION_MINUTES, 0, 0);
       if (end <= now) return false;
     }
-    return !isBooked(dateKey, start);
+    return true;
   }
 
   function selectDay(date: Date) {
@@ -140,7 +173,8 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
     return value.charAt(0).toLocaleUpperCase(locale) + value.slice(1);
   }
 
-  const ready = Boolean(selectedDate && selectedSlot);
+  const slotsLoaded = appointments.status === "success";
+  const ready = slotsLoaded && Boolean(selectedDate && selectedSlot);
 
   const confirmDetails =
     selectedDate && selectedSlot
@@ -185,7 +219,16 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
         </div>
       </div>
 
-      {selectedDate ? (
+      {appointments.status === "loading" ? (
+        <SlotsLoader label={t("loadingSlots")} />
+      ) : appointments.status === "error" ? (
+        <RequestError
+          error={appointments.error}
+          title={t("slotsError")}
+          retryLabel={t("retry")}
+          onRetry={appointments.refresh}
+        />
+      ) : selectedDate ? (
         <div className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)] gap-2 sm:flex sm:flex-col">
           <div className="flex shrink-0 items-center justify-between gap-2">
             <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">

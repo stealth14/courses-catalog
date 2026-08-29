@@ -60,6 +60,9 @@
     "slotsTitle": "Available time slots",
     "slotDuration": "30 min per session",
     "unavailable": "Not available",
+    "loadingSlots": "Loading available slots…",
+    "slotsError": "Couldn't load the available slots.",
+    "retry": "Try again",
     "confirm": "Schedule appointment",
     "confirmHint": "Select a date and time",
     "confirmHintTime": "Select a time",
@@ -67,8 +70,8 @@
   },
   "SummaryPage": {
     "metadataTitle": "Review your booking",
-    "metadataDescription": "Review the details of your session before continuing to payment.",
-    "subtitle": "Review the details of your session before continuing to payment.",
+    "metadataDescription": "Review the details before continuing to payment.",
+    "subtitle": "Review the details before continuing to payment.",
     "appointmentLabel": "Appointment",
     "serviceLabel": "Service",
     "priceLabel": "Price",
@@ -98,7 +101,7 @@
     "methodUsdtDesc": "Pay with Tether (USDT)",
     "methodBtcDesc": "Pay with Bitcoin (BTC)",
     "methodBinanceDesc": "Pay with Binance",
-    "methodWhatsappDesc": "Pay via WhatsApp"
+    "methodWhatsappDesc": "Continue payment on WhatsApp"
   },
   "PaymentHeader": {
     "photoAlt": "Ronny Cajas profile photo",

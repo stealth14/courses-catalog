@@ -20,7 +20,7 @@ const BACK_OVERRIDES: Record<string, BackTarget> = {
   "/payment/methods": {
     href: "/summary",
     labelKey: "back",
-    queryFrom: ["product", "appointment"],
+    queryFrom: ["product", "date", "startTime", "endTime"],
   },
   "/payment/usdt": {
     href: "/payment/methods",
@@ -40,7 +40,7 @@ const BACK_OVERRIDES: Record<string, BackTarget> = {
   "/payment/whatsapp": {
     href: "/payment/methods",
     labelKey: "backLabel",
-    queryFrom: ["product"],
+    queryFrom: ["product", "date", "startTime", "endTime"],
   },
   "/appointment": { href: "/shop", labelKey: "back" },
   "/summary": {

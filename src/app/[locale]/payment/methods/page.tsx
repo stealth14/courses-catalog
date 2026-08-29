@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
-import { redirect } from "@/i18n/navigation";
+import { Link, redirect } from "@/i18n/navigation";
 import { getProductCatalog } from "@/lib/product-catalog";
 import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment-header";
-import { createPurchase } from "./actions";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("PaymentHub");
@@ -43,12 +42,18 @@ export default async function PaymentMethodsPage({
   const t = await getTranslations("PaymentHub");
   const th = await getTranslations("PaymentHeader");
 
-  const { product: slugParam, appointment: appointmentParam } =
-    await searchParams;
+  const {
+    product: slugParam,
+    date: dateParam,
+    startTime: startTimeParam,
+    endTime: endTimeParam,
+  } = await searchParams;
   const productSlug = Array.isArray(slugParam) ? slugParam[0] : slugParam;
-  const appointmentId = Array.isArray(appointmentParam)
-    ? appointmentParam[0]
-    : appointmentParam;
+  const date = Array.isArray(dateParam) ? dateParam[0] : dateParam;
+  const startTime = Array.isArray(startTimeParam)
+    ? startTimeParam[0]
+    : startTimeParam;
+  const endTime = Array.isArray(endTimeParam) ? endTimeParam[0] : endTimeParam;
 
   const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
@@ -63,6 +68,11 @@ export default async function PaymentMethodsPage({
     style: "currency",
     currency: "USD",
   });
+
+  const whatsappQuery: Record<string, string> = { product: product.slug };
+  if (date) whatsappQuery.date = date;
+  if (startTime) whatsappQuery.startTime = startTime;
+  if (endTime) whatsappQuery.endTime = endTime;
 
   return (
     <>
@@ -85,54 +95,55 @@ export default async function PaymentMethodsPage({
         </p>
 
 
-        <form action={createPurchase}>
-          <input type="hidden" name="locale" value={locale} />
-          <input type="hidden" name="productSlug" value={product.slug} />
-          <input type="hidden" name="appointment" value={appointmentId} />
-          <input type="hidden" name="method" value="usdt" />
-          <button type="submit" className={METHOD_CARD_CLASS}>
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-emerald-600 dark:bg-white/[.08] dark:text-emerald-400">
-              ₮
+        {/* TODO: Re-enable the USDT payment option when ready.
+        <button
+          type="button"
+          disabled
+          className="flex w-full cursor-not-allowed items-center gap-4 rounded-2xl border border-dashed border-black/[.12] p-4 text-left opacity-60 dark:border-white/[.2] sm:p-5"
+        >
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-emerald-600 dark:bg-white/[.08] dark:text-emerald-400">
+            ₮
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-semibold text-black dark:text-zinc-50">
+              {th("methodUsdt")}
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-sm font-semibold text-black dark:text-zinc-50">
-                {th("methodUsdt")}
-              </span>
-              <span className="block text-xs leading-5 text-zinc-500 dark:text-zinc-400">
-                {t("methodUsdtDesc")}
-              </span>
+            <span className="block text-xs leading-5 text-zinc-500 dark:text-zinc-400">
+              {t("methodUsdtDesc")}
             </span>
-            <MethodChevron />
-          </button>
-        </form>
+          </span>
+          <MethodChevron />
+        </button>
+        */}
 
-        <form action={createPurchase}>
-          <input type="hidden" name="locale" value={locale} />
-          <input type="hidden" name="productSlug" value={product.slug} />
-          <input type="hidden" name="appointment" value={appointmentId} />
-          <input type="hidden" name="method" value="btc" />
-          <button type="submit" className={METHOD_CARD_CLASS}>
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-[#F7931A] dark:bg-white/[.08]">
-              ₿
+        {/* TODO: Re-enable the Bitcoin payment option when ready.
+        <button
+          type="button"
+          disabled
+          className="flex w-full cursor-not-allowed items-center gap-4 rounded-2xl border border-dashed border-black/[.12] p-4 text-left opacity-60 dark:border-white/[.2] sm:p-5"
+        >
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-[#F7931A] dark:bg-white/[.08]">
+            ₿
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-semibold text-black dark:text-zinc-50">
+              {th("methodBtc")}
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-sm font-semibold text-black dark:text-zinc-50">
-                {th("methodBtc")}
-              </span>
-              <span className="block text-xs leading-5 text-zinc-500 dark:text-zinc-400">
-                {t("methodBtcDesc")}
-              </span>
+            <span className="block text-xs leading-5 text-zinc-500 dark:text-zinc-400">
+              {t("methodBtcDesc")}
             </span>
-            <MethodChevron />
-          </button>
-        </form>
+          </span>
+          <MethodChevron />
+        </button>
+        */}
 
-        <form action={createPurchase}>
-          <input type="hidden" name="locale" value={locale} />
-          <input type="hidden" name="productSlug" value={product.slug} />
-          <input type="hidden" name="appointment" value={appointmentId} />
-          <input type="hidden" name="method" value="whatsapp" />
-          <button type="submit" className={METHOD_CARD_CLASS}>
+        <Link
+          href={{
+            pathname: "/payment/whatsapp",
+            query: whatsappQuery,
+          }}
+          className={METHOD_CARD_CLASS}
+        >
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-[#25D366] dark:bg-white/[.08]">
               <svg
                 viewBox="0 0 24 24"
@@ -151,8 +162,7 @@ export default async function PaymentMethodsPage({
               </span>
             </span>
             <MethodChevron />
-          </button>
-        </form>
+        </Link>
 
         {/* TODO: Re-enable the Binance payment option when ready.
         <form action={createPurchase}>

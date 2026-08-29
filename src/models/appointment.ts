@@ -1,5 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
+import api from "@/utils/api";
+import { Meta } from "@/interfaces/results";
 
 export type AppointmentData = {
   id: number;
@@ -15,18 +15,47 @@ export type AppointmentData = {
 };
 
 /**
+ * Query params accepted by {@link Appointment.search}. Forwarded to
+ * Strapi as query-string parameters (pagination, filters, sort, …).
+ */
+export type AppointmentSearchParams = {
+  locale?: string;
+  sort?: string | string[];
+  pagination?: { page?: number; pageSize?: number };
+  filters?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+/** Strapi v5 response entry for `api::appointment.appointment`. */
+type StrapiAppointmentEntry = {
+  id: number;
+  documentId: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string | null;
+};
+
+/** Strapi v5 single-entry response for `POST /api/appointments`. */
+type StrapiAppointmentSingle = {
+  data: StrapiAppointmentEntry | null;
+};
+
+/** Strapi v5 collection response for `GET /api/appointments`. */
+type StrapiAppointmentCollection = {
+  data: StrapiAppointmentEntry[];
+  meta?: Meta;
+};
+
+/**
  * Appointment model. Stores the date/time interval selected by a
- * customer. Prepared to be stored in Strapi later (`date` and `time`
- * attribute types); for now it persists locally to
- * `data/appointments.json`.
+ * customer in Strapi v5 (`api::appointment.appointment`, `date` and
+ * `time` attribute types). Writes (`create`) are server-only; reads
+ * (`search`) are client-safe. There is no local persistence.
  */
 export class Appointment {
-  private static readonly FILE_PATH = path.join(
-    process.cwd(),
-    "data",
-    "appointments.json"
-  );
-
   readonly id: number;
   readonly documentId: string;
   /** Selected day (YYYY-MM-DD). */
@@ -51,70 +80,102 @@ export class Appointment {
   }
 
   /**
-   * Persists a new appointment record to the local JSON store
-   * (`data/appointments.json`). Server-only.
+   * Creates the appointment record in Strapi v5
+   * (`POST /api/appointments`). There is no local persistence: on the
+   * appointment screen the selection only lives in the zustand booking
+   * store, and this record is created together with the purchase when
+   * the customer continues on WhatsApp. Server-only.
    */
   static async create(input: {
     date: string;
     startTime: string;
     endTime: string;
   }): Promise<Appointment> {
-    const appointments = await Appointment.readAll();
-    const now = new Date().toISOString();
+    const response = await api.public.post<StrapiAppointmentSingle>(
+      "/appointments",
+      {
+        data: {
+          date: input.date,
+          startTime: input.startTime,
+          endTime: input.endTime,
+        },
+      }
+    );
 
-    const appointment = new Appointment({
-      id: appointments.reduce((max, item) => Math.max(max, item.id), 0) + 1,
-      documentId: crypto.randomUUID(),
-      date: input.date,
-      startTime: input.startTime,
-      endTime: input.endTime,
-      createdAt: now,
-      updatedAt: now,
-      publishedAt: now,
-    });
+    const entry = response.data.data;
+    if (!entry) {
+      throw new Error("Strapi did not return the created appointment.");
+    }
 
-    appointments.push(appointment);
-    await Appointment.persist(appointments);
-
-    return appointment;
+    return Appointment.fromData(entry);
   }
 
   /**
-   * Finds an appointment record by its numeric id.
+   * Lists appointments from Strapi.
+   *
+   * `populate=*` is always applied so relations/components come back
+   * resolved; the caller cannot override it. Errors are re-thrown so
+   * callers can surface them in the UI — there is no local-data
+   * fallback.
+   *
+   * @param params Strapi query params (pagination, filters, sort, …).
+   * @returns The appointments and their pagination meta.
    */
-  static async findById(id: number): Promise<Appointment | null> {
-    const appointments = await Appointment.readAll();
-    return appointments.find((item) => item.id === id) ?? null;
+  static async search(
+    params: AppointmentSearchParams = {}
+  ): Promise<{ items: Appointment[]; meta: Meta }> {
+    try {
+      // populate=* covers everything — strip any caller-supplied value.
+      const rest: Record<string, unknown> = { ...params };
+      delete rest.populate;
+
+      const response = await api.public.get<StrapiAppointmentCollection>(
+        "/appointments?populate=*",
+        { params: rest }
+      );
+
+      const items = (response.data.data ?? []).map((entry) =>
+        Appointment.fromData(entry)
+      );
+
+      return {
+        items,
+        meta: response.data.meta ?? Appointment.buildMeta(items),
+      };
+    } catch (error) {
+      console.error("[Appointment.search]", error);
+      throw error;
+    }
   }
 
-  private static toJson(appointment: Appointment): AppointmentData {
+  /**
+   * Builds pagination meta when the API response omits it, matching
+   * Strapi's `meta.pagination` shape.
+   */
+  private static buildMeta(items: Appointment[]): Meta {
     return {
-      id: appointment.id,
-      documentId: appointment.documentId,
-      date: appointment.date,
-      startTime: appointment.startTime,
-      endTime: appointment.endTime,
-      createdAt: appointment.createdAt,
-      updatedAt: appointment.updatedAt,
-      publishedAt: appointment.publishedAt,
+      pagination: {
+        page: 1,
+        pageSize: items.length,
+        pageCount: 1,
+        total: items.length,
+      },
     };
   }
 
-  private static async persist(appointments: Appointment[]): Promise<void> {
-    await writeFile(
-      Appointment.FILE_PATH,
-      JSON.stringify(appointments.map(Appointment.toJson), null, 2) + "\n"
-    );
-  }
+  /** Normalizes a raw Strapi v5 entry into an Appointment. */
+  private static fromData(data: StrapiAppointmentEntry): Appointment {
+    const now = new Date().toISOString();
 
-  private static async readAll(): Promise<Appointment[]> {
-    try {
-      const raw = await readFile(Appointment.FILE_PATH, "utf-8");
-      const data = JSON.parse(raw) as AppointmentData[];
-      return data.map((entry) => new Appointment(entry));
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
-      throw error;
-    }
+    return new Appointment({
+      id: data.id,
+      documentId: data.documentId,
+      date: data.date.slice(0, 10),
+      startTime: data.startTime.slice(0, 5),
+      endTime: data.endTime.slice(0, 5),
+      createdAt: data.createdAt ?? now,
+      updatedAt: data.updatedAt ?? now,
+      publishedAt: data.publishedAt ?? null,
+    });
   }
 }

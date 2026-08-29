@@ -24,9 +24,6 @@ export enum ProductVariant {
  * `documentId`): custom `slug`, `variant`, `duration`, localized
  * `information`, `price` plus the standard `id`, `documentId`,
  * `createdAt`, `updatedAt`, `publishedAt`.
- *
- * `public/products.json` is a snapshot of this exact shape and is used
- * as a fallback when the backend is unreachable.
  */
 export type ProductData = {
   id: number;
@@ -219,8 +216,8 @@ export class Product {
   }
 
   /**
-   * Builds pagination meta for locally-sourced results (fallback data),
-   * matching Strapi's `meta.pagination` shape.
+   * Builds pagination meta when the API response omits it, matching
+   * Strapi's `meta.pagination` shape.
    */
   private static buildMeta(items: Product[]): Meta {
     return {

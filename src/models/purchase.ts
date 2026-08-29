@@ -1,5 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
+import api from "@/utils/api";
 
 /**
  * Enumerated values for the `paymentMethod` field
@@ -27,12 +26,26 @@ export type PurchaseData = {
   /**
    * Strapi v4 relation (one-to-one, target `api::appointment.appointment`,
    * `inversedBy: "purchase"`): the appointment booked for this purchase.
-   * Stores the related appointment's id.
+   * Stores the related appointment's numeric id or its `documentId`.
    */
-  appointment?: number | null;
+  appointment?: number | string | null;
   createdAt: string;
   updatedAt: string;
   publishedAt?: string | null;
+};
+
+/** Minimal Strapi v5 create-response entry for `api::purchase.purchase`. */
+type StrapiPurchaseEntry = {
+  id: number;
+  documentId: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string | null;
+};
+
+/** Strapi v5 single-entry response for `POST /api/purchases`. */
+type StrapiPurchaseSingle = {
+  data: StrapiPurchaseEntry | null;
 };
 
 /**
@@ -41,12 +54,6 @@ export type PurchaseData = {
  * relation to a Product.
  */
 export class Purchase {
-  private static readonly FILE_PATH = path.join(
-    process.cwd(),
-    "data",
-    "purchases.json"
-  );
-
   readonly id: number;
   readonly documentId: string;
   /** Strapi v5 enumeration field. */
@@ -56,8 +63,8 @@ export class Purchase {
    * One purchase → one product; one product → many purchases.
    */
   readonly product: number;
-  /** Strapi v4 relation (one-to-one): id of the booked appointment. */
-  readonly appointment: number | null;
+  /** Strapi v4 relation (one-to-one): id or documentId of the booked appointment. */
+  readonly appointment: number | string | null;
   readonly createdAt: string;
   readonly updatedAt: string;
   readonly publishedAt: string | null;
@@ -74,99 +81,48 @@ export class Purchase {
   }
 
   /**
-   * Persists a new purchase record to the local JSON store
-   * (`data/purchases.json`). Server-only.
+   * Creates a purchase record in Strapi v5 (`api::purchase.purchase`),
+   * connecting the related product and (optionally) appointment. No local
+   * persistence — errors are re-thrown. Server-only.
    */
   static async create(input: {
     paymentMethod: PaymentMethod;
     product: number;
-    appointment?: number | null;
+    appointment?: number | string | null;
   }): Promise<Purchase> {
-    const purchases = await Purchase.readAll();
+    const data: Record<string, unknown> = {
+      paymentMethod: input.paymentMethod,
+      product: { connect: [input.product] },
+    };
+    if (input.appointment != null) {
+      const appointmentRef =
+        typeof input.appointment === "number"
+          ? input.appointment
+          : { documentId: input.appointment };
+      data.appointment = { connect: [appointmentRef] };
+    }
+
+    const response = await api.public.post<StrapiPurchaseSingle>(
+      "/purchases",
+      { data }
+    );
+
+    const entry = response.data.data;
+    if (!entry) {
+      throw new Error("Strapi did not return the created purchase.");
+    }
+
     const now = new Date().toISOString();
 
-    const purchase = new Purchase({
-      id: purchases.reduce((max, item) => Math.max(max, item.id), 0) + 1,
-      documentId: crypto.randomUUID(),
+    return new Purchase({
+      id: entry.id,
+      documentId: entry.documentId,
       paymentMethod: input.paymentMethod,
       product: input.product,
       appointment: input.appointment ?? null,
-      createdAt: now,
-      updatedAt: now,
-      publishedAt: now,
+      createdAt: entry.createdAt ?? now,
+      updatedAt: entry.updatedAt ?? now,
+      publishedAt: entry.publishedAt ?? null,
     });
-
-    purchases.push(purchase);
-    await Purchase.persist(purchases);
-
-    return purchase;
-  }
-
-  /**
-   * Finds a purchase record by its numeric id.
-   */
-  static async findById(id: number): Promise<Purchase | null> {
-    const purchases = await Purchase.readAll();
-    return purchases.find((item) => item.id === id) ?? null;
-  }
-
-  /**
-   * Attaches a booked appointment (Strapi v4 one-to-one relation) to the
-   * purchase record and persists the change.
-   */
-  static async addAppointment(
-    purchaseId: number,
-    appointmentId: number
-  ): Promise<Purchase | null> {
-    const purchases = await Purchase.readAll();
-    const index = purchases.findIndex((item) => item.id === purchaseId);
-    if (index === -1) return null;
-
-    const current = purchases[index];
-    const updated = new Purchase({
-      id: current.id,
-      documentId: current.documentId,
-      paymentMethod: current.paymentMethod,
-      product: current.product,
-      appointment: appointmentId,
-      createdAt: current.createdAt,
-      updatedAt: new Date().toISOString(),
-      publishedAt: current.publishedAt ?? undefined,
-    });
-
-    purchases[index] = updated;
-    await Purchase.persist(purchases);
-    return updated;
-  }
-
-  private static toJson(purchase: Purchase): PurchaseData {
-    return {
-      id: purchase.id,
-      documentId: purchase.documentId,
-      paymentMethod: purchase.paymentMethod,
-      product: purchase.product,
-      appointment: purchase.appointment,
-      createdAt: purchase.createdAt,
-      updatedAt: purchase.updatedAt,
-      publishedAt: purchase.publishedAt,
-    };
-  }
-
-  private static async persist(purchases: Purchase[]): Promise<void> {
-    await writeFile(
-      Purchase.FILE_PATH,
-      JSON.stringify(purchases.map(Purchase.toJson), null, 2) + "\n"
-    );
-  }
-
-  private static async readAll(): Promise<Purchase[]> {
-    try {
-      const raw = await readFile(Purchase.FILE_PATH, "utf-8");
-      const data = JSON.parse(raw) as PurchaseData[];
-      return data.map((entry) => new Purchase(entry));
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
-      throw error;
-    }
   }
 }

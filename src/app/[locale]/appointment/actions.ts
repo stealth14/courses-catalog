@@ -1,12 +1,13 @@
 "use server";
 
 import { redirect } from "@/i18n/navigation";
-import { Appointment } from "@/models/appointment";
 import { getProductCatalog } from "@/lib/product-catalog";
 
 /**
- * Books the selected appointment and redirects the customer to the
- * payment method selection.
+ * Books the selected appointment locally (the selection is already
+ * persisted in the zustand booking store) and redirects to the review
+ * summary. The appointment record is created in Strapi later, together
+ * with the purchase, when the customer continues on WhatsApp.
  */
 export async function bookAppointment(formData: FormData) {
   const locale = String(formData.get("locale") || "en");
@@ -23,12 +24,10 @@ export async function bookAppointment(formData: FormData) {
     return;
   }
 
-  const appointment = await Appointment.create({ date, startTime, endTime });
-
   redirect({
     href: {
       pathname: "/summary",
-      query: { product: product.slug, appointment: String(appointment.id) },
+      query: { product: product.slug, date, startTime, endTime },
     },
     locale,
   });

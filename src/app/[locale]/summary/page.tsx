@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link, redirect } from "@/i18n/navigation";
 import { StepCard } from "@/components/step-card";
-import { Appointment } from "@/models/appointment";
 import { getProductCatalog } from "@/lib/product-catalog";
 import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment/payment-header";
@@ -24,21 +23,23 @@ export default async function SummaryPage({
   const locale = await getLocale();
   const t = await getTranslations("SummaryPage");
 
-  const { product: slugParam, appointment: appointmentParam } =
-    await searchParams;
+  const {
+    product: slugParam,
+    date: dateParam,
+    startTime: startTimeParam,
+    endTime: endTimeParam,
+  } = await searchParams;
   const productSlug = Array.isArray(slugParam) ? slugParam[0] : slugParam;
-  const appointmentId = Number(
-    Array.isArray(appointmentParam) ? appointmentParam[0] : appointmentParam
-  );
+  const date = Array.isArray(dateParam) ? dateParam[0] : dateParam;
+  const startTime = Array.isArray(startTimeParam)
+    ? startTimeParam[0]
+    : startTimeParam;
+  const endTime = Array.isArray(endTimeParam) ? endTimeParam[0] : endTimeParam;
 
   const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
-  const appointment =
-    Number.isFinite(appointmentId) && appointmentId > 0
-      ? await Appointment.findById(appointmentId)
-      : null;
 
-  if (!product || !appointment) {
+  if (!product || !date || !startTime || !endTime) {
     redirect({ href: "/shop", locale });
     return null;
   }
@@ -87,11 +88,9 @@ export default async function SummaryPage({
               {t("appointmentLabel")}
             </span>
             <span className="text-right text-sm font-semibold text-black dark:text-zinc-50">
-              {capitalize(
-                dateFormatter.format(new Date(`${appointment.date}T12:00:00`))
-              )}
+              {capitalize(dateFormatter.format(new Date(`${date}T12:00:00`)))}
               <span className="block text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                {appointment.startTime} – {appointment.endTime}
+                {startTime} – {endTime}
               </span>
             </span>
           </div>
@@ -153,7 +152,7 @@ export default async function SummaryPage({
       <Link
         href={{
           pathname: "/payment/methods",
-          query: { product: product.slug, appointment: String(appointment.id) },
+          query: { product: product.slug, date, startTime, endTime },
         }}
         className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background shadow-md transition-all hover:bg-[#383838] hover:shadow-lg active:scale-[0.98] dark:hover:bg-[#ccc]"
       >
