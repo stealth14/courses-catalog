@@ -98,8 +98,8 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
     () => 0
   );
 
-  // Next 15 days, starting today (no days in the past).
-  const weekDays = Array.from({ length: 15 }, (_, index) => {
+  // Next 10 days, starting today (no days in the past).
+  const weekDays = Array.from({ length: 10 }, (_, index) => {
     const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     date.setDate(date.getDate() + index);
     return date;
