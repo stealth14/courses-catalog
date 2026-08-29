@@ -57,8 +57,10 @@ export default function useAppointments(
   }, [params]);
 
   // Manual re-fetch exposed to consumers (event handlers only — never
-  // called from an effect).
+  // called from an effect). Switches to "loading" first so consumers can
+  // show their loader again while the data is re-fetched.
   const refresh = useCallback(async () => {
+    setResult({ status: "loading" });
     try {
       const { items, meta } = await Appointment.search(params);
       setResult({ items, meta, status: "success" });

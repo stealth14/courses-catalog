@@ -43,39 +43,38 @@ function toDateKey(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
-/** Monday-based start of the week. */
-function startOfWeek(today: Date): Date {
-  const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const offset = (date.getDay() + 6) % 7;
-  date.setDate(date.getDate() - offset);
-  return date;
+/** Spinning loader icon. */
+function Spinner() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      className="h-6 w-6 animate-spin text-zinc-400 dark:text-zinc-500"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="3"
+        className="opacity-20"
+      />
+      <path
+        d="M22 12a10 10 0 0 0-10-10"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
 }
 
-/** Spinner shown while the occupied slots are loading from Strapi. */
+/** Full-region loader shown while occupied slots load (no day picked yet). */
 function SlotsLoader({ label }: { label: string }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-3 py-10">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        fill="none"
-        className="h-6 w-6 animate-spin text-zinc-400 dark:text-zinc-500"
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="3"
-          className="opacity-20"
-        />
-        <path
-          d="M22 12a10 10 0 0 0-10-10"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-      </svg>
+      <Spinner />
       <span className="text-sm text-zinc-500 dark:text-zinc-400">{label}</span>
     </div>
   );
@@ -88,10 +87,21 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
   const now = new Date();
   const todayKey = toDateKey(now);
 
-  const weekStart = startOfWeek(now);
-  const weekDays = Array.from({ length: 7 }, (_, index) => {
-    const date = new Date(weekStart);
-    date.setDate(weekStart.getDate() + index);
+  // Tick every 30 s so "today" slots keep validating against the current
+  // time even when the page stays open (re-render trigger only).
+  useSyncExternalStore(
+    (onStoreChange) => {
+      const interval = setInterval(onStoreChange, 30_000);
+      return () => clearInterval(interval);
+    },
+    () => Math.floor(Date.now() / 30_000),
+    () => 0
+  );
+
+  // Next 15 days, starting today (no days in the past).
+  const weekDays = Array.from({ length: 15 }, (_, index) => {
+    const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    date.setDate(date.getDate() + index);
     return date;
   });
 
@@ -158,15 +168,18 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
     if (dateKey < todayKey) return false;
     if (dateKey === todayKey) {
       const [hours, minutes] = start.split(":").map(Number);
-      const end = new Date();
-      end.setHours(hours, minutes + SESSION_MINUTES, 0, 0);
-      if (end <= now) return false;
+      const slotStart = new Date();
+      slotStart.setHours(hours, minutes, 0, 0);
+      if (slotStart <= now) return false;
     }
     return true;
   }
 
   function selectDay(date: Date) {
     selectDayStore(toDateKey(date));
+    // Reload the occupied slots from the backend every time the selected
+    // day's time-slot grid is about to render.
+    void appointments.refresh();
   }
 
   function capitalize(value: string): string {
@@ -189,7 +202,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
         <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           {t("weekLabel")}
         </span>
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-5 gap-1">
           {weekDays.map((date) => {
             const key = toDateKey(date);
             const past = key < todayKey;
@@ -219,7 +232,7 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
         </div>
       </div>
 
-      {appointments.status === "loading" ? (
+      {appointments.status === "loading" && !selectedDate ? (
         <SlotsLoader label={t("loadingSlots")} />
       ) : appointments.status === "error" ? (
         <RequestError
@@ -238,39 +251,68 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
               {t("slotDuration")}
             </span>
           </div>
-          <div className="styled-scrollbar slot-fix grid min-h-0 flex-1 grid-cols-3 gap-1.5 overflow-y-auto overscroll-contain pr-1 sm:max-h-none sm:flex-none sm:grid-cols-4 sm:overflow-visible sm:pr-0">
-            {SLOTS.map((slot) => {
-              const available = slotAvailable(selectedDate, slot.start);
-              const active = selectedSlot?.start === slot.start;
-              return (
-                <button
-                  key={slot.start}
-                  type="button"
-                  disabled={!available}
-                  onClick={() =>
-                    selectSlotStore({
-                      startTime: slot.start,
-                      endTime: slot.end,
-                    })
-                  }
-                  aria-label={
-                    available ? `${slot.start} – ${slot.end}` : t("unavailable")
-                  }
-                  title={
-                    available ? `${slot.start} – ${slot.end}` : t("unavailable")
-                  }
-                  className={`rounded-lg border px-0 py-2.5 text-sm font-medium tabular-nums transition-colors sm:px-1.5 sm:py-2 sm:text-xs ${
-                    !available
-                      ? "cursor-not-allowed border-black/[.05] text-zinc-300 line-through dark:border-white/[.06] dark:text-zinc-600"
-                      : active
-                        ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
-                        : "border-black/[.08] text-zinc-600 hover:border-black/[.2] dark:border-white/[.145] dark:text-zinc-300 dark:hover:border-white/[.3]"
-                  }`}
-                >
-                  {slot.start}
-                </button>
-              );
-            })}
+          <div className="styled-scrollbar slot-fix relative grid min-h-0 flex-1 grid-cols-3 gap-1.5 overflow-y-auto overscroll-contain pr-1 sm:max-h-none sm:flex-none sm:grid-cols-4 sm:overflow-visible sm:pr-0">
+            {appointments.status === "loading" ? (
+              <>
+                {/* Invisible placeholder cells mirror the real slot buttons
+                    so the loader occupies exactly the same space and the
+                    surrounding components don't jiggle. */}
+                {SLOTS.map((slot) => (
+                  <div
+                    key={slot.start}
+                    aria-hidden="true"
+                    className="invisible rounded-lg border border-black/[.08] px-0 py-2.5 text-sm font-medium tabular-nums dark:border-white/[.145] sm:px-1.5 sm:py-2 sm:text-xs"
+                  >
+                    {slot.start}
+                  </div>
+                ))}
+                <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <Spinner />
+                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                      {t("loadingSlots")}
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              SLOTS.map((slot) => {
+                const available = slotAvailable(selectedDate, slot.start);
+                const active = selectedSlot?.start === slot.start;
+                return (
+                  <button
+                    key={slot.start}
+                    type="button"
+                    disabled={!available}
+                    onClick={() =>
+                      selectSlotStore({
+                        startTime: slot.start,
+                        endTime: slot.end,
+                      })
+                    }
+                    aria-label={
+                      available
+                        ? `${slot.start} – ${slot.end}`
+                        : t("unavailable")
+                    }
+                    title={
+                      available
+                        ? `${slot.start} – ${slot.end}`
+                        : t("unavailable")
+                    }
+                    className={`rounded-lg border px-0 py-2.5 text-sm font-medium tabular-nums transition-colors sm:px-1.5 sm:py-2 sm:text-xs ${
+                      !available
+                        ? "cursor-not-allowed border-black/[.05] text-zinc-300 line-through dark:border-white/[.06] dark:text-zinc-600"
+                        : active
+                          ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
+                          : "border-black/[.08] text-zinc-600 hover:border-black/[.2] dark:border-white/[.145] dark:text-zinc-300 dark:hover:border-white/[.3]"
+                    }`}
+                  >
+                    {slot.start}
+                  </button>
+                );
+              })
+            )}
           </div>
         </div>
       ) : null}

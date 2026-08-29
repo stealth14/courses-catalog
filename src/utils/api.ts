@@ -17,6 +17,9 @@ if (!API_URL) {
 // Normalize trailing slashes so the /api path never double-slashes.
 const baseURL = `${API_URL.replace(/\/+$/, '')}/api`;
 
+/** Fail hung requests instead of leaving the UI stuck on a loader. */
+const REQUEST_TIMEOUT_MS = 10_000;
+
 /**
  * Request interceptor: attaches the Strapi bearer token when one is
  * configured. On the server every request goes out authenticated; in the
@@ -38,12 +41,14 @@ function withStrapiAuth(instance: AxiosInstance): AxiosInstance {
 const api = {
     public: withStrapiAuth(axios.create({
         baseURL,
+        timeout: REQUEST_TIMEOUT_MS,
         headers: {
             'Content-Type': 'application/json',
         },
     })),
     upload: withStrapiAuth(axios.create({
         baseURL,
+        timeout: REQUEST_TIMEOUT_MS,
         // No Content-Type — let axios auto-set the multipart boundary from FormData
     })),
 }
