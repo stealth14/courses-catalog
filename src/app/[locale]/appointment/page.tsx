@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { StepCard } from "@/components/step-card";
+import { getProductCatalog } from "@/lib/product-catalog";
 import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment/payment-header";
 import { AppointmentCalendar } from "./appointment-calendar";
@@ -26,7 +27,7 @@ export default async function AppointmentPage({
   const { product: slugParam } = await searchParams;
   const productSlug = Array.isArray(slugParam) ? slugParam[0] : slugParam;
 
-  const products = await Product.getProducts();
+  const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
 
   if (!product) {

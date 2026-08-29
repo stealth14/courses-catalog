@@ -82,7 +82,11 @@
     "variantSingle": "One-off",
     "variantSubscription": "Subscription",
     "variantMentorship": "Mentorship",
-    "durationMonths": "{months, plural, =1 {# month} other {# months}}"
+    "durationMonths": "{months, plural, =1 {# month} other {# months}}",
+    "loading": "Loading products…",
+    "error": "Couldn't load products. Please try again later.",
+    "empty": "No products available right now.",
+    "retry": "Try again"
   },
   "PaymentHub": {
     "metadataTitle": "Payment",

@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "@/i18n/navigation";
-import { Product } from "@/models/product";
+import { getProductCatalog } from "@/lib/product-catalog";
 import { PaymentMethod, Purchase } from "@/models/purchase";
 
 const PAYMENT_METHODS = Object.values(PaymentMethod);
@@ -20,7 +20,7 @@ export async function createPurchase(formData: FormData) {
     return;
   }
 
-  const products = await Product.getProducts();
+  const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
 
   if (!product) {

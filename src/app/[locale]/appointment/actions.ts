@@ -2,7 +2,7 @@
 
 import { redirect } from "@/i18n/navigation";
 import { Appointment } from "@/models/appointment";
-import { Product } from "@/models/product";
+import { getProductCatalog } from "@/lib/product-catalog";
 
 /**
  * Books the selected appointment and redirects the customer to the
@@ -15,7 +15,7 @@ export async function bookAppointment(formData: FormData) {
   const startTime = String(formData.get("startTime") || "");
   const endTime = String(formData.get("endTime") || "");
 
-  const products = await Product.getProducts();
+  const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
 
   if (!product || !date || !startTime || !endTime) {

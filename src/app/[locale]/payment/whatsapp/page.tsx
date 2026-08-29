@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getPaymentAddresses } from "@/lib/payment-addresses";
+import { getProductCatalog } from "@/lib/product-catalog";
 import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment-header";
 
@@ -24,7 +25,7 @@ export default async function WhatsappPaymentPage({
 
   const { product: slugParam } = await searchParams;
   const productSlug = Array.isArray(slugParam) ? slugParam[0] : slugParam;
-  const products = await Product.getProducts();
+  const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
 
   const currency = new Intl.NumberFormat(locale, {

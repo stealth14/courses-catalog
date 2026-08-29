@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
+import { getProductCatalog } from "@/lib/product-catalog";
 import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment-header";
 import { createPurchase } from "./actions";
@@ -49,7 +50,7 @@ export default async function PaymentMethodsPage({
     ? appointmentParam[0]
     : appointmentParam;
 
-  const products = await Product.getProducts();
+  const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
 
   if (!product) {

@@ -82,7 +82,11 @@
     "variantSingle": "Pago único",
     "variantSubscription": "Suscripción",
     "variantMentorship": "Mentoría",
-    "durationMonths": "{months, plural, =1 {# mes} other {# meses}}"
+    "durationMonths": "{months, plural, =1 {# mes} other {# meses}}",
+    "loading": "Cargando productos…",
+    "error": "No se pudieron cargar los productos. Inténtalo de nuevo más tarde.",
+    "empty": "No hay productos disponibles por ahora.",
+    "retry": "Reintentar"
   },
   "PaymentHub": {
     "metadataTitle": "Pago",

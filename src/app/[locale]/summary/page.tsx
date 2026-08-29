@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Link, redirect } from "@/i18n/navigation";
 import { StepCard } from "@/components/step-card";
 import { Appointment } from "@/models/appointment";
+import { getProductCatalog } from "@/lib/product-catalog";
 import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment/payment-header";
 
@@ -30,7 +31,7 @@ export default async function SummaryPage({
     Array.isArray(appointmentParam) ? appointmentParam[0] : appointmentParam
   );
 
-  const products = await Product.getProducts();
+  const products = await getProductCatalog();
   const product = products.find((item) => item.slug === productSlug);
   const appointment =
     Number.isFinite(appointmentId) && appointmentId > 0
