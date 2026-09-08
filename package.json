@@ -2,6 +2,11 @@
   "name": "courses-catalog",
   "version": "0.1.0",
   "private": true,
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "@swc/core@1.15.47": true,
+    "unrs-resolver@1.12.2": true
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
