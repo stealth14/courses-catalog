@@ -109,7 +109,7 @@
     "backLabel": "Back to payment methods",
     "backToPaymentLabel": "Back to payment",
     "back": "Back",
-    "roleSelfCustody": "<btc>Bitcoin</btc> Self-Custody Advocate & Specialist",
+        "roleSelfCustody": "Software Developer & Specialist in <btc>Bitcoin</btc> Self-Custody",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
     "methodBinance": "Binance",
