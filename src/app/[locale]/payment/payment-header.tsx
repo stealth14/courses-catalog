@@ -62,12 +62,6 @@ export async function PaymentHeader({
             className="mb-4 h-px w-12 bg-gradient-to-r from-transparent via-zinc-300 to-transparent dark:via-zinc-600"
           />
           <h2 className="flex items-center gap-1.5 text-[15px] leading-6 text-zinc-700 dark:text-zinc-200">
-            <span
-              aria-hidden="true"
-              className="text-base font-semibold text-[#F7931A]"
-            >
-              ₿
-            </span>
             <span className="font-medium tracking-wide">
               {t.rich("roleSelfCustody", {
                 btc: (chunks) => (

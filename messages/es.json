@@ -4,7 +4,7 @@
     "description": "Catálogo de cursos con cobro de pagos en USDT."
   },
   "HomePage": {
-    "intro": "Ayudo a individuos y empresas a proteger su patrimonio con bitcoin.",
+    "intro": "Enseño a individuos y empresas a proteger su patrimonio con bitcoin.",
     "cta": "Ver cursos"
   },
   "PaymentPage": {
@@ -109,7 +109,7 @@
     "backLabel": "Volver a los métodos de pago",
     "backToPaymentLabel": "Volver al pago",
     "back": "Volver",
-    "roleSelfCustody": "Desarrollador de software & Asesor especializado en <btc>Bitcoin</btc> self-custody",
+    "roleSelfCustody": "Asesor técnico especializado en <btc>Bitcoin</btc>",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
     "methodBinance": "Binance",
