@@ -163,16 +163,22 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
     day: "numeric",
   });
 
-  function slotAvailable(dateKey: string, start: string): boolean {
-    if (occupied?.has(`${dateKey}|${start}`)) return false;
-    if (dateKey < todayKey) return false;
+  // Why a slot can't be booked — the two disabled states get distinct
+  // visuals: "booked" (someone else took it) vs "past" (the hour of the
+  // day is already gone).
+  function slotState(
+    dateKey: string,
+    start: string
+  ): "available" | "booked" | "past" {
+    if (occupied?.has(`${dateKey}|${start}`)) return "booked";
+    if (dateKey < todayKey) return "past";
     if (dateKey === todayKey) {
       const [hours, minutes] = start.split(":").map(Number);
       const slotStart = new Date();
       slotStart.setHours(hours, minutes, 0, 0);
-      if (slotStart <= now) return false;
+      if (slotStart <= now) return "past";
     }
-    return true;
+    return "available";
   }
 
   function selectDay(date: Date) {
@@ -277,8 +283,15 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
               </>
             ) : (
               SLOTS.map((slot) => {
-                const available = slotAvailable(selectedDate, slot.start);
+                const state = slotState(selectedDate, slot.start);
+                const available = state === "available";
                 const active = selectedSlot?.start === slot.start;
+                const label =
+                  state === "booked"
+                    ? t("booked")
+                    : state === "past"
+                      ? t("pastTime")
+                      : `${slot.start} – ${slot.end}`;
                 return (
                   <button
                     key={slot.start}
@@ -290,22 +303,16 @@ export function AppointmentCalendar({ productSlug }: { productSlug: string }) {
                         endTime: slot.end,
                       })
                     }
-                    aria-label={
-                      available
-                        ? `${slot.start} – ${slot.end}`
-                        : t("unavailable")
-                    }
-                    title={
-                      available
-                        ? `${slot.start} – ${slot.end}`
-                        : t("unavailable")
-                    }
+                    aria-label={label}
+                    title={label}
                     className={`rounded-lg border px-0 py-2.5 text-sm font-medium tabular-nums transition-colors sm:px-1.5 sm:py-2 sm:text-xs ${
-                      !available
-                        ? "cursor-not-allowed border-black/[.05] text-zinc-300 line-through dark:border-white/[.06] dark:text-zinc-600"
-                        : active
-                          ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
-                          : "border-black/[.08] text-zinc-600 hover:border-black/[.2] dark:border-white/[.145] dark:text-zinc-300 dark:hover:border-white/[.3]"
+                      state === "booked"
+                        ? "cursor-not-allowed border-red-200 bg-red-50 text-red-500/80 line-through decoration-red-400/60 dark:border-red-500/25 dark:bg-red-500/[.08] dark:text-red-400/80 dark:decoration-red-400/50"
+                        : state === "past"
+                          ? "cursor-not-allowed border-dashed border-black/[.07] text-zinc-300 dark:border-white/[.08] dark:text-zinc-600"
+                          : active
+                            ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
+                            : "border-black/[.08] text-zinc-600 hover:border-black/[.2] dark:border-white/[.145] dark:text-zinc-300 dark:hover:border-white/[.3]"
                     }`}
                   >
                     {slot.start}
