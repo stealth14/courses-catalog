@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { StepCard } from "@/components/step-card";
+import { HomeMetrics } from "./home-metrics";
 import { PaymentHeader } from "./payment/payment-header";
 
 export default async function HomePage() {
@@ -13,6 +14,8 @@ export default async function HomePage() {
       <p className="text-center text-sm leading-6 text-zinc-600 dark:text-zinc-400">
         {t("intro")}
       </p>
+
+      <HomeMetrics />
 
       <Link
         href="/shop"

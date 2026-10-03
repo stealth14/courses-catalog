@@ -5,7 +5,30 @@
   },
   "HomePage": {
     "intro": "I help individuals and companies protect their wealth with Bitcoin.",
-    "cta": "Ver cursos"
+    "cta": "Ver cursos",
+    "metricsLabel": "Results",
+    "metricValue": "$15,000+",
+    "metricLabel": "USD secured in Bitcoin for the customers I've mentored",
+    "metricsNote": "Held in self-custody wallets they control themselves.",
+    "verifyTitle": "Verify it yourself",
+    "verifyCta": "Verify on-chain",
+    "verifyNote": "Only public addresses are ever published, never private keys or recovery phrases. Share yours with no one, me included."
+  },
+  "VerificationPage": {
+    "metadataTitle": "Verification — Secured Bitcoin wallets",
+    "metadataDescription": "Pie chart of the Bitcoin wallets the mentorship helped secure, with public on-chain verification links.",
+    "title": "On-chain verification",
+    "subtitle": "Each slice is one Bitcoin address and its balance — wallets my students built themselves with Bitcoin Core on a Raspberry Pi, with no third-party custodian. Hover or tap a slice to see the BTC and USD amounts.",
+    "sampleNotice": "Sample data: replace public/secured-wallets.json with the real wallets before publishing.",
+    "totalLabel": "Total secured",
+    "walletsLabel": "{count, plural, =1 {# wallet} other {# wallets}}",
+    "chartAlt": "Pie chart of {count} secured Bitcoin wallets",
+    "hoverHint": "Hover or tap a slice for details",
+    "priceNote": "USD amounts are estimates at {price} per BTC.",
+    "proofTitle": "Prove it live, one to one",
+    "proofText": "These wallets are under my control, and I can prove it. In a one-to-one demonstration I move funds in or out of these addresses while you watch the transaction confirm on-chain in real time, so you can match every slice of this chart to a transaction you audit yourself.",
+    "viewOnExplorer": "Open on {host}",
+    "empty": "No secured wallets published yet."
   },
   "PaymentPage": {
     "metadataTitle": "Payment — USDT",

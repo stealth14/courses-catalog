@@ -1,0 +1,27 @@
+{
+  "sample": true,
+  "explorer": "https://mempool.space",
+  "btcPriceUsd": 68000,
+  "wallets": [
+    {
+      "address": "bc1qsamplewallettest000000000000000000000000",
+      "label": "Bitcoin Core node — student 1",
+      "btc": 0.18
+    },
+    {
+      "address": "bc1qsamplewallettest111111111111111111111111",
+      "label": "Bitcoin Core node — student 2",
+      "btc": 0.12
+    },
+    {
+      "address": "bc1qsamplewallettest222222222222222222222222",
+      "label": "Bitcoin Core node — student 3",
+      "btc": 0.06
+    },
+    {
+      "address": "bc1qsamplewallettest333333333333333333333333",
+      "label": null,
+      "btc": 0.04
+    }
+  ]
+}
