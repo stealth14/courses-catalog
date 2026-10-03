@@ -45,12 +45,7 @@
     "warning": "Envía tu pago únicamente desde tu cuenta de Binance al correo indicado arriba. Verifica el correo antes de confirmar; los pagos enviados a otras cuentas podrían perderse de forma permanente."
   },
   "WhatsappPage": {
-    "metadataTitle": "Pago — WhatsApp",
-    "metadataDescription": "Paga por WhatsApp con un solo toque.",
-    "subtitle": "Continúa con los detalles del pago por WhatsApp. Completarás tu pago con una transferencia bancaria de persona a persona en el chat.",
-    "template": "Hola Ronny, acabo de enviar mi pago por {product} ({price}). Por favor confirma mi compra.",
-    "templateDefault": "Hola Ronny, acabo de enviar mi pago. Por favor confirma mi compra.",
-    "openWhatsapp": "Continuar en WhatsApp"
+    "template": "Hola, quiero adquirir una asesoría 1 a 1 de: {product} ({price})."
   },
   "AppointmentPage": {
     "metadataTitle": "Agenda tu sesión",
@@ -110,7 +105,7 @@
     "backLabel": "Volver a los métodos de pago",
     "backToPaymentLabel": "Volver al pago",
     "back": "Volver",
-    "roleSelfCustody": "Asesor técnico especializado en <btc>Bitcoin</btc>",
+    "roleSelfCustody": "Asesor técnico en <btc>Bitcoin</btc> y software de autocustodia",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
     "methodBinance": "Binance",

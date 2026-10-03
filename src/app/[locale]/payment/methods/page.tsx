@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link, redirect } from "@/i18n/navigation";
+import { redirect } from "@/i18n/navigation";
 import { getProductCatalog } from "@/lib/product-catalog";
 import { Product } from "@/models/product";
 import { PaymentHeader } from "../payment-header";
+import { continueOnWhatsapp } from "./actions";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("PaymentHub");
@@ -69,11 +70,6 @@ export default async function PaymentMethodsPage({
     currency: "USD",
   });
 
-  const whatsappQuery: Record<string, string> = { product: product.slug };
-  if (date) whatsappQuery.date = date;
-  if (startTime) whatsappQuery.startTime = startTime;
-  if (endTime) whatsappQuery.endTime = endTime;
-
   return (
     <>
       <div className="hidden sm:block">
@@ -137,13 +133,18 @@ export default async function PaymentMethodsPage({
         </button>
         */}
 
-        <Link
-          href={{
-            pathname: "/payment/whatsapp",
-            query: whatsappQuery,
-          }}
-          className={METHOD_CARD_CLASS}
-        >
+        <form action={continueOnWhatsapp}>
+          <input type="hidden" name="locale" value={locale} />
+          <input type="hidden" name="productSlug" value={product.slug} />
+          {date ? <input type="hidden" name="date" value={date} /> : null}
+          {startTime ? (
+            <input type="hidden" name="startTime" value={startTime} />
+          ) : null}
+          {endTime ? (
+            <input type="hidden" name="endTime" value={endTime} />
+          ) : null}
+
+          <button type="submit" className={METHOD_CARD_CLASS}>
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-[#25D366] dark:bg-white/[.08]">
               <svg
                 viewBox="0 0 24 24"
@@ -162,7 +163,8 @@ export default async function PaymentMethodsPage({
               </span>
             </span>
             <MethodChevron />
-        </Link>
+          </button>
+        </form>
 
         {/* TODO: Re-enable the Binance payment option when ready.
         <form action={createPurchase}>

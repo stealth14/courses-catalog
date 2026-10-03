@@ -45,12 +45,7 @@
     "warning": "Only send your payment from your Binance account to the email address above. Double-check the email before confirming; payments sent to other accounts may be lost permanently."
   },
   "WhatsappPage": {
-    "metadataTitle": "Payment — WhatsApp",
-    "metadataDescription": "Pay via WhatsApp with one tap.",
-    "subtitle": "Continue with the payment details through WhatsApp. You'll complete your payment with a peer-to-peer bank transfer in the chat.",
-    "template": "Hello Ronny, I just sent my payment for {product} ({price}). Please confirm my purchase.",
-    "templateDefault": "Hello Ronny, I just sent my payment. Please confirm my purchase.",
-    "openWhatsapp": "Continue on WhatsApp"
+    "template": "Hello Ronny, I just sent my payment for {product} ({price}). Please confirm my purchase."
   },
   "AppointmentPage": {
     "metadataTitle": "Schedule your session",
