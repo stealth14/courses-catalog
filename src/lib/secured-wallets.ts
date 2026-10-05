@@ -26,7 +26,7 @@ const DEFAULT_EXPLORER = "https://mempool.space";
 /**
  * Reads and validates the secured-wallet dataset from
  * `public/secured-wallets.json`. Server-only: it feeds both the home
- * page verification block and the `/verification` pie chart, and will be
+ * page transparency block and the `/transparency` pie chart, and will be
  * swapped for the backend endpoint later (keep the returned shape).
  */
 export async function getSecuredWallets(): Promise<SecuredWallets> {

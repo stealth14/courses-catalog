@@ -6,15 +6,12 @@
   "HomePage": {
     "intro": "I help individuals and companies protect their wealth with Bitcoin.",
     "cta": "Ver cursos",
-    "metricsLabel": "Results",
-    "metricValue": "$15,000+",
-    "metricLabel": "USD secured in Bitcoin for the customers I've mentored",
-    "metricsNote": "Held in self-custody wallets they control themselves.",
-    "verifyTitle": "Verify it yourself",
-    "verifyCta": "Verify on-chain",
-    "verifyNote": "Only public addresses are ever published, never private keys or recovery phrases. Share yours with no one, me included."
+    "metricsLabel": "Verifiable results",
+    "metricValue": "15.000",
+    "metricLabel": "in Bitcoin held by clients who no longer rely on custodians or trusted third parties",
+    "exploreCta": "Explore"
   },
-  "VerificationPage": {
+  "TransparencyPage": {
     "metadataTitle": "Verification — Secured Bitcoin wallets",
     "metadataDescription": "Pie chart of the Bitcoin wallets the mentorship helped secure, with public on-chain verification links.",
     "title": "On-chain verification",

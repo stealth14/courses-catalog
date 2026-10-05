@@ -71,7 +71,7 @@ export function WalletPieChart({
   initialAddress?: string;
 }) {
   const locale = useLocale();
-  const t = useTranslations("VerificationPage");
+  const t = useTranslations("TransparencyPage");
   const [hovered, setHovered] = useState<number | null>(null);
   const [pinned, setPinned] = useState<number | null>(() => {
     const index = wallets.findIndex((w) => w.address === initialAddress);

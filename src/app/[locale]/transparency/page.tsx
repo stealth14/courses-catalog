@@ -6,7 +6,7 @@ import { PaymentHeader } from "../payment/payment-header";
 import { WalletPieChart } from "./wallet-pie-chart";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("VerificationPage");
+  const t = await getTranslations("TransparencyPage");
 
   return {
     title: t("metadataTitle"),
@@ -19,12 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
  * secure. Data comes from `public/secured-wallets.json` until the backend
  * endpoint replaces `getSecuredWallets()`.
  */
-export default async function VerificationPage({
+export default async function TransparencyPage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const t = await getTranslations("VerificationPage");
+  const t = await getTranslations("TransparencyPage");
   const { wallets, explorer, btcPriceUsd, sample } = await getSecuredWallets();
 
   const { wallet: walletParam } = await searchParams;

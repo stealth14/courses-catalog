@@ -6,19 +6,16 @@
   "HomePage": {
     "intro": "Enseño a individuos y empresas a resguardar su bitcoin correctamente.",
     "cta": "Ver cursos",
-    "metricsLabel": "Resultados",
-    "metricValue": "$15,000+",
-    "metricLabel": "bitcoin de clientes que ya no dependen de billeteras comerciales",
-    "metricsNote": "En billeteras de autocustodia que ellos mismos controlan.",
-    "verifyTitle": "Compruébalo tú mismo",
-    "verifyCta": "Verificar on-chain",
-    "verifyNote": "Solo se publican direcciones públicas, nunca llaves privadas ni frases de recuperación. No las compartas con nadie, ni conmigo."
+    "metricsLabel": "Resultados verificables",
+    "metricValue": "15.000",
+    "metricLabel": "dólares en bitcoin de clientes que han confiado en nosotros y ya no dependen de billeteras comerciales o incluso de código abierto que son fundamentalmente inseguras.",
+    "exploreCta": "Explorar"
   },
-  "VerificationPage": {
+  "TransparencyPage": {
     "metadataTitle": "Verificación — Billeteras Bitcoin resguardadas",
     "metadataDescription": "Gráfico de las billeteras Bitcoin que la mentoría ayudó a resguardar, con enlaces públicos de verificación on-chain.",
     "title": "Verificación on-chain",
-    "subtitle": "En esta grafica las billeteras de alumnos que ya no dependen de billeteras comerciales conocidas por depender de firmware y software inseguros.",
+    "subtitle": "Clientes que han aprendido con nosotros.",
     "sampleNotice": "Datos de ejemplo: reemplaza public/secured-wallets.json con las billeteras reales antes de publicar.",
     "totalLabel": "Total resguardado",
     "walletsLabel": "{count, plural, =1 {# billetera} other {# billeteras}}",
@@ -26,7 +23,7 @@
     "hoverHint": "Pasa el cursor o toca una porción para ver el detalle",
     "priceNote": "Los montos en USD son estimaciones a {price} por BTC.",
     "proofTitle": "Pruébalo en vivo, 1 a 1",
-    "proofText": "Estas billeteras están bajo mi control y puedo demostrarlo. En una demostración 1 a 1 muevo fondos desde o hacia estas direcciones mientras ves la transacción confirmarse on-chain en tiempo real, para que puedas relacionar cada porción de este gráfico con una transacción que auditas tú mismo.",
+    "proofText": "En una demostración 1 a 1 ",
     "viewOnExplorer": "Abrir en {host}",
     "empty": "Aún no hay billeteras resguardadas publicadas."
   },
