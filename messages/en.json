@@ -11,10 +11,50 @@
       "title": "Own your Bitcoin, not a wallet you can't audit",
       "subtitle": "In this industry, ease of use is paid for with layers of abstraction, and those layers increase risk. Apps hide your keys behind those layers, hardware wallets move the trust into firmware you can't inspect, and plenty of open-source wallets have never had a real audit. I teach individuals and companies to run an actually verifiable open source wallet — nothing between them and their coins but their own verification."
     },
-    "metricsLabel": "Verifiable results",
+    "metricsLabel": "Why learn with us?",
     "metricValue": "15.000",
-    "metricLabel": "in Bitcoin held by clients who have learned with us",
+    "metricLabel": "USD in Bitcoin from clients who are no longer exposed to commercial wallet security breaches.",
     "exploreCta": "Explore",
+    "scandals": {
+      "title": "The brands that broke in public",
+      "subtitle": "Every card below is a documented incident — a vendor advisory, independent lab research, or press reporting — not an opinion about the brand.",
+      "footnote": "Dates are the public disclosure dates; figures come from the vendor's own advisory or the reporting cited by it. No brand appears here without a documented incident.",
+      "sourceCta": "Read the report",
+      "brands": {
+        "ledger": {
+          "date": "Dec 2023",
+          "incident": "A phished employee let attackers publish a wallet drainer inside the Ledger Connect Kit SDK — roughly $600,000 swept in hours, plus customer-data breaches in 2020 and 2026."
+        },
+        "trezor": {
+          "date": "Jun 2026",
+          "incident": "A laser fault-injection attack on the secure chip in the Safe 7, followed by partner breaches that exposed hundreds of thousands of customer records."
+        },
+        "coldcard": {
+          "date": "Jul 2026",
+          "incident": "A firmware entropy bug made seed phrases predictable. An estimated $88.6M in bitcoin was swept from affected wallets, and updating the firmware does not repair an existing seed."
+        },
+        "tangem": {
+          "date": "Jul 2026",
+          "incident": "A timed laser pulse defeats the card's password-reset check, letting an attacker set a new password. The flaw cannot be patched."
+        },
+        "keepkey": {
+          "date": "Dec 2019",
+          "incident": "Kraken Security Labs pulled the seed phrase out of the device in about fifteen minutes. No firmware fix exists; it needed a hardware redesign."
+        },
+        "bitbox02": {
+          "date": "Aug 2026",
+          "incident": "A firmware update fixed a bootloader flaw and a memory-corruption bug that let a hostile computer run code on the device."
+        },
+        "safepal": {
+          "date": "Aug 2026",
+          "incident": "An order-tracking flaw exposed the names, addresses and phone numbers of roughly 39,798 customers."
+        },
+        "ellipal": {
+          "date": "Jun 2019",
+          "incident": "Ledger Donjon extracted the seed from the air-gapped wallet, defeating the isolation it is sold on."
+        }
+      }
+    },
     "howItWorks": {
       "title": "How it works",
       "subtitle": "Three steps, at your pace.",

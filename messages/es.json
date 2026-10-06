@@ -11,10 +11,48 @@
       "title": "Tu bitcoin bajo tu control, no en billeteras que no puedes auditar",
       "subtitle": "En el dinero digital la facilidad de uso se paga con abstracción, capas de abstraccion que exponen tus claves privadas. Aprende a crear y manipular billeteras realmente seguras."
     },
-    "metricsLabel": "Resultados verificables",
+    "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "15.000",
-    "metricLabel": "dólares en bitcoin de clientes que han aprendido con nosotros",
+    "metricLabel": "dólares en bitcoin de clientes que ya no estan expuestos a brechas de seguridad de billeteras comerciales.",
     "exploreCta": "Explorar",
+    "scandals": {
+      "title": "Incidentes más graves",
+      "sourceCta": "Leer más",
+      "brands": {
+        "ledger": {
+          "date": "Dic 2023",
+          "incident": "Un empleado víctima de phishing permitió publicar un drenador de fondos dentro del SDK Ledger Connect Kit: unos 600.000 USD barridos en horas, más filtraciones de datos de clientes en 2020 y 2026."
+        },
+        "trezor": {
+          "date": "Jun 2026",
+          "incident": "Un ataque de inyección de fallos con láser contra el chip seguro del Safe 7, seguido de filtraciones en proveedores que expusieron cientos de miles de registros de clientes."
+        },
+        "coldcard": {
+          "date": "Jul 2026",
+          "incident": "Un bug de entropía en el firmware hacía predecibles las semillas. Se barrieron unos 88,6 M USD en bitcoin de las billeteras afectadas, y actualizar el firmware no repara una semilla ya creada."
+        },
+        "tangem": {
+          "date": "Jul 2026",
+          "incident": "Un pulso láser temporizado salta la verificación para cambiar la contraseña de la tarjeta y permite fijar una nueva. El fallo no se puede parchear."
+        },
+        "keepkey": {
+          "date": "Dic 2019",
+          "incident": "Kraken Security Labs extrajo la semilla del dispositivo en unos quince minutos. No existe corrección por firmware: requería rediseñar el hardware."
+        },
+        "bitbox02": {
+          "date": "Ago 2026",
+          "incident": "Una actualización de firmware corrigió un fallo del bootloader y un bug de corrupción de memoria que permitía a un ordenador hostil ejecutar código en el dispositivo."
+        },
+        "safepal": {
+          "date": "Ago 2026",
+          "incident": "Un fallo en el seguimiento de pedidos expuso nombres, direcciones y teléfonos de unos 39.798 clientes."
+        },
+        "ellipal": {
+          "date": "Jun 2019",
+          "incident": "Ledger Donjon extrajo la semilla de la billetera air-gapped, derrotando el aislamiento con el que se vende."
+        }
+      }
+    },
     "howItWorks": {
       "title": "Cómo funciona",
       "subtitle": "Tres pasos, a tu ritmo.",

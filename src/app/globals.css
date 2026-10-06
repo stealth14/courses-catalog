@@ -81,26 +81,8 @@ body {
   animation: wallet-marquee 48s linear infinite;
 }
 
-.wallet-marquee-viewport:hover .wallet-marquee,
-.wallet-marquee-viewport:focus-within .wallet-marquee {
+.wallet-marquee-viewport:hover .wallet-marquee {
   animation-play-state: paused;
-}
-
-/* Readers who asked for less motion get a plain, swipeable row instead of
-   an animation: no duplicated group, no auto-scroll. */
-@media (prefers-reduced-motion: reduce) {
-  .wallet-marquee {
-    animation: none;
-  }
-
-  .wallet-marquee-viewport {
-    overflow-x: auto;
-    mask-image: none;
-  }
-
-  .wallet-marquee-copy {
-    display: none;
-  }
 }
 
 /* Slim, permanently visible scrollbar for the mobile time-slot grid.

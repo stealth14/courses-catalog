@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { PaymentHeader } from "./payment/payment-header";
 import { HomeHero } from "./home-hero";
 import { HomeMetrics } from "./home-metrics";
+import { HomeWalletScandals } from "./home-wallet-scandals";
 import { HomeHowItWorks } from "./home-how-it-works";
 import { HomeOffering } from "./home-offering";
 import { HomeVerification } from "./home-verification";
@@ -31,11 +32,15 @@ export default async function HomePage() {
 
   return (
     <main className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 py-10 sm:gap-20 sm:px-6 sm:py-16">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 pt-10 sm:gap-20 sm:px-6 sm:pt-16">
         <HomeHero />
 
         <HomeMetrics />
+      </div>
 
+      <HomeWalletScandals />
+
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 pb-10 sm:gap-20 sm:px-6 sm:pb-16">
         <HomeHowItWorks />
 
         <HomeOffering />

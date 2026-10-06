@@ -5,45 +5,38 @@ import { Link } from "@/i18n/navigation";
  * Home page results section: money secured in Bitcoin through the
  * mentorship, with a link to `/transparency` where the on-chain balances
  * are charted per address. No wallet addresses are shown on the home page.
+ *
+ * Set as a plain stat band — a hairline rule, the figure in tabular
+ * numerals and an inline link — rather than a bordered card, so it reads
+ * as a reported fact instead of another promo tile.
  */
 export async function HomeMetrics() {
   const t = await getTranslations("HomePage");
 
   return (
-    <>
-      <section className="flex flex-col items-center gap-3 rounded-2xl border border-[#F7931A]/25 bg-gradient-to-b from-[#F7931A]/[.09] to-transparent px-6 py-6 text-center dark:border-[#F7931A]/20 dark:from-[#F7931A]/[.12]">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#F7931A]/30 bg-[#F7931A]/[.08] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9A5B00] dark:border-[#F7931A]/25 dark:bg-[#F7931A]/[.12] dark:text-amber-400">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.75}
-            aria-hidden="true"
-            className="h-3.5 w-3.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M2.25 17.25 9 10.5l4.5 4.5 8.25-8.25"
+    <section className="border-t border-black/[.08] pt-8 dark:border-white/[.145]">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
+        <div className="flex flex-col gap-2">
+          <span className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9A5B00] dark:text-amber-400">
+            <span
+              aria-hidden="true"
+              className="h-px w-5 bg-current opacity-70"
             />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.5 6.75h5.25v5.25"
-            />
-          </svg>
-          {t("metricsLabel")}
-        </span>
-        <p className="text-4xl font-semibold tracking-tight text-black dark:text-zinc-50">
-          {t("metricValue")}
-        </p>
-        <p className="max-w-xs text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {t("metricLabel")}
-        </p>
+            {t("metricsLabel")}
+          </span>
+
+          <p className="text-4xl font-semibold tracking-tight text-black tabular-nums sm:text-5xl dark:text-zinc-50">
+            {t("metricValue")}
+          </p>
+
+          <p className="max-w-md text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+            {t("metricLabel")}
+          </p>
+        </div>
 
         <Link
           href="/transparency"
-          className="mt-1 inline-flex h-9 items-center gap-1.5 rounded-full border border-[#F7931A]/35 px-4 text-xs font-medium text-[#9A5B00] transition-colors hover:bg-[#F7931A]/10 dark:border-[#F7931A]/35 dark:text-amber-400 dark:hover:bg-[#F7931A]/15"
+          className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-[#9A5B00] underline-offset-4 transition-colors hover:underline sm:self-auto dark:text-amber-400"
         >
           {t("exploreCta")}
           <svg
@@ -52,7 +45,7 @@ export async function HomeMetrics() {
             stroke="currentColor"
             strokeWidth={2}
             aria-hidden="true"
-            className="h-3.5 w-3.5"
+            className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
           >
             <path
               strokeLinecap="round"
@@ -61,7 +54,7 @@ export async function HomeMetrics() {
             />
           </svg>
         </Link>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
