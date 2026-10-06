@@ -1,13 +1,13 @@
 {
   "Layout": {
     "title": "Ronny Cajas — Self-custody Bitcoin mentorship",
-    "description": "I teach individuals and companies to hold their own Bitcoin, in wallets they control."
+    "description": "I teach individuals and companies to hold their own Bitcoin, in wallets they control.",
+    "navPhotoAlt": "Ronny Cajas profile photo"
   },
   "HomePage": {
     "metadataTitle": "Ronny Cajas — Bitcoin for professionals",
     "metadataDescription": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited code with your keys.",
     "hero": {
-      "eyebrow": "Bitcoin self-custody consultancy",
       "title": "Own your Bitcoin, not a wallet you can't audit",
       "subtitle": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited source code with your keys."
     },
@@ -75,7 +75,7 @@
         "commercial-cold": {
           "label": "Medium",
           "title": "Commercial cold wallets",
-          "body": "The keys stay offline, but the wallet runs firmware you cannot inspect, on hardware you did not build, behind a supply chain you did not verify. Every card above is this category breaking in public.",
+          "body": "The keys stay offline, but the wallet runs firmware you cannot inspect, on hardware heavily exposed to supply chain risks.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD, and similar hardware wallets."
         },
         "opensource-verifiable": {

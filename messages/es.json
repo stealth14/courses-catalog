@@ -1,13 +1,13 @@
 {
   "Layout": {
     "title": "Ronny Cajas — Mentoría de autocustodia de Bitcoin",
-    "description": "Enseño a individuos y empresas a resguardar su propio Bitcoin, en billeteras que ellos controlan."
+    "description": "Enseño a individuos y empresas a resguardar su propio Bitcoin, en billeteras que ellos controlan.",
+    "navPhotoAlt": "Foto de perfil de Ronny Cajas"
   },
   "HomePage": {
     "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
-      "eyebrow": "Consultoría de autocustodia de Bitcoin",
       "title": "Tu bitcoin bajo tu control, no en billeteras que no puedes auditar",
       "subtitle": "En el dinero digital la facilidad de uso se paga con abstracción, capas de abstraccion que exponen tus claves privadas. Aprende a crear y manipular billeteras realmente seguras."
     },
@@ -75,7 +75,7 @@
         "commercial-cold": {
           "label": "Medio",
           "title": "Billeteras frías comerciales",
-          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware que no puedes inspeccionar, en hardware que no construiste, detrás de una cadena de suministro que no verificaste. Cada tarjeta de arriba es esta categoría fallando en público.",
+          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware que no puedes inspeccionar, en hardware expuesto riesgos de cadena de suministro.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."
         },
         "opensource-verifiable": {

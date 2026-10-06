@@ -6,6 +6,7 @@ import { useState } from "react";
 const SIZES = {
   full: { box: "h-24 w-24", text: "text-2xl", dims: 96 },
   compact: { box: "h-12 w-12", text: "text-sm", dims: 48 },
+  tiny: { box: "h-8 w-8", text: "text-xs", dims: 32 },
 } as const;
 
 export function ProfilePhoto({
