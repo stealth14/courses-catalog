@@ -7,8 +7,16 @@ const LINKEDIN_URL = "https://www.linkedin.com/in/ronny-cajas-089812176/";
 
 export async function PaymentHeader({
   variant = "full",
+  headingLevel = "h1",
 }: {
   variant?: "full" | "compact";
+  /**
+   * Heading level for the profile name in the `full` variant. Pass
+   * `"none"` on pages that provide their own `<h1>` (e.g. the landing
+   * hero), so the name and role render as plain text instead of
+   * competing with the page title.
+   */
+  headingLevel?: "h1" | "none";
 }) {
   const t = await getTranslations("PaymentHeader");
   const locale = await getLocale();
@@ -49,19 +57,22 @@ export async function PaymentHeader({
     );
   }
 
+  const NameTag = headingLevel === "none" ? "p" : "h1";
+  const RoleTag = headingLevel === "none" ? "p" : "h2";
+
   return (
     <div className="flex flex-col items-center gap-4 text-center">
       <ProfilePhoto alt={t("photoAlt")} />
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-black dark:text-zinc-50">
+        <NameTag className="text-2xl font-semibold tracking-tight text-black dark:text-zinc-50">
           {PROFILE_NAME}
-        </h1>
+        </NameTag>
         <div className="mt-5 flex flex-col items-center">
           <div
             aria-hidden="true"
             className="mb-4 h-px w-12 bg-gradient-to-r from-transparent via-zinc-300 to-transparent dark:via-zinc-600"
           />
-          <h2 className="flex items-center gap-1.5 text-[15px] leading-6 text-zinc-700 dark:text-zinc-200">
+          <RoleTag className="flex items-center gap-1.5 text-[15px] leading-6 text-zinc-700 dark:text-zinc-200">
             <span className="font-medium tracking-wide">
               {t.rich("roleSelfCustody", {
                 btc: (chunks) => (
@@ -71,7 +82,7 @@ export async function PaymentHeader({
                 ),
               })}
             </span>
-          </h2>
+          </RoleTag>
           <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-500">
             {profileTitles.map((title, index) => (
               <span key={title} className="flex items-center gap-2">

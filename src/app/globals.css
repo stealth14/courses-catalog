@@ -54,6 +54,55 @@ body {
   }
 }
 
+/* Hardware-wallet scandal row. The track holds the brand list twice, so
+   translating it by half its own width loops seamlessly — each group
+   carries a trailing gap matching the inter-card gap to keep the seam
+   invisible. */
+@keyframes wallet-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.wallet-marquee-viewport {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 6%,
+    black 94%,
+    transparent
+  );
+}
+
+.wallet-marquee {
+  animation: wallet-marquee 48s linear infinite;
+}
+
+.wallet-marquee-viewport:hover .wallet-marquee,
+.wallet-marquee-viewport:focus-within .wallet-marquee {
+  animation-play-state: paused;
+}
+
+/* Readers who asked for less motion get a plain, swipeable row instead of
+   an animation: no duplicated group, no auto-scroll. */
+@media (prefers-reduced-motion: reduce) {
+  .wallet-marquee {
+    animation: none;
+  }
+
+  .wallet-marquee-viewport {
+    overflow-x: auto;
+    mask-image: none;
+  }
+
+  .wallet-marquee-copy {
+    display: none;
+  }
+}
+
 /* Slim, permanently visible scrollbar for the mobile time-slot grid.
    Styling the WebKit pseudo-elements switches the scrollbar from overlay to
    classic mode, so it stays visible whenever the grid is scrollable.

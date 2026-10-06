@@ -1,15 +1,59 @@
 {
   "Layout": {
-    "title": "Courses Catalog",
-    "description": "Course catalog with USDT payment collection."
+    "title": "Ronny Cajas — Self-custody Bitcoin mentorship",
+    "description": "I teach individuals and companies to hold their own Bitcoin, in wallets they control."
   },
   "HomePage": {
-    "intro": "I help individuals and companies protect their wealth with Bitcoin.",
-    "cta": "Ver cursos",
+    "metadataTitle": "Ronny Cajas — Self-custody Bitcoin consultancy",
+    "metadataDescription": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited code with your keys.",
+    "hero": {
+      "eyebrow": "Bitcoin self-custody consultancy",
+      "title": "Own your Bitcoin, not a wallet you can't audit",
+      "subtitle": "In this industry, ease of use is paid for with layers of abstraction, and those layers increase risk. Apps hide your keys behind those layers, hardware wallets move the trust into firmware you can't inspect, and plenty of open-source wallets have never had a real audit. I teach individuals and companies to run an actually verifiable open source wallet — nothing between them and their coins but their own verification."
+    },
     "metricsLabel": "Verifiable results",
     "metricValue": "15.000",
-    "metricLabel": "in Bitcoin held by clients who no longer rely on custodians or trusted third parties",
-    "exploreCta": "Explore"
+    "metricLabel": "in Bitcoin held by clients who have learned with us",
+    "exploreCta": "Explore",
+    "howItWorks": {
+      "title": "How it works",
+      "subtitle": "Three steps, at your pace.",
+      "step1Title": "Book your first session",
+      "step1Body": "Pick a day and a time. The first session runs 30 minutes, one to one, to review what you hold today and where the risk actually is.",
+      "step2Title": "Build your own wallet",
+      "step2Body": "We set up an actually verifiable open source wallet that you run yourself, and go through every layer instead of trusting a product to hide it.",
+      "step3Title": "Move your coins and verify",
+      "step3Body": "You move your Bitcoin, watch the transaction confirm on-chain, and audit the result yourself."
+    },
+    "offering": {
+      "title": "Plans",
+      "subtitle": "One-off sessions, a subscription, or ongoing consultancy.",
+      "fallbackCta": "See the plans"
+    },
+    "who": {
+      "title": "Who you're working with"
+    },
+    "verification": {
+      "title": "Prove it live, one to one",
+      "body": "These wallets are under my control, and I can prove it. In a one-to-one demonstration I move funds in or out while you watch the transaction confirm on-chain, so you can audit the result yourself.",
+      "cta": "Open the on-chain verification"
+    },
+    "faq": {
+      "title": "Common questions",
+      "q1": "Do I need special hardware to start?",
+      "a1": "No. We start with what you already have and add hardware only when it genuinely reduces your risk — not because a product list says so.",
+      "q2": "I already hold Bitcoin on an exchange. Is this for me?",
+      "a2": "Yes. We map your current setup, then move your coins into a wallet you control, at a pace you're comfortable with.",
+      "q3": "Why not just use an easy-to-use app?",
+      "a3": "Every wallet asks you to trust layers between you and your keys that you cannot inspect. We remove those layers and I explain what each one was doing.",
+      "q4": "Do I need to be technical?",
+      "a4": "No. The sessions follow your level; the goal is that you can explain and verify your own setup by the end."
+    },
+    "cta": "See the plans",
+    "finalCta": {
+      "title": "Start with your own setup",
+      "body": "Book the first session and bring your questions about the wallet you use today."
+    }
   },
   "TransparencyPage": {
     "metadataTitle": "Verification — Secured Bitcoin wallets",
@@ -125,7 +169,7 @@
     "backLabel": "Back to payment methods",
     "backToPaymentLabel": "Back to payment",
     "back": "Back",
-        "roleSelfCustody": "Specialist in <btc>Bitcoin</btc>",
+    "roleSelfCustody": "Software Development Specialist",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
     "methodBinance": "Binance",

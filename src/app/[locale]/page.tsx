@@ -1,39 +1,59 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { StepCard } from "@/components/step-card";
-import { HomeMetrics } from "./home-metrics";
 import { PaymentHeader } from "./payment/payment-header";
+import { HomeHero } from "./home-hero";
+import { HomeMetrics } from "./home-metrics";
+import { HomeHowItWorks } from "./home-how-it-works";
+import { HomeOffering } from "./home-offering";
+import { HomeVerification } from "./home-verification";
+import { HomeFaq } from "./home-faq";
+import { HomeFinalCta } from "./home-final-cta";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("HomePage");
+
+  return {
+    title: t("metadataTitle"),
+    description: t("metadataDescription"),
+  };
+}
+
+/**
+ * Landing page.
+ *
+ * Deliberately does not use `StepCard`: that shell pins its card to the
+ * viewport height for the fixed-size checkout flow, while this page is a
+ * scrolling document. The hero owns the page's only `<h1>`, so
+ * `PaymentHeader` is rendered without heading elements.
+ */
 export default async function HomePage() {
   const t = await getTranslations("HomePage");
 
   return (
-    <StepCard>
-      <PaymentHeader variant="full" />
+    <main className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 py-10 sm:gap-20 sm:px-6 sm:py-16">
+        <HomeHero />
 
-      <p className="text-center text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-        {t("intro")}
-      </p>
+        <HomeMetrics />
 
-      <HomeMetrics />
+        <HomeHowItWorks />
 
-      <Link
-        href="/shop"
-        className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
-      >
-        {t("cta")}
-        <svg
-          viewBox="0 0 20 20"
-          aria-hidden="true"
-          className="h-4 w-4 fill-current"
-        >
-          <path
-            fillRule="evenodd"
-            d="M7.21 14.77a.75.75 0 0 1 .02-1.06L11.168 10 7.23 6.29a.75.75 0 1 1 1.04-1.08l4.5 4.25a.75.75 0 0 1 0 1.08l-4.5 4.25a.75.75 0 0 1-1.06-.02Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </Link>
-    </StepCard>
+        <HomeOffering />
+
+        <section className="flex flex-col items-center gap-5">
+          <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
+            {t("who.title")}
+          </h2>
+          <PaymentHeader variant="full" headingLevel="none" />
+        </section>
+
+        <HomeVerification />
+
+        <HomeFaq />
+
+        <HomeFinalCta />
+      </div>
+    </main>
   );
 }
+
