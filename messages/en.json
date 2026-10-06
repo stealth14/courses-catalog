@@ -9,7 +9,7 @@
     "hero": {
       "eyebrow": "Bitcoin self-custody consultancy",
       "title": "Own your Bitcoin, not a wallet you can't audit",
-      "subtitle": "In this industry, ease of use is paid for with layers of abstraction, and those layers increase risk. Apps hide your keys behind those layers, hardware wallets move the trust into firmware you can't inspect, and plenty of open-source wallets have never had a real audit. I teach individuals and companies to run an actually verifiable open source wallet — nothing between them and their coins but their own verification."
+      "subtitle": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited source code with your keys."
     },
     "metricsLabel": "Why learn with us?",
     "metricValue": "15.000",
@@ -52,6 +52,37 @@
         "ellipal": {
           "date": "Jun 2019",
           "incident": "Ledger Donjon extracted the seed from the air-gapped wallet, defeating the isolation it is sold on."
+        }
+      }
+    },
+    "riskScale": {
+      "title": "The risk scale of wallet types",
+      "subtitle": "Ordered by risk exposure — from setups where you trust someone else's custody to the one where you trust only your own verification.",
+      "examplesLabel": "Examples: ",
+      "tiers": {
+        "custodial": {
+          "label": "Highest",
+          "title": "Custodial wallets and exchanges",
+          "body": "Your keys live on a server you do not control. The platform can freeze, lose, or leak your funds — and if it fails, you are a creditor, not an owner.",
+          "examples": "exchanges, payment and savings apps."
+        },
+        "hot": {
+          "label": "High",
+          "title": "Hot software wallets",
+          "body": "The keys sit on an online device, next to the apps you install and the links you open. Malware or a convincing page can read them before you notice.",
+          "examples": "mobile, desktop, and browser wallets."
+        },
+        "commercial-cold": {
+          "label": "Medium",
+          "title": "Commercial cold wallets",
+          "body": "The keys stay offline, but the wallet runs firmware you cannot inspect, on hardware you did not build, behind a supply chain you did not verify. Every card above is this category breaking in public.",
+          "examples": "Ledger, Trezor, Tangem, COLDCARD, and similar hardware wallets."
+        },
+        "opensource-verifiable": {
+          "label": "Lowest",
+          "title": "Verifiable open-source self-custody",
+          "body": "You generate and hold your own keys with code you can read and verify, on hardware you control — nothing between you and your coins but your own audit.",
+          "examples": "Bitcoin Core on your own machine, air-gapped signing devices."
         }
       }
     },
@@ -209,7 +240,7 @@
     "backLabel": "Back to payment methods",
     "backToPaymentLabel": "Back to payment",
     "back": "Back",
-    "roleSelfCustody": "Software Development Specialist",
+    "roleSelfCustody": "Software Development Specialist on mobile and web apps, now focused on bitcoin self-custody solutions.",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
     "methodBinance": "Binance",

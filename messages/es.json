@@ -55,6 +55,37 @@
         }
       }
     },
+    "riskScale": {
+      "title": "La escala de riesgo de los tipos de billetera",
+      "subtitle": "Ordenada por exposición al riesgo: desde configuraciones donde confías en la custodia de otro hasta la única donde confías solo en tu propia verificación.",
+      "examplesLabel": "Ejemplos: ",
+      "tiers": {
+        "custodial": {
+          "label": "Máximo",
+          "title": "Billeteras custodiadas y exchanges",
+          "body": "Tus llaves viven en un servidor que no controlas. La plataforma puede congelar, perder o filtrar tus fondos, y si quiebra eres un acreedor, no un dueño.",
+          "examples": "exchanges y apps de pago o ahorro."
+        },
+        "hot": {
+          "label": "Alto",
+          "title": "Billeteras de software calientes",
+          "body": "Las llaves están en un dispositivo conectado a internet, junto a las apps que instalas y los enlaces que abres. Un malware o una página convincente puede leerlas antes de que lo notes.",
+          "examples": "billeteras de móvil, escritorio y navegador."
+        },
+        "commercial-cold": {
+          "label": "Medio",
+          "title": "Billeteras frías comerciales",
+          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware que no puedes inspeccionar, en hardware que no construiste, detrás de una cadena de suministro que no verificaste. Cada tarjeta de arriba es esta categoría fallando en público.",
+          "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."
+        },
+        "opensource-verifiable": {
+          "label": "Mínimo",
+          "title": "Autocustodia de código abierto verificable",
+          "body": "Generas y resguardas tus propias llaves con código que puedes leer y verificar, en hardware que controlas, sin nada entre tú y tus monedas salvo tu propia auditoría.",
+          "examples": "Bitcoin Core en tu propia máquina, dispositivos de firma air-gapped."
+        }
+      }
+    },
     "howItWorks": {
       "title": "Cómo funciona",
       "subtitle": "Tres pasos, a tu ritmo.",
