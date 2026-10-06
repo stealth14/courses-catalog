@@ -4,7 +4,7 @@
     "description": "Enseño a individuos y empresas a resguardar su propio Bitcoin, en billeteras que ellos controlan."
   },
   "HomePage": {
-    "metadataTitle": "Ronny Cajas — Consultoría de autocustodia de Bitcoin",
+    "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
       "eyebrow": "Consultoría de autocustodia de Bitcoin",
@@ -17,6 +17,8 @@
     "exploreCta": "Explorar",
     "scandals": {
       "title": "Incidentes más graves",
+      "subtitle": "Cada tarjeta de abajo es un incidente documentado — un aviso del fabricante, una investigación de un laboratorio independiente o una cobertura de prensa —, no una opinión sobre la marca.",
+      "footnote": "Las fechas son las de divulgación pública; las cifras provienen del aviso del propio fabricante o de la cobertura que este cita. Ninguna marca aparece aquí sin un incidente documentado.",
       "sourceCta": "Leer más",
       "brands": {
         "ledger": {
