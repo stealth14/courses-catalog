@@ -73,7 +73,7 @@
           "examples": "billeteras de móvil, escritorio y navegador."
         },
         "commercial-cold": {
-          "label": "Medio",
+          "label": "Peligroso",
           "title": "Billeteras frías comerciales",
           "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware que no puedes inspeccionar, en hardware expuesto riesgos de cadena de suministro.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."

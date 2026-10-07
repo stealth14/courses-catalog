@@ -73,7 +73,7 @@
           "examples": "mobile, desktop, and browser wallets."
         },
         "commercial-cold": {
-          "label": "Medium",
+          "label": "Dangerous",
           "title": "Commercial cold wallets",
           "body": "The keys stay offline, but the wallet runs firmware you cannot inspect, on hardware heavily exposed to supply chain risks.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD, and similar hardware wallets."
