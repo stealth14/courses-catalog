@@ -104,11 +104,6 @@
     "who": {
       "title": "Who you're working with"
     },
-    "verification": {
-      "title": "Prove it live, one to one",
-      "body": "These wallets are under my control, and I can prove it. In a one-to-one demonstration I move funds in or out while you watch the transaction confirm on-chain, so you can audit the result yourself.",
-      "cta": "Open the on-chain verification"
-    },
     "faq": {
       "title": "Common questions",
       "q1": "Do I need special hardware to start?",
@@ -240,7 +235,7 @@
     "backLabel": "Back to payment methods",
     "backToPaymentLabel": "Back to payment",
     "back": "Back",
-    "roleSelfCustody": "Software Development Specialist on mobile and web apps, now focused on bitcoin self-custody solutions.",
+    "roleSelfCustody": "Software Development Professional on mobile and web solutions, now focused on bitcoin self-custody.",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
     "methodBinance": "Binance",

@@ -7,7 +7,6 @@ import { HomeWalletScandals } from "./home-wallet-scandals";
 import { HomeWalletRiskScale } from "./home-wallet-risk-scale";
 import { HomeHowItWorks } from "./home-how-it-works";
 import { HomeOffering } from "./home-offering";
-import { HomeVerification } from "./home-verification";
 import { HomeFaq } from "./home-faq";
 import { HomeFinalCta } from "./home-final-cta";
 
@@ -54,8 +53,6 @@ export default async function HomePage() {
           </h2>
           <PaymentHeader variant="full" headingLevel="none" />
         </section>
-
-        <HomeVerification />
 
         <HomeFaq />
 

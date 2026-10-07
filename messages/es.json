@@ -104,11 +104,6 @@
     "who": {
       "title": "Con quién vas a aprender"
     },
-    "verification": {
-      "title": "Compruébalo en vivo, uno a uno",
-      "body": "Estas billeteras están bajo mi control y puedo demostrarlo. En una demostración uno a uno muevo fondos dentro o fuera mientras ves la transacción confirmar en la blockchain, para que audites el resultado por tu cuenta.",
-      "cta": "Abrir la verificación blockchain"
-    },
     "faq": {
       "title": "Preguntas frecuentes",
       "q1": "¿Necesito hardware especial para empezar?",
@@ -240,7 +235,7 @@
     "backLabel": "Volver a los métodos de pago",
     "backToPaymentLabel": "Volver al pago",
     "back": "Volver",
-    "roleSelfCustody": "Especialista en Desarrollo de Software",
+    "roleSelfCustody": "Profesional de desarrollo de software en soluciones móviles y web, ahora enfocado en autocustodia de bitcoin.",
     "methodUsdt": "USDT",
     "methodBtc": "Bitcoin",
     "methodBinance": "Binance",
