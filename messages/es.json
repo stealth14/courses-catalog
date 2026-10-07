@@ -13,7 +13,7 @@
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "+15.000",
-    "metricLabel": "dólares en bitcoin de clientes que ya no estan expuestos a brechas de seguridad de billeteras comerciales.",
+    "metricLabel": "dólares en bitcoin de algunos de nuestros clientes que ya no están expuestos a brechas de seguridad de billeteras comerciales.",
     "exploreCta": "Explorar",
     "scandals": {
       "title": "Incidentes más graves",
@@ -82,19 +82,17 @@
           "label": "Mínimo",
           "title": "Autocustodia de código abierto verificable",
           "body": "Generas y resguardas tus propias llaves con código que puedes leer y verificar, en hardware que controlas, sin nada entre tú y tus monedas salvo tu propia auditoría.",
-          "examples": "Bitcoin Core en tu propia máquina, dispositivos de firma air-gapped."
+          "examples": "dispositivos de firma air-gapped."
         }
       }
     },
     "howItWorks": {
       "title": "Cómo funciona",
-      "subtitle": "Tres pasos, a tu ritmo.",
+      "subtitle": "Dos pasos, a tu ritmo.",
       "step1Title": "Agenda tu primera sesión",
       "step1Body": "Elige día y hora. La primera sesión dura 30 minutos, uno a uno, para revisar qué tienes hoy y dónde está realmente el riesgo.",
       "step2Title": "Construye tu propia billetera",
-      "step2Body": "Configuramos una billetera de código abierto realmente verificable que operas tú mismo, y revisamos cada capa en lugar de confiar en que un producto la esconda.",
-      "step3Title": "Mueve tus fondos y verifica",
-      "step3Body": "Mueves tu Bitcoin, ves la transacción confirmar en la blockchain y auditas el resultado por tu cuenta."
+      "step2Body": "Configuramos una billetera de código abierto realmente verificable que operas tú mismo, y revisamos cada capa en lugar de confiar en que un producto la esconda."
     },
     "offering": {
       "title": "Planes",

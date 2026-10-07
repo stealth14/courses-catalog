@@ -13,7 +13,7 @@
     },
     "metricsLabel": "Why learn with us?",
     "metricValue": "+15.000",
-    "metricLabel": "USD in Bitcoin from clients who are no longer exposed to commercial wallet security breaches.",
+    "metricLabel": "USD in Bitcoin from some of our clients who are no longer exposed to commercial wallet security breaches.",
     "exploreCta": "Explore",
     "scandals": {
       "title": "The brands that broke in public",
@@ -82,19 +82,17 @@
           "label": "Lowest",
           "title": "Verifiable open-source self-custody",
           "body": "You generate and hold your own keys with code you can read and verify, on hardware you control — nothing between you and your coins but your own audit.",
-          "examples": "Bitcoin Core on your own machine, air-gapped signing devices."
+          "examples": "air-gapped signing devices."
         }
       }
     },
     "howItWorks": {
       "title": "How it works",
-      "subtitle": "Three steps, at your pace.",
+      "subtitle": "Two steps, at your pace.",
       "step1Title": "Book your first session",
       "step1Body": "Pick a day and a time. The first session runs 30 minutes, one to one, to review what you hold today and where the risk actually is.",
       "step2Title": "Build your own wallet",
-      "step2Body": "We set up an actually verifiable open source wallet that you run yourself, and go through every layer instead of trusting a product to hide it.",
-      "step3Title": "Move your coins and verify",
-      "step3Body": "You move your Bitcoin, watch the transaction confirm on-chain, and audit the result yourself."
+      "step2Body": "We set up an actually verifiable open source wallet that you run yourself, and go through every layer instead of trusting a product to hide it."
     },
     "offering": {
       "title": "Plans",

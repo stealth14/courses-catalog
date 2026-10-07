@@ -10,7 +10,6 @@ export async function HomeHowItWorks() {
   const steps = [
     { title: t("howItWorks.step1Title"), body: t("howItWorks.step1Body") },
     { title: t("howItWorks.step2Title"), body: t("howItWorks.step2Body") },
-    { title: t("howItWorks.step3Title"), body: t("howItWorks.step3Body") },
   ];
 
   return (

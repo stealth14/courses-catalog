@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Analytics } from "@vercel/analytics/next";
 import { BackButton } from "@/components/back-button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { ProfilePhoto } from "@/components/profile-photo";
@@ -72,6 +73,7 @@ export default async function LocaleLayout({
           </header>
           {children}
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
