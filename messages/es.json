@@ -16,8 +16,8 @@
     "metricLabel": "dólares en bitcoin de algunos de nuestros clientes que ya no están expuestos a brechas de seguridad de billeteras comerciales.",
     "exploreCta": "Explorar",
     "scandals": {
-      "title": "Incidentes más graves",
-      "subtitle": "Cada tarjeta de abajo es un incidente documentado — un aviso del fabricante, una investigación de un laboratorio independiente o una cobertura de prensa —, no una opinión sobre la marca.",
+      "title": "¿Por qué es necesario aprender?",
+      "subtitle": "Porque las billeteras que se venden como seguras siguen fallando en público. Cada tarjeta de abajo es un incidente documentado — un aviso del fabricante, una investigación de un laboratorio independiente o una cobertura de prensa —, no una opinión sobre la marca.",
       "footnote": "Las fechas son las de divulgación pública; las cifras provienen del aviso del propio fabricante o de la cobertura que este cita. Ninguna marca aparece aquí sin un incidente documentado.",
       "sourceCta": "Leer más",
       "brands": {
@@ -61,7 +61,7 @@
       "examplesLabel": "Ejemplos: ",
       "tiers": {
         "custodial": {
-          "label": "Máximo",
+          "label": "Crítico",
           "title": "Billeteras custodiadas y exchanges",
           "body": "Tus llaves viven en un servidor que no controlas. La plataforma puede congelar, perder o filtrar tus fondos, y si quiebra eres un acreedor, no un dueño.",
           "examples": "exchanges y apps de pago o ahorro."
@@ -73,13 +73,13 @@
           "examples": "billeteras de móvil, escritorio y navegador."
         },
         "commercial-cold": {
-          "label": "Peligroso",
+          "label": "Precaución",
           "title": "Billeteras frías comerciales",
           "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware que no puedes inspeccionar, en hardware expuesto riesgos de cadena de suministro.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."
         },
         "opensource-verifiable": {
-          "label": "Mínimo",
+          "label": "Seguro",
           "title": "Autocustodia de código abierto verificable",
           "body": "Generas y resguardas tus propias llaves con código que puedes leer y verificar, en hardware que controlas, sin nada entre tú y tus monedas salvo tu propia auditoría.",
           "examples": "dispositivos de firma air-gapped."

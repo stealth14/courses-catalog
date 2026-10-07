@@ -16,8 +16,8 @@
     "metricLabel": "USD in Bitcoin from some of our clients who are no longer exposed to commercial wallet security breaches.",
     "exploreCta": "Explore",
     "scandals": {
-      "title": "The brands that broke in public",
-      "subtitle": "Every card below is a documented incident — a vendor advisory, independent lab research, or press reporting — not an opinion about the brand.",
+      "title": "Why is it necessary to learn?",
+      "subtitle": "Because the wallets sold as safe keep breaking in public. Every card below is a documented incident — a vendor advisory, independent lab research, or press reporting — not an opinion about the brand.",
       "footnote": "Dates are the public disclosure dates; figures come from the vendor's own advisory or the reporting cited by it. No brand appears here without a documented incident.",
       "sourceCta": "Read the report",
       "brands": {
@@ -61,7 +61,7 @@
       "examplesLabel": "Examples: ",
       "tiers": {
         "custodial": {
-          "label": "Highest",
+          "label": "Critical",
           "title": "Custodial wallets and exchanges",
           "body": "Your keys live on a server you do not control. The platform can freeze, lose, or leak your funds — and if it fails, you are a creditor, not an owner.",
           "examples": "exchanges, payment and savings apps."
@@ -73,13 +73,13 @@
           "examples": "mobile, desktop, and browser wallets."
         },
         "commercial-cold": {
-          "label": "Dangerous",
+          "label": "Caution",
           "title": "Commercial cold wallets",
           "body": "The keys stay offline, but the wallet runs firmware you cannot inspect, on hardware heavily exposed to supply chain risks.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD, and similar hardware wallets."
         },
         "opensource-verifiable": {
-          "label": "Lowest",
+          "label": "Safe",
           "title": "Verifiable open-source self-custody",
           "body": "You generate and hold your own keys with code you can read and verify, on hardware you control — nothing between you and your coins but your own audit.",
           "examples": "air-gapped signing devices."

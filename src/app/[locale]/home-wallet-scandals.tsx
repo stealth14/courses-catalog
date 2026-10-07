@@ -138,7 +138,7 @@ export async function HomeWalletScandals() {
   return (
     <section className="my-16 flex flex-col gap-6 sm:my-20">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-1 px-4 sm:px-6">
-        <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
+        <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
           {t("scandals.title")}
         </h2>
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
