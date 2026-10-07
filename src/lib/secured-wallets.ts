@@ -15,7 +15,7 @@ export type SecuredWallets = {
   explorer: string;
   /** BTC/USD price used to display USD estimates. */
   btcPriceUsd: number;
-  /** True while the file still ships example data (shows a warning banner). */
+  /** True while the file still ships example data instead of real wallets. */
   sample: boolean;
   wallets: SecuredWallet[];
 };

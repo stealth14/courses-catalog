@@ -9,11 +9,11 @@
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
       "title": "Tu bitcoin bajo tu control, no en billeteras que no puedes auditar",
-      "subtitle": "En el dinero digital la facilidad de uso se paga con abstracción, capas de abstraccion que exponen tus claves privadas. Aprende a crear y manipular billeteras realmente seguras."
+      "subtitle": "Cuando se trata de dinero digital la facilidad de uso se paga con abstracción, capas de abstraccion que exponen tus claves privadas. Aprende a crear y manipular billeteras realmente seguras."
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "+15.000",
-    "metricLabel": "dólares en bitcoin de algunos de nuestros clientes que ya no están expuestos a brechas de seguridad de billeteras comerciales.",
+    "metricLabel": "dólares en Bitcoin resguardados por nuestros clientes",
     "exploreCta": "Explorar",
     "scandals": {
       "title": "¿Por qué es necesario aprender?",
@@ -75,7 +75,7 @@
         "commercial-cold": {
           "label": "Precaución",
           "title": "Billeteras frías comerciales",
-          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware que no puedes inspeccionar, en hardware expuesto riesgos de cadena de suministro.",
+          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware expuesto, en hardware expuesto riesgos de cadena de suministro.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."
         },
         "opensource-verifiable": {
@@ -109,7 +109,7 @@
       "q2": "Ya tengo Bitcoin en un exchange. ¿Esto es para mí?",
       "a2": "Sí. Te enseñamos como hacerlo.",
       "q3": "¿Por qué no usar simplemente una app fácil de usar?",
-      "a3": "Cada billetera te pide confiar en capas entre tú y tus llaves que no puedes inspeccionar. Quitamos esas capas y te explico qué hacía cada una.",
+      "a3": "Cada billetera te pide confiar en capas entre tú y tus llaves. Quitamos esas capas y te explico qué hacía cada una.",
       "q4": "¿Necesito saber de tecnología?",
       "a4": "No. Las sesiones siguen tu nivel; el objetivo es que al final puedas explicar y verificar tu propia configuración."
     },
@@ -124,9 +124,7 @@
     "metadataDescription": "Gráfico de las billeteras Bitcoin que la mentoría ayudó a resguardar, con enlaces públicos de verificación on-chain.",
     "title": "Verificación on-chain",
     "subtitle": "Clientes que han aprendido con nosotros.",
-    "sampleNotice": "Datos de ejemplo: reemplaza public/secured-wallets.json con las billeteras reales antes de publicar.",
     "totalLabel": "Total resguardado",
-    "walletsLabel": "{count, plural, =1 {# billetera} other {# billeteras}}",
     "chartAlt": "Gráfico circular de {count} billeteras Bitcoin resguardadas",
     "hoverHint": "Pasa el cursor o toca una porción para ver el detalle",
     "priceNote": "Los montos en USD son estimaciones a {price} por BTC.",

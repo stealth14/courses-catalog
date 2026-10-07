@@ -13,7 +13,7 @@
     },
     "metricsLabel": "Why learn with us?",
     "metricValue": "+15.000",
-    "metricLabel": "USD in Bitcoin from some of our clients who are no longer exposed to commercial wallet security breaches.",
+    "metricLabel": "dollars in Bitcoin secured by our clients",
     "exploreCta": "Explore",
     "scandals": {
       "title": "Why is it necessary to learn?",
@@ -124,9 +124,7 @@
     "metadataDescription": "Pie chart of the Bitcoin wallets the mentorship helped secure, with public on-chain verification links.",
     "title": "On-chain verification",
     "subtitle": "Each slice is one Bitcoin address and its balance — wallets my students built themselves with Bitcoin Core on a Raspberry Pi, with no third-party custodian. Hover or tap a slice to see the BTC and USD amounts.",
-    "sampleNotice": "Sample data: replace public/secured-wallets.json with the real wallets before publishing.",
     "totalLabel": "Total secured",
-    "walletsLabel": "{count, plural, =1 {# wallet} other {# wallets}}",
     "chartAlt": "Pie chart of {count} secured Bitcoin wallets",
     "hoverHint": "Hover or tap a slice for details",
     "priceNote": "USD amounts are estimates at {price} per BTC.",

@@ -53,11 +53,11 @@ const color = (index: number) => SLICE_COLORS[index % SLICE_COLORS.length];
 
 /**
  * Donut chart of the secured BTC wallets. Hovering (or focusing) a slice
- * fills a details panel placed OUTSIDE the donut, below the chart — keeping
- * the slices fully visible and reachable — with the BTC amount, its USD
- * estimate, its share and a link to audit that address on a public block
- * explorer. Clicking a slice pins the selection so it stays reachable on
- * touch devices.
+ * fills a details panel placed OUTSIDE the donut, beside it on desktop and
+ * below it on mobile — keeping the slices fully visible and reachable —
+ * with the BTC amount, its USD estimate, its share and a link to audit
+ * that address on a public block explorer. Clicking a slice pins the
+ * selection so it stays reachable on touch devices.
  */
 export function WalletPieChart({
   wallets,
@@ -130,34 +130,15 @@ export function WalletPieChart({
   const activeSlice = active === null ? null : slices[active];
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="rounded-2xl border border-[#F7931A]/25 bg-[#F7931A]/[.07] px-4 py-3 dark:border-[#F7931A]/20 dark:bg-[#F7931A]/[.09]">
-        <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
-          {t("totalLabel")}
-        </p>
-        <div className="mt-1 flex items-baseline justify-between gap-3">
-          <p className="text-2xl font-semibold tracking-tight text-black dark:text-zinc-50">
-            {formatBtc(totalBtc)}
-            <span className="ml-1 text-sm font-medium text-zinc-500 dark:text-zinc-400">
-              BTC
-            </span>
-          </p>
-          <p className="shrink-0 text-sm font-medium tabular-nums text-zinc-700 dark:text-zinc-200">
-            ≈ {formatUsd(totalUsd)}
-          </p>
-        </div>
-        <p className="mt-1 text-[10px] font-medium">
-          <span className="rounded-full bg-black/[.06] px-2 py-0.5 text-zinc-500 dark:bg-white/[.08] dark:text-zinc-400">
-            {t("walletsLabel", { count: wallets.length })}
-          </span>
-        </p>
-      </div>
-
-      <div
-        className="flex flex-col gap-3"
+    <div className="flex flex-col gap-10 sm:gap-12">
+      {/* The donut and the figures share one row: the chart gets the width
+          the narrow checkout card never had, and the details stay outside
+          it so every slice remains visible and reachable. */}
+      <section
+        className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-12"
         onMouseLeave={() => setHovered(null)}
       >
-        <div className="mx-auto aspect-square w-full max-w-56">
+        <div className="mx-auto aspect-square w-full max-w-56 shrink-0 sm:mx-0 sm:w-72 sm:max-w-none">
           <svg
             viewBox={`0 0 ${SIZE} ${SIZE}`}
             role="img"
@@ -182,11 +163,15 @@ export function WalletPieChart({
                   role="button"
                   tabIndex={0}
                   aria-label={describe(slice.wallet)}
-                  className={`cursor-pointer transition-opacity ${
+                  /* Hairline in the page colour separates the slices; the
+                     browser's focus ring is replaced by the highlighted
+                     outline drawn on top of the selected slice below. */
+                  className={`cursor-pointer stroke-zinc-50 outline-none transition-opacity [-webkit-tap-highlight-color:transparent] dark:stroke-black ${
                     active === null || active === slice.index
                       ? "opacity-100"
                       : "opacity-40"
                   }`}
+                  strokeWidth={0.75}
                   onMouseEnter={() => setHovered(slice.index)}
                   onFocus={() => setHovered(slice.index)}
                   onBlur={() => setHovered(null)}
@@ -196,71 +181,109 @@ export function WalletPieChart({
                 />
               ))
             )}
+            {activeSlice && slices.length > 1 ? (
+              <path
+                d={slicePath(activeSlice.start, activeSlice.end)}
+                fill="none"
+                strokeWidth={1.25}
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="pointer-events-none stroke-zinc-900 dark:stroke-white"
+              />
+            ) : null}
           </svg>
         </div>
 
-        {/* Details sit OUTSIDE the chart so the donut stays visible and
-            hoverable; fixed height keeps the layout from jumping. */}
-        <div className="flex min-h-28 flex-col justify-center gap-1 rounded-xl border border-black/[.08] bg-zinc-50 p-3 dark:border-white/[.145] dark:bg-black">
-          {activeSlice ? (
-            <>
-              <p className="min-w-0 truncate text-[11px]">
-                <span className="font-mono font-medium text-black dark:text-zinc-50">
-                  {shorten(activeSlice.wallet.address)}
-                </span>
-                {activeSlice.wallet.label ? (
-                  <span className="text-zinc-500 dark:text-zinc-400">
-                    {" · "}
-                    {activeSlice.wallet.label}
-                  </span>
-                ) : null}
-              </p>
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="text-sm font-semibold tabular-nums text-black dark:text-zinc-50">
-                  {formatBtc(activeSlice.wallet.btc)} BTC
-                </span>
-                <span className="shrink-0 text-[11px] tabular-nums text-zinc-500 dark:text-zinc-400">
-                  ≈ {formatUsd(activeSlice.wallet.btc * btcPriceUsd)} ·{" "}
-                  {percentFormatter.format(activeSlice.share * 100)}%
-                </span>
-              </div>
-              <a
-                href={`${explorer}/address/${activeSlice.wallet.address}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 flex items-center justify-center gap-1.5 rounded-full bg-foreground px-3 py-1.5 text-[11px] font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
-              >
-                <span className="truncate">
-                  {t("viewOnExplorer", { host })}
-                </span>
-                <svg
-                  viewBox="0 0 20 20"
-                  aria-hidden="true"
-                  className="h-3 w-3 shrink-0 fill-current"
-                >
-                  <path d="M11 3a1 1 0 1 0 0 2h2.586l-6.293 6.293a1 1 0 1 0 1.414 1.414L15 6.414V9a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1h-5Z" />
-                  <path d="M5 5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3a1 1 0 1 0-2 0v3H5V7h3a1 1 0 0 0 0-2H5Z" />
-                </svg>
-              </a>
-            </>
-          ) : (
-            <p className="text-center text-xs text-zinc-400 dark:text-zinc-500">
-              {t("hoverHint")}
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
+          {/* Total secured: the dollar figure leads — it is the number
+              people compare — with the exact BTC amount under it. */}
+          <div className="flex flex-col gap-1.5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9A5B00] dark:text-amber-400">
+              {t("totalLabel")}
             </p>
-          )}
+            <p className="flex items-baseline gap-1 text-3xl font-semibold tracking-tight text-black tabular-nums sm:text-4xl dark:text-zinc-50">
+              <span
+                aria-hidden="true"
+                className="text-lg font-normal text-zinc-400 dark:text-zinc-500"
+              >
+                ≈
+              </span>
+              {formatUsd(totalUsd)}
+            </p>
+            <p className="flex items-baseline gap-1.5 text-sm font-medium">
+              <span className="tabular-nums text-zinc-700 dark:text-zinc-300">
+                {formatBtc(totalBtc)}
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-500">
+                BTC
+              </span>
+            </p>
+          </div>
+
+          {/* Details sit OUTSIDE the chart so the donut stays visible and
+              hoverable; fixed height keeps the layout from jumping. */}
+          <div className="flex min-h-32 flex-col justify-center gap-1 rounded-2xl border border-black/[.08] p-4 dark:border-white/[.145]">
+            {activeSlice ? (
+              <>
+                <p className="min-w-0 truncate text-xs">
+                  <span className="font-mono font-medium text-black dark:text-zinc-50">
+                    {shorten(activeSlice.wallet.address)}
+                  </span>
+                  {activeSlice.wallet.label ? (
+                    <span className="text-zinc-500 dark:text-zinc-400">
+                      {" · "}
+                      {activeSlice.wallet.label}
+                    </span>
+                  ) : null}
+                </p>
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="flex items-baseline gap-1.5 text-sm font-semibold tabular-nums text-black dark:text-zinc-50">
+                    {formatBtc(activeSlice.wallet.btc)}
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-500">
+                      BTC
+                    </span>
+                  </span>
+                  <span className="shrink-0 text-xs font-medium tabular-nums text-zinc-500 dark:text-zinc-400">
+                    ≈ {formatUsd(activeSlice.wallet.btc * btcPriceUsd)} ·{" "}
+                    {percentFormatter.format(activeSlice.share * 100)}%
+                  </span>
+                </div>
+                <a
+                  href={`${explorer}/address/${activeSlice.wallet.address}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 flex items-center justify-center gap-1.5 rounded-full bg-foreground px-3 py-2 text-xs font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
+                >
+                  <span className="truncate">
+                    {t("viewOnExplorer", { host })}
+                  </span>
+                  <svg
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                    className="h-3 w-3 shrink-0 fill-current"
+                  >
+                    <path d="M11 3a1 1 0 1 0 0 2h2.586l-6.293 6.293a1 1 0 1 0 1.414 1.414L15 6.414V9a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1h-5Z" />
+                    <path d="M5 5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3a1 1 0 1 0-2 0v3H5V7h3a1 1 0 0 0 0-2H5Z" />
+                  </svg>
+                </a>
+              </>
+            ) : (
+              <p className="text-center text-xs text-zinc-400 dark:text-zinc-500">
+                {t("hoverHint")}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
 
-      <p className="text-center text-[11px] leading-5 text-zinc-400 dark:text-zinc-500">
-        {t("priceNote", { price: formatUsd(btcPriceUsd) })}
-      </p>
-
-      <section className="rounded-2xl border border-emerald-600/20 bg-emerald-600/[.06] p-4 dark:border-emerald-400/20 dark:bg-emerald-400/[.08]">
-        <h2 className="flex items-center gap-2 text-sm font-semibold text-black dark:text-zinc-50">
+      {/* Same treatment as the landing page's verification card: the
+          strongest claim gets the accent border, not another plain box. */}
+      <section className="flex flex-col gap-3 rounded-2xl border border-[#F7931A]/25 bg-gradient-to-b from-[#F7931A]/[.09] to-transparent px-6 py-8 dark:border-[#F7931A]/20 dark:from-[#F7931A]/[.12]">
+        <h2 className="flex items-center gap-2 text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
           <svg
             viewBox="0 0 24 24"
             aria-hidden="true"
-            className="h-4 w-4 shrink-0 fill-emerald-600 dark:fill-emerald-400"
+            className="h-5 w-5 shrink-0 fill-[#F7931A]"
           >
             <path
               fillRule="evenodd"
@@ -270,19 +293,19 @@ export function WalletPieChart({
           </svg>
           {t("proofTitle")}
         </h2>
-        <p className="mt-2 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
+        <p className="max-w-3xl text-sm leading-6 text-zinc-600 dark:text-zinc-400">
           {t("proofText")}
         </p>
       </section>
 
-      <ul className="flex flex-col gap-2">
+      {/* The slices spelled out as rows, so each address can be read and
+          audited on its own instead of only through the chart. */}
+      <ul className="flex flex-col divide-y divide-black/[.08] border-y border-black/[.08] dark:divide-white/[.145] dark:border-white/[.145]">
         {wallets.map((wallet, index) => (
           <li key={wallet.address}>
             <div
-              className={`flex items-center gap-3 rounded-xl border p-3 transition-colors ${
-                active === index
-                  ? "border-[#F7931A]/40 bg-[#F7931A]/[.06] dark:border-[#F7931A]/30"
-                  : "border-black/[.08] bg-zinc-50 dark:border-white/[.145] dark:bg-black"
+              className={`flex items-center gap-4 px-3 py-3 transition-colors ${
+                active === index ? "bg-[#F7931A]/[.07]" : ""
               }`}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
@@ -293,20 +316,23 @@ export function WalletPieChart({
                 style={{ backgroundColor: color(index) }}
               />
               <div className="min-w-0 flex-1">
-                <p className="truncate font-mono text-[11px] font-medium text-black dark:text-zinc-50">
+                <p className="truncate font-mono text-xs font-medium text-black dark:text-zinc-50">
                   {shorten(wallet.address)}
                 </p>
                 {wallet.label ? (
-                  <p className="truncate text-[11px] text-zinc-500 dark:text-zinc-400">
+                  <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">
                     {wallet.label}
                   </p>
                 ) : null}
               </div>
               <div className="shrink-0 text-right">
-                <p className="text-xs font-semibold tabular-nums text-black dark:text-zinc-50">
+                <p className="flex items-baseline justify-end gap-1.5 text-sm font-semibold tabular-nums text-black dark:text-zinc-50">
                   {formatBtc(wallet.btc)}
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-500">
+                    BTC
+                  </span>
                 </p>
-                <p className="text-[11px] tabular-nums text-zinc-500 dark:text-zinc-400">
+                <p className="text-xs font-medium tabular-nums text-zinc-500 dark:text-zinc-400">
                   {formatUsd(wallet.btc * btcPriceUsd)}
                 </p>
               </div>
@@ -315,7 +341,7 @@ export function WalletPieChart({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t("viewOnExplorer", { host })}
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/[.08] text-zinc-600 transition-colors hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-300 dark:hover:bg-white/[.06]"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/[.08] text-zinc-600 transition-colors hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-300 dark:hover:bg-white/[.06]"
               >
                 <svg
                   viewBox="0 0 20 20"
@@ -330,6 +356,10 @@ export function WalletPieChart({
           </li>
         ))}
       </ul>
+
+      <p className="text-xs leading-5 text-zinc-500 dark:text-zinc-400">
+        {t("priceNote", { price: formatUsd(btcPriceUsd) })}
+      </p>
     </div>
   );
 }
