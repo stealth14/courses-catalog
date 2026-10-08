@@ -8,12 +8,12 @@
     "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
-      "title": "Tu bitcoin bajo tu control, no en billeteras que no puedes auditar",
-      "subtitle": "Cuando se trata de dinero digital la facilidad de uso se paga con abstracción, capas de abstraccion que exponen tus claves privadas. Aprende a crear y manipular billeteras realmente seguras."
+      "title": "Tu wallet fría de bitcoin es de todo menos infalible.",
+      "subtitle": "Billeteras como Trezor y Coldcard exponen tus llaves privadas. Aprende a crear y gestionar billeteras verdaderamente seguras."
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "+15.000",
-    "metricLabel": "dólares en Bitcoin resguardados por nuestros clientes",
+    "metricLabel": "dólares en Bitcoin resguardados por nuestros clientes, quienes pueden demostrar que pertenecen a nuestra comunidad.",
     "exploreCta": "Explorar",
     "scandals": {
       "title": "¿Por qué es necesario aprender?",
@@ -55,9 +55,13 @@
         }
       }
     },
+    "learningSection": {
+      "title": "¿Por qué estas billeteras fallan y seguirán fallando?",
+      "body": "Tienes el control cuando tienes el conocimiento correcto, no cuando compras un dispositivo."
+    },
     "riskScale": {
       "title": "La escala de riesgo de los tipos de billetera",
-      "subtitle": "Ordenada por exposición al riesgo: desde configuraciones donde confías en la custodia de otro hasta la única donde confías solo en tu propia verificación.",
+      "subtitle": "De mayor a menor riesgo: de confiar en otros a verificar tu propia configuración.",
       "examplesLabel": "Ejemplos: ",
       "tiers": {
         "custodial": {

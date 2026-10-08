@@ -129,8 +129,8 @@ export async function HomeWalletScandals() {
     );
   };
 
-  const group = (className: string, hidden: boolean) => (
-    <ul className={className} aria-hidden={hidden || undefined}>
+  const group = (hidden: boolean) => (
+    <ul className="flex shrink-0 gap-4 pr-4" aria-hidden={hidden || undefined}>
       {visibleBrands.map(card)}
     </ul>
   );
@@ -148,8 +148,10 @@ export async function HomeWalletScandals() {
 
       <div className="wallet-marquee-viewport overflow-hidden px-4 sm:px-6">
         <div className="wallet-marquee flex w-max py-1">
-          {group("flex gap-4 pr-4", false)}
-          {group("wallet-marquee-copy flex gap-4 pr-4", true)}
+          {group(false)}
+          {group(true)}
+          {group(true)}
+          {group(true)}
         </div>
       </div>
 

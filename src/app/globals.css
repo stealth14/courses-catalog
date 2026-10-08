@@ -54,16 +54,15 @@ body {
   }
 }
 
-/* Hardware-wallet scandal row. The track holds the brand list twice, so
-   translating it by half its own width loops seamlessly — each group
-   carries a trailing gap matching the inter-card gap to keep the seam
-   invisible. */
+/* Hardware-wallet scandal row. Four identical groups keep the viewport
+   covered while translating by one group (a quarter of the track). Each
+   group carries a trailing gap matching the inter-card gap. */
 @keyframes wallet-marquee {
   from {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-25%, 0, 0);
   }
 }
 

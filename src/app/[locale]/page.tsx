@@ -34,13 +34,22 @@ export default async function HomePage() {
     <main className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 pt-10 sm:gap-20 sm:px-6 sm:pt-16">
         <HomeHero />
-
-        <HomeMetrics />
       </div>
 
       <HomeWalletScandals />
 
+      <section className="mx-auto my-16 flex w-full max-w-4xl flex-col gap-3 px-4 sm:my-20 sm:px-6">
+        <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
+          {t("learningSection.title")}
+        </h2>
+        <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+          {t("learningSection.body")}
+        </p>
+      </section>
+
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 pb-10 sm:gap-20 sm:px-6 sm:pb-16">
+        <HomeMetrics />
+
         <HomeWalletRiskScale />
 
         <HomeHowItWorks />
@@ -61,4 +70,3 @@ export default async function HomePage() {
     </main>
   );
 }
-

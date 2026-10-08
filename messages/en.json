@@ -13,7 +13,7 @@
     },
     "metricsLabel": "Why learn with us?",
     "metricValue": "+15.000",
-    "metricLabel": "dollars in Bitcoin secured by our clients",
+    "metricLabel": "dollars in Bitcoin secured by our clients, who can proof they belong to our community.",
     "exploreCta": "Explore",
     "scandals": {
       "title": "Why is it necessary to learn?",
@@ -55,9 +55,13 @@
         }
       }
     },
+    "learningSection": {
+      "title": "Why these wallets fail, and why they will keep failing?",
+      "body": "You are in control of your bitcoin when you have the right knowledge, not when you buy a device."
+    },
     "riskScale": {
       "title": "The risk scale of wallet types",
-      "subtitle": "Ordered by risk exposure — from setups where you trust someone else's custody to the one where you trust only your own verification.",
+      "subtitle": "Highest risk to lowest: from trusting others to verifying your own setup.",
       "examplesLabel": "Examples: ",
       "tiers": {
         "custodial": {
