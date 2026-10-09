@@ -13,7 +13,7 @@
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "+15.000",
-    "metricLabel": "dólares en Bitcoin de clientes antes en riesgo ahora resguardado bajo su control.",
+    "metricLabel": "dólares en Bitcoin que nuestros clientes hoy resguardan en autocustodia — bajo llaves que solo ellos controlan.",
     "exploreCta": "Explorar",
     "scandals": {
       "title": "¿Por qué es necesario aprender?",
@@ -99,7 +99,7 @@
       "title": "Con quién vas a aprender"
     },
     "whatsappCta": {
-      "hero": "Conocer más",
+      "hero": "Quiero aprender",
       "profile": "Contáctame"
     }
   },
@@ -109,7 +109,7 @@
     "title": "Verificación on-chain",
     "subtitle": "Cada porción es una dirección Bitcoin y su saldo — billeteras en manos de personas de nuestra comunidad, clientes con quienes mantenemos una relación directa.",
     "totalLabel": "Total resguardado",
-    "chartAlt": "Gráfico circular de {count} billeteras Bitcoin resguardadas",
+    "chartAlt": "Gráfico circular de {count, plural, one {# billetera Bitcoin resguardada} other {# billeteras Bitcoin resguardadas}}",
     "hoverHint": "Pasa el cursor o toca una porción para ver el detalle",
     "priceNote": "Los montos en USD son estimaciones a {price} por BTC.",
     "viewOnExplorer": "Abrir en {host}",

@@ -13,7 +13,7 @@
     },
     "metricsLabel": "Why learn with us?",
     "metricValue": "+15.000",
-    "metricLabel": "dollars in Bitcoin secured by our clients, who can proof they belong to our community.",
+    "metricLabel": "dollars in Bitcoin our clients now hold in self-custody — under keys only they control.",
     "exploreCta": "Explore",
     "scandals": {
       "title": "Why is it necessary to learn?",
@@ -109,7 +109,7 @@
     "title": "On-chain verification",
     "subtitle": "Each slice is a Bitcoin address and its balance — wallets held by people from our community, clients with whom we keep a direct relationship.",
     "totalLabel": "Total secured",
-    "chartAlt": "Pie chart of {count} secured Bitcoin wallets",
+    "chartAlt": "Pie chart of {count, plural, one {# secured Bitcoin wallet} other {# secured Bitcoin wallets}}",
     "hoverHint": "Hover or tap a slice for details",
     "priceNote": "USD amounts are estimates at {price} per BTC.",
     "viewOnExplorer": "Open on {host}",
