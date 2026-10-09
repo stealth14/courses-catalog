@@ -48,6 +48,9 @@ const MONOGRAM_CLASSES: Record<string, string> = {
  * Hardware-wallet graveyard: a horizontally scrolling row of the brands
  * that asked to be trusted with seed phrases and then lost that trust in
  * public. Each card names a dated, documented incident, not an opinion.
+ *
+ * Cards lay the mark beside the copy instead of stacking it above, so the
+ * row stays short and the sections below stay a short scroll away.
  */
 export async function HomeWalletScandals() {
   const t = await getTranslations("HomePage");
