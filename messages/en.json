@@ -90,14 +90,6 @@
         }
       }
     },
-    "howItWorks": {
-      "title": "How it works",
-      "subtitle": "Two steps, at your pace.",
-      "step1Title": "Book your first session",
-      "step1Body": "Pick a day and a time. The first session runs 30 minutes, one to one, to review what you hold today and where the risk actually is.",
-      "step2Title": "Build your own wallet",
-      "step2Body": "We set up an actually verifiable open source wallet that you run yourself, and go through every layer instead of trusting a product to hide it."
-    },
     "offering": {
       "title": "Plans",
       "subtitle": "One-off sessions, a subscription, or ongoing consultancy.",
@@ -106,21 +98,9 @@
     "who": {
       "title": "Who you're working with"
     },
-    "faq": {
-      "title": "Common questions",
-      "q1": "Do I need special hardware to start?",
-      "a1": "No. We start with what you already have and add hardware only when it genuinely reduces your risk — not because a product list says so.",
-      "q2": "I already hold Bitcoin on an exchange. Is this for me?",
-      "a2": "Yes. We map your current setup, then move your coins into a wallet you control, at a pace you're comfortable with.",
-      "q3": "Why not just use an easy-to-use app?",
-      "a3": "Every wallet asks you to trust layers between you and your keys that you cannot inspect. We remove those layers and I explain what each one was doing.",
-      "q4": "Do I need to be technical?",
-      "a4": "No. The sessions follow your level; the goal is that you can explain and verify your own setup by the end."
-    },
-    "cta": "See the plans",
-    "finalCta": {
-      "title": "Start with your own setup",
-      "body": "Book the first session and bring your questions about the wallet you use today."
+    "whatsappCta": {
+      "hero": "Learn more",
+      "profile": "Contact me"
     }
   },
   "TransparencyPage": {

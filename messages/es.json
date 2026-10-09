@@ -90,14 +90,6 @@
         }
       }
     },
-    "howItWorks": {
-      "title": "Cómo funciona",
-      "subtitle": "Dos pasos, a tu ritmo.",
-      "step1Title": "Agenda tu primera sesión",
-      "step1Body": "Elige día y hora. La primera sesión dura 30 minutos, uno a uno, para revisar qué tienes hoy y dónde está realmente el riesgo.",
-      "step2Title": "Construye tu propia billetera",
-      "step2Body": "Configuramos una billetera de código abierto realmente verificable que operas tú mismo, y revisamos cada capa en lugar de confiar en que un producto la esconda."
-    },
     "offering": {
       "title": "Planes",
       "subtitle": "Sesiones puntuales, suscripción o consultoría continua.",
@@ -106,21 +98,9 @@
     "who": {
       "title": "Con quién vas a aprender"
     },
-    "faq": {
-      "title": "Preguntas frecuentes",
-      "q1": "¿Necesito hardware especial para empezar?",
-      "a1": "No. Empezamos con lo que ya tienes y añadimos hardware solo cuando reduce tu riesgo de verdad, no porque lo diga una lista de productos.",
-      "q2": "Ya tengo Bitcoin en un exchange. ¿Esto es para mí?",
-      "a2": "Sí. Te enseñamos como hacerlo.",
-      "q3": "¿Por qué no usar simplemente una app fácil de usar?",
-      "a3": "Cada billetera te pide confiar en capas entre tú y tus llaves. Quitamos esas capas y te explico qué hacía cada una.",
-      "q4": "¿Necesito saber de tecnología?",
-      "a4": "No. Las sesiones siguen tu nivel; el objetivo es que al final puedas explicar y verificar tu propia configuración."
-    },
-    "cta": "Ver los planes",
-    "finalCta": {
-      "title": "Empieza por tu propia configuración",
-      "body": "Agenda la primera sesión y trae tus dudas sobre la billetera que usas hoy."
+    "whatsappCta": {
+      "hero": "Conocer más",
+      "profile": "Contáctame"
     }
   },
   "TransparencyPage": {

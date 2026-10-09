@@ -5,9 +5,7 @@ import { HomeHero } from "./home-hero";
 import { HomeMetrics } from "./home-metrics";
 import { HomeWalletScandals } from "./home-wallet-scandals";
 import { HomeWalletRiskScale } from "./home-wallet-risk-scale";
-import { HomeHowItWorks } from "./home-how-it-works";
-import { HomeFaq } from "./home-faq";
-import { HomeFinalCta } from "./home-final-cta";
+import { HomeWhatsappCta } from "./home-whatsapp-cta";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("HomePage");
@@ -51,18 +49,13 @@ export default async function HomePage() {
 
         <HomeWalletRiskScale />
 
-        <HomeHowItWorks />
-
         <section className="flex flex-col items-center gap-5">
           <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
             {t("who.title")}
           </h2>
           <PaymentHeader variant="full" headingLevel="none" />
+          <HomeWhatsappCta placement="profile" />
         </section>
-
-        <HomeFaq />
-
-        <HomeFinalCta />
       </div>
     </main>
   );
