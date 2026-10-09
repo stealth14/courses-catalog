@@ -86,7 +86,7 @@
           "label": "Safe",
           "title": "Verifiable open-source self-custody",
           "body": "You generate and hold your own keys with code you can read and verify, on hardware you control — nothing between you and your coins but your own audit.",
-          "examples": "air-gapped signing devices."
+          "examples": ""
         }
       }
     },
@@ -107,13 +107,11 @@
     "metadataTitle": "Verification — Secured Bitcoin wallets",
     "metadataDescription": "Pie chart of the Bitcoin wallets the mentorship helped secure, with public on-chain verification links.",
     "title": "On-chain verification",
-    "subtitle": "Each slice is one Bitcoin address and its balance — wallets my students built themselves with Bitcoin Core on a Raspberry Pi, with no third-party custodian. Hover or tap a slice to see the BTC and USD amounts.",
+    "subtitle": "Each slice is a Bitcoin address and its balance — wallets held by people from our community, clients with whom we keep a direct relationship.",
     "totalLabel": "Total secured",
     "chartAlt": "Pie chart of {count} secured Bitcoin wallets",
     "hoverHint": "Hover or tap a slice for details",
     "priceNote": "USD amounts are estimates at {price} per BTC.",
-    "proofTitle": "Prove it live, one to one",
-    "proofText": "These wallets are under my control, and I can prove it. In a one-to-one demonstration I move funds in or out of these addresses while you watch the transaction confirm on-chain in real time, so you can match every slice of this chart to a transaction you audit yourself.",
     "viewOnExplorer": "Open on {host}",
     "empty": "No secured wallets published yet."
   },

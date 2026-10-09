@@ -276,28 +276,6 @@ export function WalletPieChart({
         </div>
       </section>
 
-      {/* Same treatment as the landing page's verification card: the
-          strongest claim gets the accent border, not another plain box. */}
-      <section className="flex flex-col gap-3 rounded-2xl border border-[#F7931A]/25 bg-gradient-to-b from-[#F7931A]/[.09] to-transparent px-6 py-8 dark:border-[#F7931A]/20 dark:from-[#F7931A]/[.12]">
-        <h2 className="flex items-center gap-2 text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            className="h-5 w-5 shrink-0 fill-[#F7931A]"
-          >
-            <path
-              fillRule="evenodd"
-              d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
-              clipRule="evenodd"
-            />
-          </svg>
-          {t("proofTitle")}
-        </h2>
-        <p className="max-w-3xl text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {t("proofText")}
-        </p>
-      </section>
-
       {/* The slices spelled out as rows, so each address can be read and
           audited on its own instead of only through the chart. */}
       <ul className="flex flex-col divide-y divide-black/[.08] border-y border-black/[.08] dark:divide-white/[.145] dark:border-white/[.145]">

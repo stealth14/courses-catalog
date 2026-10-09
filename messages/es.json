@@ -86,7 +86,7 @@
           "label": "Seguro",
           "title": "Autocustodia de código abierto verificable",
           "body": "Generas y resguardas tus propias llaves con código que puedes leer y verificar, en hardware que controlas, sin nada entre tú y tus monedas salvo tu propia auditoría.",
-          "examples": "dispositivos de firma air-gapped."
+          "examples": ""
         }
       }
     },
@@ -107,13 +107,11 @@
     "metadataTitle": "Verificación — Billeteras Bitcoin resguardadas",
     "metadataDescription": "Gráfico de las billeteras Bitcoin que la mentoría ayudó a resguardar, con enlaces públicos de verificación on-chain.",
     "title": "Verificación on-chain",
-    "subtitle": "Clientes que han aprendido con nosotros.",
+    "subtitle": "Cada porción es una dirección Bitcoin y su saldo — billeteras en manos de personas de nuestra comunidad, clientes con quienes mantenemos una relación directa.",
     "totalLabel": "Total resguardado",
     "chartAlt": "Gráfico circular de {count} billeteras Bitcoin resguardadas",
     "hoverHint": "Pasa el cursor o toca una porción para ver el detalle",
     "priceNote": "Los montos en USD son estimaciones a {price} por BTC.",
-    "proofTitle": "Pruébalo en vivo, 1 a 1",
-    "proofText": "En una demostración 1 a 1 ",
     "viewOnExplorer": "Abrir en {host}",
     "empty": "Aún no hay billeteras resguardadas publicadas."
   },

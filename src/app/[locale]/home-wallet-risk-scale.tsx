@@ -99,12 +99,14 @@ export async function HomeWalletRiskScale() {
                 <p className="mt-1.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
                   {t(`riskScale.tiers.${tier.id}.body`)}
                 </p>
-                <p className="mt-2 text-xs leading-5 text-zinc-500 dark:text-zinc-400">
-                  {t("riskScale.examplesLabel")}
-                  <span className="text-zinc-600 dark:text-zinc-300">
-                    {t(`riskScale.tiers.${tier.id}.examples`)}
-                  </span>
-                </p>
+                {tier.id !== "opensource-verifiable" && (
+                  <p className="mt-2 text-xs leading-5 text-zinc-500 dark:text-zinc-400">
+                    {t("riskScale.examplesLabel")}
+                    <span className="text-zinc-600 dark:text-zinc-300">
+                      {t(`riskScale.tiers.${tier.id}.examples`)}
+                    </span>
+                  </p>
+                )}
               </div>
             </li>
           );
