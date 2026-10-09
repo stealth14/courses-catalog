@@ -3,15 +3,26 @@ import { getTranslations } from "next-intl/server";
 import {
   getBrandLogos,
   HARDWARE_WALLET_BRANDS,
+  type BrandLogo,
   type HardwareWalletBrand,
 } from "@/lib/hardware-wallets";
 
 /**
- * Shared display height (px) for every brand mark in the logo tile. Wide
- * wordmarks get a wider box derived from their aspect ratio, square icons
- * stay square — all centred on the same line.
+ * Side (px) of the square every brand mark is contained in, so wide
+ * wordmarks and square icons all sit in the same tile without being
+ * squashed.
  */
-const LOGO_HEIGHT = 56;
+const LOGO_BOX = 36;
+
+/** Fits a mark inside the `LOGO_BOX` square, keeping its aspect ratio. */
+function containInBox(logo: BrandLogo): { width: number; height: number } {
+  const scale = LOGO_BOX / Math.max(logo.width, logo.height);
+
+  return {
+    width: Math.max(1, Math.round(logo.width * scale)),
+    height: Math.max(1, Math.round(logo.height * scale)),
+  };
+}
 
 /**
  * Original monogram badge shown when a licensed logo is not present. Each
@@ -53,29 +64,24 @@ export async function HomeWalletScandals() {
   const card = (brand: HardwareWalletBrand) => {
     const logo = logos.get(brand.id);
 
-    // Every mark shares the same display height; the box width follows the
-    // asset's intrinsic aspect ratio so wordmarks and icons both centre in
-    // the tile without being squashed.
-    const boxWidth = logo
-      ? Math.round(LOGO_HEIGHT * (logo.width / logo.height))
-      : LOGO_HEIGHT;
+    const box = logo ? containInBox(logo) : null;
 
     return (
       <li
         key={brand.id}
-        className="flex w-80 shrink-0 flex-col rounded-2xl border border-black/[.08] bg-white p-5 dark:border-white/[.145] dark:bg-[#111]"
+        className="flex w-80 shrink-0 items-center gap-3 rounded-2xl border border-black/[.08] bg-white p-3 dark:border-white/[.145] dark:bg-[#111]"
       >
-        <div className="flex h-20 items-center justify-center rounded-xl bg-zinc-100 px-4 dark:bg-white">
-          {logo ? (
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-zinc-100 p-2 dark:bg-white">
+          {logo && box ? (
             <span
-              className="relative block h-14"
-              style={{ width: `${boxWidth}px` }}
+              className="relative block"
+              style={{ width: `${box.width}px`, height: `${box.height}px` }}
             >
               <Image
                 src={logo.src}
                 alt={brand.name}
                 fill
-                sizes={`${boxWidth}px`}
+                sizes={`${LOGO_BOX}px`}
                 className="object-contain"
               />
             </span>
@@ -87,44 +93,46 @@ export async function HomeWalletScandals() {
               >
                 {brand.monogram}
               </span>
-              <span className="truncate text-base font-semibold tracking-tight text-zinc-700 dark:text-zinc-200">
-                {brand.name}
-              </span>
+              <span className="sr-only">{brand.name}</span>
             </>
           )}
         </div>
 
-        <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9A5B00] dark:text-amber-400">
-          {t(`scandals.brands.${brand.id}.date`)}
-        </p>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9A5B00] dark:text-amber-400">
+              {t(`scandals.brands.${brand.id}.date`)}
+            </p>
 
-        <p className="mt-2 flex-1 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
-          {t(`scandals.brands.${brand.id}.incident`)}
-        </p>
+            <a
+              href={brand.source}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${brand.name}: ${t("scandals.sourceCta")}`}
+              className="inline-flex h-6 shrink-0 items-center gap-1 rounded-full border border-black/[.08] px-2.5 text-[11px] font-medium text-zinc-700 transition-colors hover:border-black/[.16] hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-200 dark:hover:border-white/[.25] dark:hover:bg-white/[.06]"
+            >
+              {t("scandals.sourceCta")}
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                aria-hidden="true"
+                className="h-3 w-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5.5 14.5 14.5 5.5m0 0H7.75m6.75 0v6.75"
+                />
+              </svg>
+            </a>
+          </div>
 
-        <a
-          href={brand.source}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${brand.name}: ${t("scandals.sourceCta")}`}
-          className="mt-4 inline-flex h-9 items-center justify-center gap-2 rounded-full border border-black/[.08] px-4 text-xs font-medium text-zinc-700 transition-colors hover:border-black/[.16] hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-200 dark:hover:border-white/[.25] dark:hover:bg-white/[.06]"
-        >
-          {t("scandals.sourceCta")}
-          <svg
-            viewBox="0 0 20 20"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.75}
-            aria-hidden="true"
-            className="h-3.5 w-3.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5.5 14.5 14.5 5.5m0 0H7.75m6.75 0v6.75"
-            />
-          </svg>
-        </a>
+          <p className="mt-1.5 text-[11px] leading-4 text-zinc-600 dark:text-zinc-400">
+            {t(`scandals.brands.${brand.id}.incident`)}
+          </p>
+        </div>
       </li>
     );
   };

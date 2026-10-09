@@ -33,6 +33,8 @@ export default async function HomePage() {
         <HomeHero />
       </div>
 
+      <HomeWalletScandals />
+
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 sm:px-6">
         <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
           {t("learningSection.title")}
@@ -41,8 +43,6 @@ export default async function HomePage() {
           {t("learningSection.body")}
         </p>
       </section>
-
-      <HomeWalletScandals />
 
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 pb-10 sm:gap-16 sm:px-6 sm:pb-16">
         <HomeMetrics />
