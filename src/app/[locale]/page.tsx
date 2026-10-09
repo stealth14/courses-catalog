@@ -6,7 +6,6 @@ import { HomeMetrics } from "./home-metrics";
 import { HomeWalletScandals } from "./home-wallet-scandals";
 import { HomeWalletRiskScale } from "./home-wallet-risk-scale";
 import { HomeHowItWorks } from "./home-how-it-works";
-import { HomeOffering } from "./home-offering";
 import { HomeFaq } from "./home-faq";
 import { HomeFinalCta } from "./home-final-cta";
 
@@ -31,14 +30,12 @@ export default async function HomePage() {
   const t = await getTranslations("HomePage");
 
   return (
-    <main className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 pt-10 sm:gap-20 sm:px-6 sm:pt-16">
+    <main className="flex flex-1 flex-col gap-12 bg-zinc-50 sm:gap-16 dark:bg-black">
+      <div className="mx-auto flex w-full max-w-4xl flex-col px-4 pt-10 sm:px-6 sm:pt-16">
         <HomeHero />
       </div>
 
-      <HomeWalletScandals />
-
-      <section className="mx-auto my-16 flex w-full max-w-4xl flex-col gap-3 px-4 sm:my-20 sm:px-6">
+      <section className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 sm:px-6">
         <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
           {t("learningSection.title")}
         </h2>
@@ -47,14 +44,14 @@ export default async function HomePage() {
         </p>
       </section>
 
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-16 px-4 pb-10 sm:gap-20 sm:px-6 sm:pb-16">
+      <HomeWalletScandals />
+
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 pb-10 sm:gap-16 sm:px-6 sm:pb-16">
         <HomeMetrics />
 
         <HomeWalletRiskScale />
 
         <HomeHowItWorks />
-
-        <HomeOffering />
 
         <section className="flex flex-col items-center gap-5">
           <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">

@@ -8,8 +8,8 @@
     "metadataTitle": "Ronny Cajas — Bitcoin for professionals",
     "metadataDescription": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited code with your keys.",
     "hero": {
-      "title": "Own your Bitcoin, not a wallet you can't audit",
-      "subtitle": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited source code with your keys."
+      "title": "Own your Bitcoin, not a wallet you don't really control.",
+      "subtitle": "Wallets like Trezor and Coldcard leave your private keys exposed. Learn how to create and manage wallets that are truly secure"
     },
     "metricsLabel": "Why learn with us?",
     "metricValue": "+15.000",
@@ -17,8 +17,8 @@
     "exploreCta": "Explore",
     "scandals": {
       "title": "Why is it necessary to learn?",
-      "subtitle": "Because the wallets sold as safe keep breaking in public. Every card below is a documented incident — a vendor advisory, independent lab research, or press reporting — not an opinion about the brand.",
-      "footnote": "Dates are the public disclosure dates; figures come from the vendor's own advisory or the reporting cited by it. No brand appears here without a documented incident.",
+      "subtitle": "The most popular wallets on the market have caused the loss of millions of dollars in Bitcoin—funds that clients believed were completely safe.",
+      "footnote": "",
       "sourceCta": "Read the report",
       "brands": {
         "ledger": {
@@ -57,7 +57,7 @@
     },
     "learningSection": {
       "title": "Why these wallets fail, and why they will keep failing?",
-      "body": "You are in control of your bitcoin when you have the right knowledge, not when you buy a device."
+      "body": "Your Bitcoin is safe when you have the right knowledge, not when you buy a device. Bitcoin already has the tools, you just need to learn how to use them."
     },
     "riskScale": {
       "title": "The risk scale of wallet types",

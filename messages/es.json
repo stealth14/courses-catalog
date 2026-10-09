@@ -8,17 +8,17 @@
     "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
-      "title": "Tu wallet fría de bitcoin es de todo menos infalible.",
+      "title": "Recupera el control de tu Bitcoin",
       "subtitle": "Billeteras como Trezor y Coldcard exponen tus llaves privadas. Aprende a crear y gestionar billeteras verdaderamente seguras."
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "+15.000",
-    "metricLabel": "dólares en Bitcoin resguardados por nuestros clientes, quienes pueden demostrar que pertenecen a nuestra comunidad.",
+    "metricLabel": "dólares en Bitcoin de clientes antes en riesgo ahora resguardado bajo su control.",
     "exploreCta": "Explorar",
     "scandals": {
       "title": "¿Por qué es necesario aprender?",
-      "subtitle": "Porque las billeteras que se venden como seguras siguen fallando en público. Cada tarjeta de abajo es un incidente documentado — un aviso del fabricante, una investigación de un laboratorio independiente o una cobertura de prensa —, no una opinión sobre la marca.",
-      "footnote": "Las fechas son las de divulgación pública; las cifras provienen del aviso del propio fabricante o de la cobertura que este cita. Ninguna marca aparece aquí sin un incidente documentado.",
+      "subtitle": "Las billeteras comerciales mas conocidas han causado la pérdida de millones de dólares en Bitcoin, ahorros de clientes que creyeron estar a salvo.",
+      "footnote": "",
       "sourceCta": "Leer más",
       "brands": {
         "ledger": {
@@ -57,7 +57,7 @@
     },
     "learningSection": {
       "title": "¿Por qué estas billeteras fallan y seguirán fallando?",
-      "body": "Tienes el control cuando tienes el conocimiento correcto, no cuando compras un dispositivo."
+      "body": "Tu bitcoin está a salvo cuando tienes el conocimiento correcto, no cuando compras un dispositivo. Bitcoin ya tiene las herramientas, solo necesitas aprender a usarlas."
     },
     "riskScale": {
       "title": "La escala de riesgo de los tipos de billetera",
