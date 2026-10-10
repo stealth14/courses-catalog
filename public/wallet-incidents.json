@@ -1,0 +1,135 @@
+{
+  "wallets": [
+    {
+      "id": "jade",
+      "name": "Blockstream Jade",
+      "monogram": "JA",
+      "incidents": [
+        {
+          "date": { "en": "Aug 2026", "es": "Ago 2026" },
+          "source": "https://github.com/Blockstream/Jade/blob/master/CHANGELOG.md",
+          "summary": {
+            "en": "Firmware 1.0.41 shipped as an urgent security release — every user was told to upgrade immediately. Stack protection for production devices and scrubbing of secrets from memory were hardened, and firmware downgrades from this release were blocked, after external researchers reported several issues.",
+            "es": "El firmware 1.0.41 se publicó como una actualización urgente de seguridad: se pidió a todos los usuarios actualizar de inmediato. Se endureció la protección de pila en dispositivos de producción y la limpieza de secretos en memoria, y se bloquearon las instalaciones de firmware anteriores a esta versión, tras varios fallos reportados por investigadores externos."
+          },
+          "details": {
+            "en": [
+              "The release notes credit Jordan Mecom (Spiral, for the Loupe vulnerability tool), 0xaudron (Kvazar, an agentic security harness) and the Bitcoin Red Team for investigating and fixing several important issues.",
+              "What the update actually changed is telling: stack protection was improved for production devices, additional per-device entropy was mixed into the initial random seed, internal memory scrubbing of sensitive data was made more thorough, and the secure version was incremented to prevent firmware downgrades.",
+              "It is the second release in ten months that carries the same \"all users should upgrade as soon as possible\" notice: 1.0.38 shipped with the identical warning and enabled firmware rollback prevention on production releases."
+            ],
+            "es": [
+              "Las notas de la versión agradecen a Jordan Mecom (Spiral, por la herramienta de vulnerabilidades Loupe), a 0xaudron (Kvazar, un arnés de seguridad con agentes) y al Bitcoin Red Team por investigar y corregir varios fallos importantes.",
+              "Lo que cambió de verdad en la actualización es revelador: se mejoró la protección de pila en dispositivos de producción, se añadió entropía adicional por dispositivo a la semilla aleatoria inicial, se hizo más exhaustiva la limpieza de datos sensibles en memoria y se incrementó la versión segura para impedir el retorno a firmware anterior.",
+              "Es la segunda versión en diez meses con el mismo aviso de \"todos los usuarios deberían actualizar cuanto antes\": la 1.0.38 se publicó con idéntica advertencia y habilitó la prevención de retorno a firmware anterior en las versiones de producción."
+            ]
+          }
+        },
+        {
+          "date": { "en": "Nov 2025", "es": "Nov 2025" },
+          "source": "https://github.com/Blockstream/Jade/blob/master/CHANGELOG.md",
+          "summary": {
+            "en": "Release 1.0.38 carried the same urgent upgrade warning and enabled firmware rollback prevention, thanking DARKNAVY for its research and responsible disclosure.",
+            "es": "La versión 1.0.38 llevaba la misma advertencia urgente de actualización y habilitó la prevención de retorno a firmware anterior, agradeciendo a DARKNAVY su investigación y divulgación responsable."
+          }
+        }
+      ],
+      "exposure": {
+        "summary": {
+          "en": "What keeps an original Jade exposed today is not a bug that shipped and got fixed: the device has no tamper-resistant secure element, and the silicon it runs on has a publicly demonstrated key-extraction attack that cannot be patched on units already sold.",
+          "es": "Lo que hoy mantiene expuesta a una Jade original no es un fallo que se corrigió: el dispositivo no tiene un elemento seguro a prueba de manipulación y el silicio sobre el que corre tiene un ataque de extracción de llaves demostrado públicamente que no se puede parchear en las unidades ya vendidas."
+        },
+        "points": {
+          "en": [
+            "Blockstream markets a \"Virtual Secure Element\" rather than a hardware one: the product page states that \"blind oracle encryption\" is what allows the device to stay open-source while preventing physical key extraction. Key protection therefore rests on firmware plus the external PIN server, not on tamper-resistant silicon. Hardware-anchored attestation came later and only partly: Blockstream's own RPC reference says the attestation call \"is only supported by ESP32S3-based hw units\".",
+            "The ESP32 silicon beneath it has been broken in public. In November 2019 a fault-injection attack produced a full readout of the protected eFuses holding the Flash-Encryption key and the Secure-Boot key (CVE-2019-17391), bypassing both persistent safeguards; the researcher states plainly that the attack \"cannot be patched by the vendor on existing devices\".",
+            "The firmware record is one of recurring urgent patching: two \"upgrade as soon as possible\" security releases in ten months. The August 2026 one hardened stack protection, mixed extra per-device entropy into the initial seed, scrubbed secrets from memory more thoroughly and blocked firmware downgrades — a set of fixes that speaks to overflow protection, seed entropy and secret retention in RAM."
+          ],
+          "es": [
+            "Blockstream anuncia un \"elemento seguro virtual\" en lugar de uno de hardware: la página del producto afirma que el cifrado con \"oráculo ciego\" es lo que permite que el dispositivo siga siendo abierto y a la vez impida la extracción física de llaves. La protección depende entonces del firmware y del servidor externo de PIN, no de silicio resistente a manipulación. La atestación anclada en hardware llegó después y solo en parte: la propia referencia RPC de Blockstream indica que esa llamada solo es compatible con unidades de hardware basadas en ESP32S3.",
+            "El silicio ESP32 que lo sostiene ya fue roto en público. En noviembre de 2019 un ataque de inyección de fallos logró leer por completo los eFuses protegidos que guardan la llave de cifrado de flash y la llave de arranque seguro (CVE-2019-17391), saltándose ambas protecciones de forma persistente; el investigador afirma sin matices que el ataque no se puede parchear en los dispositivos ya existentes.",
+            "El historial de firmware es de parcheo urgente recurrente: dos versiones de seguridad con aviso de \"actualizar cuanto antes\" en diez meses. La de agosto de 2026 endureció la protección de pila, añadió entropía por dispositivo a la semilla inicial, limpió los secretos de la memoria con más exhaustividad y bloqueó el retorno a firmware anterior: un conjunto de arreglos que habla de protección ante desbordamientos, de entropía de la semilla y de retención de secretos en RAM."
+          ]
+        },
+        "sources": [
+          {
+            "label": "Blockstream — Jade: hardware security and the \"Virtual Secure Element\"",
+            "url": "https://blockstream.com/jade/"
+          },
+          {
+            "label": "Blockstream/Jade — RPC reference (sign_attestation is ESP32S3-only)",
+            "url": "https://github.com/Blockstream/Jade/blob/master/docs/index.rst"
+          },
+          {
+            "label": "LimitedResults — ESP32 flash-encryption and secure-boot key extraction (CVE-2019-17391)",
+            "url": "https://www.limitedresults.com/results/pwn-the-esp32-forever-flash-encryption-and-sec-boot-keys-extraction"
+          },
+          {
+            "label": "Blockstream/Jade — firmware changelog (1.0.38 and 1.0.41 security notices)",
+            "url": "https://github.com/Blockstream/Jade/blob/master/CHANGELOG.md"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ledger",
+      "name": "Ledger",
+      "monogram": "LE",
+      "incidents": [
+        {
+          "date": { "en": "Dec 2023", "es": "Dic 2023" },
+          "source": "https://thehackernews.com/2023/12/crypto-hardware-wallet-ledgers-supply.html",
+          "summary": {
+            "en": "A phished employee let attackers publish a wallet drainer inside the Ledger Connect Kit SDK — roughly $600,000 swept in hours, plus customer-data breaches in 2020 and 2026.",
+            "es": "Un empleado víctima de phishing permitió publicar un drenador de fondos dentro del SDK Ledger Connect Kit: unos 600.000 USD barridos en horas, más filtraciones de datos de clientes en 2020 y 2026."
+          }
+        }
+      ]
+    },
+    {
+      "id": "trezor",
+      "name": "Trezor",
+      "monogram": "TR",
+      "incidents": [
+        {
+          "date": { "en": "Jun 2026", "es": "Jun 2026" },
+          "source": "https://trezor.io/blog/news/Trezor-response-TROPIC01-chip-disclosure-no-impact-to-your-funds",
+          "summary": {
+            "en": "A laser fault-injection attack on the secure chip in the Safe 7, followed by partner breaches that exposed hundreds of thousands of customer records.",
+            "es": "Un ataque de inyección de fallos con láser contra el chip seguro del Safe 7, seguido de filtraciones en proveedores que expusieron cientos de miles de registros de clientes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "coldcard",
+      "name": "COLDCARD",
+      "monogram": "CC",
+      "incidents": [
+        {
+          "date": { "en": "Jul 2026", "es": "Jul 2026" },
+          "source": "https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/",
+          "summary": {
+            "en": "A firmware entropy bug made seed phrases predictable. An estimated $88.6M in bitcoin was swept from affected wallets, and updating the firmware does not repair an existing seed.",
+            "es": "Un bug de entropía en el firmware hacía predecibles las semillas. Se barrieron unos 88,6 M USD en bitcoin de las billeteras afectadas, y actualizar el firmware no repara una semilla ya creada."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tangem",
+      "name": "Tangem",
+      "monogram": "TA",
+      "incidents": [
+        {
+          "date": { "en": "Jul 2026", "es": "Jul 2026" },
+          "source": "https://donjon.ledger.com/blog/bypassing-tangem-card-security-with-laser-attack/",
+          "summary": {
+            "en": "A timed laser pulse defeats the card's password-reset check, letting an attacker set a new password. The flaw cannot be patched.",
+            "es": "Un pulso láser temporizado salta la verificación para cambiar la contraseña de la tarjeta y permite fijar una nueva. El fallo no se puede parchear."
+          }
+        }
+      ]
+    }
+  ]
+}

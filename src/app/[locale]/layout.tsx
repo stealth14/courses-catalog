@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { BackButton } from "@/components/back-button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { ProfilePhoto } from "@/components/profile-photo";
+import { SiteNav } from "@/components/site-nav";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -63,12 +64,19 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider>
           <header className="sticky top-0 z-50 border-b border-black/[.06] bg-zinc-50/80 backdrop-blur-md dark:border-white/[.08] dark:bg-black/70">
-            <div className="mx-auto flex h-16 w-full max-w-4xl items-center gap-3 px-4 sm:px-6">
+            {/* Wraps on very narrow screens: the two path CTAs drop to a
+                second row instead of squeezing the rest of the bar. */}
+            <div className="mx-auto flex min-h-16 w-full max-w-4xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 sm:h-16 sm:flex-nowrap sm:px-6 sm:py-0">
               <ProfilePhoto alt={t("navPhotoAlt")} size="tiny" />
               <Suspense fallback={null}>
                 <BackButton />
-                <LocaleSwitcher />
               </Suspense>
+              <div className="ml-auto flex items-center gap-2 sm:gap-3">
+                <SiteNav />
+                <Suspense fallback={null}>
+                  <LocaleSwitcher />
+                </Suspense>
+              </div>
             </div>
           </header>
           {children}

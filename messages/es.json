@@ -4,6 +4,13 @@
     "description": "Enseño a individuos y empresas a resguardar su propio Bitcoin, en billeteras que ellos controlan.",
     "navPhotoAlt": "Foto de perfil de Ronny Cajas"
   },
+  "Nav": {
+    "label": "Elige cómo aprender",
+    "free": "Aprende gratis",
+    "freeShort": "Gratis",
+    "premium": "Sé un experto",
+    "premiumShort": "Experto"
+  },
   "HomePage": {
     "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
@@ -20,40 +27,8 @@
       "subtitle": "Las billeteras comerciales mas conocidas han causado la pérdida de millones de dólares en Bitcoin, ahorros de clientes que creyeron estar a salvo.",
       "footnote": "",
       "sourceCta": "Leer más",
-      "brands": {
-        "ledger": {
-          "date": "Dic 2023",
-          "incident": "Un empleado víctima de phishing permitió publicar un drenador de fondos dentro del SDK Ledger Connect Kit: unos 600.000 USD barridos en horas, más filtraciones de datos de clientes en 2020 y 2026."
-        },
-        "trezor": {
-          "date": "Jun 2026",
-          "incident": "Un ataque de inyección de fallos con láser contra el chip seguro del Safe 7, seguido de filtraciones en proveedores que expusieron cientos de miles de registros de clientes."
-        },
-        "coldcard": {
-          "date": "Jul 2026",
-          "incident": "Un bug de entropía en el firmware hacía predecibles las semillas. Se barrieron unos 88,6 M USD en bitcoin de las billeteras afectadas, y actualizar el firmware no repara una semilla ya creada."
-        },
-        "tangem": {
-          "date": "Jul 2026",
-          "incident": "Un pulso láser temporizado salta la verificación para cambiar la contraseña de la tarjeta y permite fijar una nueva. El fallo no se puede parchear."
-        },
-        "keepkey": {
-          "date": "Dic 2019",
-          "incident": "Kraken Security Labs extrajo la semilla del dispositivo en unos quince minutos. No existe corrección por firmware: requería rediseñar el hardware."
-        },
-        "bitbox02": {
-          "date": "Ago 2026",
-          "incident": "Una actualización de firmware corrigió un fallo del bootloader y un bug de corrupción de memoria que permitía a un ordenador hostil ejecutar código en el dispositivo."
-        },
-        "safepal": {
-          "date": "Ago 2026",
-          "incident": "Un fallo en el seguimiento de pedidos expuso nombres, direcciones y teléfonos de unos 39.798 clientes."
-        },
-        "ellipal": {
-          "date": "Jun 2019",
-          "incident": "Ledger Donjon extrajo la semilla de la billetera air-gapped, derrotando el aislamiento con el que se vende."
-        }
-      }
+      "datePending": "Fecha pendiente",
+      "bodyPending": "El artículo del incidente todavía se está preparando: abre la ficha para leer lo que ya está documentado."
     },
     "learningSection": {
       "title": "¿Por qué estas billeteras fallan y seguirán fallando?",
@@ -102,6 +77,88 @@
       "hero": "Quiero aprender",
       "profile": "Contáctame"
     }
+  },
+  "FreePage": {
+    "metadataTitle": "Aprende las bases gratis",
+    "metadataDescription": "Material libre y verificable sobre arquitectura de billeteras Bitcoin: cómo están construidas las más populares y dónde viven realmente tus llaves.",
+    "title": "Aprende las bases gratis",
+    "subtitle": "Saber cómo está construida una billetera es lo que mantiene tu Bitcoin a salvo, no el dispositivo que compras. Las bases se quedan gratis: lee los esquemas, entiende los chips y compruébalo por tu cuenta.",
+    "knowledgeTitle": "Base de conocimiento",
+    "knowledgeSubtitle": "Guías que explican cómo funcionan de verdad las billeteras del mercado, siempre con la fuente documentada.",
+    "entries": {
+      "walletArchitecture": {
+        "tag": "Wiki",
+        "title": "Arquitectura de billeteras populares",
+        "body": "Un esquema de cada billetera: qué chip guarda las llaves, qué ejecuta el firmware y cada fallo documentado hasta hoy.",
+        "cta": "Abrir la mini wiki"
+      }
+    },
+    "expertTitle": "¿Quieres un camino guiado?",
+    "expertBody": "Las guías gratis te dan los conceptos. Cuando quieras que alguien revise tu propia configuración, sesión a sesión, ese es el camino experto.",
+    "expertCta": "Ver el camino experto"
+  },
+  "PremiumPage": {
+    "metadataTitle": "Sé un experto — mentoría 1 a 1 de autocustodia de Bitcoin",
+    "metadataDescription": "Sesiones uno a uno para diseñar, construir y verificar tu propia autocustodia de Bitcoin, a un precio conveniente.",
+    "title": "Sé un experto por un precio conveniente",
+    "subtitle": "El conocimiento es gratis; la diferencia es tener a alguien que se siente contigo, revise tu hardware y te acompañe en tu primera transacción, hasta que puedas verificarla tú mismo.",
+    "benefitsTitle": "En qué trabajamos juntos",
+    "benefits": {
+      "setup": {
+        "title": "Diseñar tu configuración",
+        "body": "Qué hardware, cuántas llaves, un solo dispositivo o multifirma: elegido según tu modelo de amenaza, no según una página de ventas."
+      },
+      "keys": {
+        "title": "Generar y resguardar llaves",
+        "body": "Dados, entropía, respaldos, passphrase y metal. Lo hacemos una vez, juntos, y lo anotas de una forma que puedas recuperar de verdad."
+      },
+      "verify": {
+        "title": "Verificar en lugar de confiar",
+        "body": "Construyes y firmas una transacción real, y luego la compruebas con tu propio nodo y tus propios ojos."
+      },
+      "support": {
+        "title": "Seguir preguntando",
+        "body": "Una suscripción mantiene la conversación abierta mientras cambian tu configuración, el firmware o las amenazas."
+      }
+    },
+    "freeTitle": "¿Todavía no es el momento?",
+    "freeBody": "Empieza por el material gratis: cómo están construidas las billeteras populares y cada fallo que ya han tenido.",
+    "freeCta": "Aprende las bases gratis"
+  },
+  "WalletWiki": {
+    "metadataTitle": "Wiki de arquitectura de billeteras — cómo están construidas",
+    "metadataDescription": "Una wiki de arquitecturas de billeteras Bitcoin: cómo está construida cada marca, dónde viven sus llaves y cómo ha fallado en público.",
+    "title": "Wiki de arquitectura de billeteras",
+    "subtitle": "Elige una billetera para ver cómo está construida, dónde viven sus llaves y cada fallo documentado hasta hoy.",
+    "brandsTitle": "Billeteras",
+    "indexTitle": "Elige una billetera",
+    "indexBody": "Cada entrada abre el esquema del dispositivo, sus fallos documentados y las fuentes detrás de ellos.",
+    "indexEntryCta": "Abrir la ficha",
+    "entryMetadataTitle": "Arquitectura y fallos documentados de {wallet}",
+    "entryMetadataDescription": "Cómo está construida la billetera {wallet}, dónde viven sus llaves y cada fallo documentado hasta hoy.",
+    "diagramTitle": "Arquitectura",
+    "diagramAlt": "Esquema de arquitectura de {wallet}",
+    "diagramPending": "Esquema de ejemplo — aquí irá el diagrama de {wallet}.",
+    "placeholder": {
+      "host": "Anfitrión",
+      "hostHint": "computadora / teléfono",
+      "txOut": "tx sin firmar",
+      "txIn": "firma",
+      "firmware": "Firmware de la billetera (MCU)",
+      "keys": "Llaves / semilla"
+    },
+    "incidentTitle": "Fallos documentados",
+    "incidentSource": "Leer la fuente",
+    "exposureTitle": "Exposición actual",
+    "sourcesTitle": "Fuentes",
+    "articleTitle": "Cómo está construida esta billetera",
+    "articlePending": "El artículo de esta billetera aún no está redactado. Lo que ya está documentado aparece arriba, con su fuente.",
+    "incidentPending": "Todavía no hay ningún incidente documentado para {wallet}.",
+    "datePending": "Fecha pendiente",
+    "summaryPending": "El artículo de este incidente todavía se está preparando.",
+    "ctaTitle": "Que no te pase lo mismo",
+    "ctaBody": "Saber cómo fallan estas billeteras es la mitad; construir una configuración que no falle es la otra mitad.",
+    "cta": "Sé un experto"
   },
   "TransparencyPage": {
     "metadataTitle": "Verificación — Billeteras Bitcoin resguardadas",
