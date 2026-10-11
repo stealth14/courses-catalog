@@ -15,7 +15,7 @@
     "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
-      "title": "Quédate con tus Bitcoins, no con billeteras que te quitan el control.",
+      "title": "Conserva tus Bitcoins. Evita billeteras que no te dan control.",
       "subtitle": "Billeteras como Trezor y Coldcard exponen tus llaves privadas. Aprende a crear y gestionar billeteras verdaderamente seguras."
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
@@ -54,7 +54,7 @@
         "commercial-cold": {
           "label": "Precaución",
           "title": "Billeteras frías comerciales",
-          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware expuesto, en hardware expuesto riesgos de cadena de suministro.",
+          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware expuesto, en hardware expuesto a ataques de cadena de suministro.",
           "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."
         },
         "opensource-verifiable": {
