@@ -85,7 +85,7 @@
         "opensource-verifiable": {
           "label": "Safe",
           "title": "Verifiable open-source self-custody",
-          "body": "You create a truly hermetic wallet because you understand it.",
+          "body": "You learn to spot deceiving wallet setups and create a truly hermetic configuration using open-source code.",
           "examples": ""
         }
       }
