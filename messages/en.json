@@ -85,7 +85,7 @@
         "opensource-verifiable": {
           "label": "Safe",
           "title": "Verifiable open-source self-custody",
-          "body": "You generate and hold your own keys with code you can read and verify, on hardware you control — nothing between you and your coins but your own audit.",
+          "body": "You learn to identify misleading wallet setups. You create your own secure wallet using open-source tools.",
           "examples": ""
         }
       }
