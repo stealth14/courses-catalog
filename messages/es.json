@@ -85,7 +85,7 @@
         "opensource-verifiable": {
           "label": "Seguro",
           "title": "Autocustodia de código abierto verificable",
-          "body": "Generas y resguardas tus propias llaves con código que puedes leer y verificar, en hardware que controlas, sin nada entre tú y tus monedas salvo tu propia auditoría.",
+          "body": "Creas una billetera verdaderamente hermética en la cual confías porque la entiendes.",
           "examples": ""
         }
       }
