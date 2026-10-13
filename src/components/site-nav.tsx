@@ -15,21 +15,21 @@ const NAV_ITEMS = [
  * (bg-foreground versus bg-[#9A5B00]) ending up in the same class list.
  */
 const CHIP_BASE =
-  "inline-flex h-8 items-center rounded-full px-2.5 text-xs font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9A5B00] dark:focus-visible:outline-amber-400";
+  "inline-flex h-8 items-center rounded-full px-2.5 text-xs font-semibold whitespace-nowrap select-none transition active:scale-95 [-webkit-tap-highlight-color:transparent] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9A5B00] dark:focus-visible:outline-amber-400";
 
 const CHIP_CLASSES: Record<
   (typeof NAV_ITEMS)[number]["tone"],
   { idle: string; active: string }
 > = {
   quiet: {
-    idle: "border border-black/[.12] text-zinc-700 hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-200 dark:hover:bg-white/[.06]",
+    idle: "border border-black/[.12] text-zinc-700 hover:bg-black/[.04] active:bg-black/[.08] dark:border-white/[.145] dark:text-zinc-200 dark:hover:bg-white/[.06] dark:active:bg-white/[.1]",
     active:
-      "border border-transparent bg-black/[.06] text-black dark:bg-white/[.12] dark:text-white",
+      "border border-transparent bg-black/[.06] text-black active:bg-black/[.1] dark:bg-white/[.12] dark:text-white dark:active:bg-white/[.18]",
   },
   loud: {
-    idle: "border border-transparent bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc]",
+    idle: "border border-transparent bg-foreground text-background hover:bg-[#383838] active:bg-[#252525] dark:hover:bg-[#ccc] dark:active:bg-[#b8b8b8]",
     active:
-      "border border-transparent bg-[#9A5B00] text-white dark:bg-amber-400 dark:text-black",
+      "border border-transparent bg-[#9A5B00] text-white active:bg-[#7a4800] dark:bg-amber-400 dark:text-black dark:active:bg-amber-500",
   },
 };
 
