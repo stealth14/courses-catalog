@@ -5,8 +5,8 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
 const NAV_ITEMS = [
-  { href: "/", label: "home" },
-  { href: "/academy", label: "academy" },
+  { href: "/", label: "home", icon: "home" },
+  { href: "/academy", label: "academy", icon: "book" },
 ] as const;
 
 export function SiteNav() {
@@ -39,9 +39,9 @@ export function SiteNav() {
           href={item.href}
           aria-current={active ? "page" : undefined}
           onClick={() => setIsMenuOpen(false)}
-          className={`flex items-center rounded-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground ${
+          className={`flex items-center gap-1 rounded-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground ${
             size === "desktop"
-              ? "min-h-10 px-3 text-sm"
+              ? "min-h-10 px-2 text-sm"
               : "min-h-12 px-4 text-base"
           } ${
             active
@@ -49,6 +49,19 @@ export function SiteNav() {
               : "text-zinc-600 hover:bg-black/[.04] hover:text-black dark:text-zinc-300 dark:hover:bg-white/[.06] dark:hover:text-white"
           }`}
         >
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="h-6 w-6 shrink-0 fill-none stroke-current stroke-[1.75]"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            {item.icon === "home" ? (
+              <path d="m3 10 9-7 9 7M5 9v11h14V9m-9 11v-6h4v6" />
+            ) : (
+              <path d="M12 7.5c-2-1.5-5-2-8-1v13c3-.8 6-.4 8 1 2-1.4 5-1.8 8-1v-13c-3-1-6-.5-8 1zm0 0v13" />
+            )}
+          </svg>
           {t(item.label)}
         </Link>
       );
