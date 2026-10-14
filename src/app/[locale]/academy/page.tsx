@@ -28,8 +28,8 @@ export default async function AcademyPage() {
 
   return (
     <main className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-4 pt-10 pb-10 sm:px-6 sm:pt-16 sm:pb-16">
-        <header className="flex flex-col gap-3">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-4 pt-8 pb-10 sm:px-6 sm:pt-8 sm:pb-16">
+        <header className="flex flex-col items-center gap-3 text-center">
           <h1 className="max-w-2xl text-balance text-3xl font-semibold tracking-tight text-black sm:text-4xl dark:text-zinc-50">
             {t("title")}
           </h1>
