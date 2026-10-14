@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
+import { Link } from "@/i18n/navigation";
 import { BackButton } from "@/components/back-button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { ProfilePhoto } from "@/components/profile-photo";
@@ -67,7 +68,12 @@ export default async function LocaleLayout({
             {/* Wraps on very narrow screens: the two path CTAs drop to a
                 second row instead of squeezing the rest of the bar. */}
             <div className="mx-auto flex min-h-16 w-full max-w-4xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 sm:h-16 sm:flex-nowrap sm:px-6 sm:py-0">
-              <ProfilePhoto alt={t("navPhotoAlt")} size="tiny" />
+              <Link
+                href="/"
+                className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+              >
+                <ProfilePhoto alt={t("navPhotoAlt")} size="tiny" />
+              </Link>
               <Suspense fallback={null}>
                 <BackButton />
               </Suspense>
