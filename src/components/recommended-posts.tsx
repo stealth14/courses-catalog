@@ -51,7 +51,7 @@ export function RecommendedPosts({
                     alt={post.thumbnail.alternativeText ?? ""}
                     fill
                     sizes="(min-width: 640px) 33vw, 100vw"
-                    className="object-contain p-6 transition-transform group-hover:scale-[1.03]"
+                    className="object-cover transition-transform group-hover:scale-[1.03]"
                   />
                 </span>
                 <span className="self-start text-sm font-semibold text-black underline-offset-4 group-hover:underline dark:text-zinc-50">

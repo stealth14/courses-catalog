@@ -3,9 +3,9 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
-/** Free learning path shown in the hero and the navigation bar. */
+/** Academy entry point linked from the hero. */
 const NAV_ITEMS = [
-  { href: "/academy/free", label: "free", tone: "quiet" },
+  { href: "/academy", label: "learnForFree", tone: "quiet" },
 ] as const;
 
 /**

@@ -64,16 +64,16 @@ export default async function PremiumPage() {
 
         <section className="flex flex-col items-center gap-3 rounded-2xl border border-black/[.08] p-6 text-center dark:border-white/[.145]">
           <h2 className="text-lg font-semibold tracking-tight text-black dark:text-zinc-50">
-            {t("freeTitle")}
+            {t("architecturesTitle")}
           </h2>
           <p className="max-w-xl text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-            {t("freeBody")}
+            {t("architecturesBody")}
           </p>
           <Link
-            href="/academy/free"
+            href="/academy/knowledge"
             className="group inline-flex items-center gap-1.5 text-sm font-medium text-[#9A5B00] underline-offset-4 transition-colors hover:underline dark:text-amber-400"
           >
-            {t("freeCta")}
+            {t("architecturesCta")}
             <ArrowIcon />
           </Link>
         </section>

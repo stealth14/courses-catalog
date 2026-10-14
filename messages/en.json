@@ -10,36 +10,32 @@
     "label": "Main navigation",
     "home": "Home",
     "academy": "Academy",
+    "learnForFree": "Learn for free",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
-    "free": "Learn for free",
-    "freeShort": "Free",
+    "architectures": "Wallet architectures",
+    "architecturesShort": "Architectures",
     "premium": "Become an expert",
     "premiumShort": "Expert"
   },
   "AcademyPage": {
     "metadataTitle": "Academy — Bitcoin self-custody courses",
-    "metadataDescription": "Free guides, a wallet architecture knowledge base, and the expert track.",
+    "metadataDescription": "A wallet architecture knowledge base and the expert track.",
     "title": "To stay safe, you need hard knowledge.",
     "subtitle": "Bitcoin self-custody isn't just for experts; everyone can learn what matters.",
-    "recommendedTitle": "Recommended",
+    "recommendedTitle": "Recommended readings",
     "recommendedLoading": "Loading recommended posts…",
     "recommendedLoadError": "Could not load recommended posts",
     "sections": {
-      "free": {
-        "title": "Learn for free",
-        "body": "Free, verifiable material on wallet architecture.",
-        "cta": "Start learning"
-      },
       "premium": {
         "title": "Become an expert",
         "body": "One-to-one sessions to design, build and verify your own setup.",
         "cta": "See the expert track"
       },
-      "knowledge": {
-        "title": "Knowledge base",
-        "body": "How popular wallets are built and how they have failed.",
-        "cta": "Open the knowledge base"
+      "architectures": {
+        "title": "Wallet architectures",
+        "body": "Explore how popular wallets are built, where their keys live, and how they have failed.",
+        "cta": "Explore architectures"
       }
     }
   },
@@ -56,7 +52,8 @@
     "exploreCta": "Explore",
     "learningSection": {
       "title": "Why these wallets fail, and why they will keep failing?",
-      "body": "Your Bitcoin is safe when you have the right knowledge, not when you buy a device. Bitcoin already has the tools, you just need to learn how to use them."
+      "body": "Your Bitcoin is safe when you have the right knowledge, not when you buy a device. Bitcoin already has the tools, you just need to learn how to use them.",
+      "learnMore": "Learn more"
     },
     "offering": {
       "title": "Plans",
@@ -70,25 +67,6 @@
       "hero": "Learn more",
       "profile": "Contact me"
     }
-  },
-  "FreePage": {
-    "metadataTitle": "Learn the basics for free",
-    "metadataDescription": "Free, verifiable material on Bitcoin wallet architecture: how the popular wallets are built and where your keys actually live.",
-    "title": "To stay secure, you need concrete knowledge.",
-    "subtitle": "Bitcoin self-custody is not exclusive to experts. However, understanding the essentials is critical.",
-    "knowledgeTitle": "Knowledge base",
-    "knowledgeSubtitle": "Guides that explain how the wallets on the market actually work, always with the documented source.",
-    "entries": {
-      "walletArchitecture": {
-        "tag": "Knowledge base",
-        "title": "Popular wallet architectures",
-        "body": "A schematic of each wallet: which chip holds the keys, what runs the firmware, and every failure documented to date.",
-        "cta": "Open the knowledge base"
-      }
-    },
-    "expertTitle": "Want a guided path?",
-    "expertBody": "The free guides give you the concepts. When you want your own setup reviewed, session by session, that is the expert track.",
-    "expertCta": "See the expert track"
   },
   "PremiumPage": {
     "metadataTitle": "Become an expert — 1:1 Bitcoin self-custody mentorship",
@@ -114,9 +92,9 @@
         "body": "A subscription keeps the conversation open while your setup, the firmware or the threats change."
       }
     },
-    "freeTitle": "Not ready yet?",
-    "freeBody": "Start with the free material: how the popular wallets are built, and every failure they have already had.",
-    "freeCta": "Learn the basics for free"
+    "architecturesTitle": "Want to explore on your own?",
+    "architecturesBody": "Browse the architecture of popular wallets, where their keys live, and their documented failures.",
+    "architecturesCta": "Explore wallet architectures"
   },
   "WalletKnowledge": {
     "metadataTitle": "Wallet architectures — how popular wallets are built",

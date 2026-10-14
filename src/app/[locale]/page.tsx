@@ -5,6 +5,8 @@ import { HomeHero } from "./home-hero";
 import { HomeMetrics } from "./home-metrics";
 import { HomeWhatsappCta } from "./home-whatsapp-cta";
 import { WalletRiskScale } from "./academy/knowledge/wallet-risk-scale";
+import { ArrowIcon } from "@/components/arrow-icon";
+import { Link } from "@/i18n/navigation";
 import { WalletScandalsRow } from "@/components/wallet-scandals-row";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -37,11 +39,23 @@ export default async function HomePage() {
 
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 sm:px-6">
         <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
-          {t("learningSection.title")}
+          <Link
+            href="/academy/por-que-fallan-las-billeteras"
+            className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+          >
+            {t("learningSection.title")}
+          </Link>
         </h2>
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
           {t("learningSection.body")}
         </p>
+        <Link
+          href="/academy/por-que-fallan-las-billeteras"
+          className="inline-flex items-center gap-1.5 self-start text-sm font-medium text-[#9A5B00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-amber-400"
+        >
+          {t("learningSection.learnMore")}
+          <ArrowIcon />
+        </Link>
       </section>
 
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 pb-10 sm:gap-16 sm:px-6 sm:pb-16">

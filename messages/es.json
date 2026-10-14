@@ -10,36 +10,32 @@
     "label": "Navegación principal",
     "home": "Inicio",
     "academy": "Academia",
+    "learnForFree": "Aprende gratis",
     "openMenu": "Abrir menú de navegación",
     "closeMenu": "Cerrar menú de navegación",
-    "free": "Aprende gratis",
-    "freeShort": "Gratis",
+    "architectures": "Arquitecturas de billeteras",
+    "architecturesShort": "Arquitecturas",
     "premium": "Sé un experto",
     "premiumShort": "Experto"
   },
   "AcademyPage": {
     "metadataTitle": "Academia — cursos de autocustodia de Bitcoin",
-    "metadataDescription": "Guías gratis, una base de conocimiento de arquitectura de billeteras y el camino experto.",
+    "metadataDescription": "Una base de conocimiento de arquitectura de billeteras y el camino experto.",
     "title": "Para estar a salvo necesitas conocimiento duro.",
     "subtitle": "La autocustodia de Bitcoin no es solo para expertos, todos pueden aprender lo importante.",
-    "recommendedTitle": "Recomendados",
+    "recommendedTitle": "Lecturas recomendadas",
     "recommendedLoading": "Cargando recomendaciones…",
     "recommendedLoadError": "No se pudieron cargar las recomendaciones",
     "sections": {
-      "free": {
-        "title": "Aprende gratis",
-        "body": "Material gratis y verificable sobre arquitectura de billeteras.",
-        "cta": "Empieza a aprender"
-      },
       "premium": {
         "title": "Sé un experto",
         "body": "Sesiones uno a uno para diseñar, construir y verificar tu propia configuración.",
         "cta": "Ver el camino experto"
       },
-      "knowledge": {
-        "title": "Base de conocimiento",
-        "body": "Cómo están construidas las billeteras populares y cómo han fallado.",
-        "cta": "Abrir la base de conocimiento"
+      "architectures": {
+        "title": "Arquitecturas de billeteras",
+        "body": "Explora cómo están construidas las billeteras populares, dónde viven sus llaves y cómo han fallado.",
+        "cta": "Explorar arquitecturas"
       }
     }
   },
@@ -56,7 +52,8 @@
     "exploreCta": "Explorar",
     "learningSection": {
       "title": "¿Por qué estas billeteras fallan y seguirán fallando?",
-      "body": "Tu bitcoin está a salvo cuando tienes el conocimiento correcto, no cuando compras un dispositivo. Bitcoin ya tiene las herramientas, solo necesitas aprender a usarlas."
+      "body": "Tu bitcoin está a salvo cuando tienes el conocimiento correcto, no cuando compras un dispositivo. Bitcoin ya tiene las herramientas, solo necesitas aprender a usarlas.",
+      "learnMore": "Conoce más"
     },
     "offering": {
       "title": "Planes",
@@ -70,25 +67,6 @@
       "hero": "Quiero aprender",
       "profile": "Contáctame"
     }
-  },
-  "FreePage": {
-    "metadataTitle": "Aprende las bases gratis",
-    "metadataDescription": "Material libre y verificable sobre arquitectura de billeteras Bitcoin: cómo están construidas las más populares y dónde viven realmente tus llaves.",
-    "title": "Para estar a salvo necesitas conocimiento duro.",
-    "subtitle": "La autocustodia de Bitcoin no es solo para expertos, todos pueden aprender lo importante.",
-    "knowledgeTitle": "Base de conocimiento",
-    "knowledgeSubtitle": "Guías que explican cómo funcionan de verdad las billeteras del mercado, siempre con la fuente documentada.",
-    "entries": {
-      "walletArchitecture": {
-        "tag": "Base de conocimiento",
-        "title": "Arquitectura de billeteras populares",
-        "body": "Un esquema de cada billetera: qué chip guarda las llaves, qué ejecuta el firmware y cada fallo documentado hasta hoy.",
-        "cta": "Abrir la base de conocimiento"
-      }
-    },
-    "expertTitle": "¿Quieres un camino guiado?",
-    "expertBody": "Las guías gratis te dan los conceptos. Cuando quieras que alguien revise tu propia configuración, sesión a sesión, ese es el camino experto.",
-    "expertCta": "Ver el camino experto"
   },
   "PremiumPage": {
     "metadataTitle": "Sé un experto — mentoría 1 a 1 de autocustodia de Bitcoin",
@@ -114,9 +92,9 @@
         "body": "Una suscripción mantiene la conversación abierta mientras cambian tu configuración, el firmware o las amenazas."
       }
     },
-    "freeTitle": "¿Todavía no es el momento?",
-    "freeBody": "Empieza por el material gratis: cómo están construidas las billeteras populares y cada fallo que ya han tenido.",
-    "freeCta": "Aprende las bases gratis"
+    "architecturesTitle": "¿Quieres explorar por tu cuenta?",
+    "architecturesBody": "Consulta la arquitectura de las billeteras populares, dónde viven sus llaves y los fallos documentados.",
+    "architecturesCta": "Explorar arquitecturas de billeteras"
   },
   "WalletKnowledge": {
     "metadataTitle": "Arquitectura de billeteras — cómo están construidas",

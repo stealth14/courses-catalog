@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /** The learning surfaces the academy currently links to. */
 const SECTIONS = [
   { href: "/academy/premium", key: "premium" },
-  { href: "/academy/knowledge", key: "knowledge" },
+  { href: "/academy/knowledge", key: "architectures" },
 ] as const;
 
 /**
