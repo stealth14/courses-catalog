@@ -20,8 +20,11 @@
   "AcademyPage": {
     "metadataTitle": "Academia — cursos de autocustodia de Bitcoin",
     "metadataDescription": "Guías gratis, una base de conocimiento de arquitectura de billeteras y el camino experto.",
-    "title": "Academia",
-    "subtitle": "Todo en un solo lugar: el material gratis, el camino experto y la base de conocimiento de arquitectura de billeteras.",
+    "title": "Para estar a salvo necesitas conocimiento duro.",
+    "subtitle": "La autocustodia de Bitcoin no es solo para expertos, todos pueden aprender lo importante.",
+    "recommendedTitle": "Recomendados",
+    "recommendedLoading": "Cargando recomendaciones…",
+    "recommendedLoadError": "No se pudieron cargar las recomendaciones",
     "sections": {
       "free": {
         "title": "Aprende gratis",

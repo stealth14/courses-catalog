@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ArrowIcon } from "@/components/arrow-icon";
+import { RecommendedPosts } from "@/components/recommended-posts";
 import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -58,6 +59,12 @@ export default async function AcademyPage() {
             </li>
           ))}
         </ul>
+
+        <RecommendedPosts
+          title={t("recommendedTitle")}
+          loadingText={t("recommendedLoading")}
+          errorText={t("recommendedLoadError")}
+        />
       </div>
     </main>
   );

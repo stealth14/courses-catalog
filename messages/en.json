@@ -20,8 +20,11 @@
   "AcademyPage": {
     "metadataTitle": "Academy — Bitcoin self-custody courses",
     "metadataDescription": "Free guides, a wallet architecture knowledge base, and the expert track.",
-    "title": "Academy",
-    "subtitle": "Everything in one place: the free material, the expert track, and the wallet architecture knowledge base.",
+    "title": "To stay safe, you need hard knowledge.",
+    "subtitle": "Bitcoin self-custody isn't just for experts; everyone can learn what matters.",
+    "recommendedTitle": "Recommended",
+    "recommendedLoading": "Loading recommended posts…",
+    "recommendedLoadError": "Could not load recommended posts",
     "sections": {
       "free": {
         "title": "Learn for free",

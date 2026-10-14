@@ -6,6 +6,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { PostCacheProvider } from "@/components/post-cache-provider";
 import { ProfilePhoto } from "@/components/profile-photo";
 import { SiteNav } from "@/components/site-nav";
 import { routing } from "@/i18n/routing";
@@ -63,25 +64,27 @@ export default async function LocaleLayout({
         className="min-h-full flex flex-col"
       >
         <NextIntlClientProvider>
-          <header className="sticky top-0 z-50 border-b border-black/[.06] bg-zinc-50/80 backdrop-blur-md dark:border-white/[.08] dark:bg-black/70">
-            {/* Wraps on very narrow screens: the two path CTAs drop to a
-                second row instead of squeezing the rest of the bar. */}
-            <div className="mx-auto flex min-h-16 w-full max-w-4xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 sm:h-16 sm:flex-nowrap sm:px-6 sm:py-0">
-              <Link
-                href="/"
-                className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
-              >
-                <ProfilePhoto alt={t("navPhotoAlt")} size="tiny" />
-              </Link>
-              <div className="ml-auto flex items-center gap-2 sm:gap-3">
-                <SiteNav />
-                <Suspense fallback={null}>
-                  <LocaleSwitcher />
-                </Suspense>
+          <PostCacheProvider>
+            <header className="sticky top-0 z-50 border-b border-black/[.06] bg-zinc-50/80 backdrop-blur-md dark:border-white/[.08] dark:bg-black/70">
+              {/* Wraps on very narrow screens: the two path CTAs drop to a
+                  second row instead of squeezing the rest of the bar. */}
+              <div className="mx-auto flex min-h-16 w-full max-w-4xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 sm:h-16 sm:flex-nowrap sm:px-6 sm:py-0">
+                <Link
+                  href="/"
+                  className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                >
+                  <ProfilePhoto alt={t("navPhotoAlt")} size="tiny" />
+                </Link>
+                <div className="ml-auto flex items-center gap-2 sm:gap-3">
+                  <SiteNav />
+                  <Suspense fallback={null}>
+                    <LocaleSwitcher />
+                  </Suspense>
+                </div>
               </div>
-            </div>
-          </header>
-          {children}
+            </header>
+            {children}
+          </PostCacheProvider>
         </NextIntlClientProvider>
         <Analytics />
       </body>
