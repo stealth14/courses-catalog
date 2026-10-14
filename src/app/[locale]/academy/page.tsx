@@ -12,9 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-/** The three learning surfaces the academy currently links to. */
+/** The learning surfaces the academy currently links to. */
 const SECTIONS = [
-  { href: "/academy/free", key: "free" },
   { href: "/academy/premium", key: "premium" },
   { href: "/academy/knowledge", key: "knowledge" },
 ] as const;
@@ -38,7 +37,7 @@ export default async function AcademyPage() {
           </p>
         </header>
 
-        <ul className="grid gap-4 sm:grid-cols-3">
+        <ul className="grid gap-4 sm:grid-cols-2">
           {SECTIONS.map((section) => (
             <li key={section.href} className="flex">
               <Link

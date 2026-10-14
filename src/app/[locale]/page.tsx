@@ -4,6 +4,7 @@ import { PaymentHeader } from "./payment/payment-header";
 import { HomeHero } from "./home-hero";
 import { HomeMetrics } from "./home-metrics";
 import { HomeWhatsappCta } from "./home-whatsapp-cta";
+import { WalletRiskScale } from "./academy/knowledge/wallet-risk-scale";
 import { WalletScandalsRow } from "@/components/wallet-scandals-row";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -44,6 +45,7 @@ export default async function HomePage() {
       </section>
 
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 pb-10 sm:gap-16 sm:px-6 sm:pb-16">
+        <WalletRiskScale />
         <HomeMetrics />
 
         <section className="flex flex-col items-center gap-5">
