@@ -51,34 +51,34 @@ export async function WalletScandalsRow() {
     return (
       <li
         key={wallet.id}
-        className="group flex w-[min(22rem,calc(100vw-2rem))] shrink-0 flex-col gap-3 rounded-2xl border border-black/[.08] bg-white p-4 transition-colors hover:border-black/[.16] dark:border-white/[.145] dark:bg-[#111] dark:hover:border-white/[.25]"
+        className="group flex w-[min(18rem,calc(100vw-2rem))] shrink-0 flex-col gap-2.5 rounded-2xl border border-black/[.08] bg-white p-3 transition-colors hover:border-black/[.16] sm:w-60 dark:border-white/[.145] dark:bg-[#111] dark:hover:border-white/[.25]"
       >
         <div className="flex min-w-0 items-center gap-3">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-zinc-100 p-1.5 dark:bg-white">
-          {logo && box ? (
-            <span
-              className="relative block"
-              style={{ width: `${box.width}px`, height: `${box.height}px` }}
-            >
-              <Image
-                src={logo.src}
-                alt={wallet.name}
-                fill
-                sizes={`${LOGO_BOX}px`}
-                className="object-contain"
-              />
-            </span>
-          ) : (
-            <>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-zinc-100 p-1 dark:bg-white">
+            {logo && box ? (
               <span
-                aria-hidden="true"
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[11px] font-bold tracking-wide ${monogram}`}
+                className="relative block"
+                style={{ width: `${box.width}px`, height: `${box.height}px` }}
               >
-                {wallet.monogram}
+                <Image
+                  src={logo.src}
+                  alt={wallet.name}
+                  fill
+                  sizes={`${LOGO_BOX}px`}
+                  className="object-contain"
+                />
               </span>
-              <span className="sr-only">{wallet.name}</span>
-            </>
-          )}
+            ) : (
+              <>
+                <span
+                  aria-hidden="true"
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[11px] font-bold tracking-wide ${monogram}`}
+                >
+                  {wallet.monogram}
+                </span>
+                <span className="sr-only">{wallet.name}</span>
+              </>
+            )}
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -91,7 +91,7 @@ export async function WalletScandalsRow() {
         </div>
 
         <p
-          className={`line-clamp-3 text-xs leading-5 ${
+          className={`line-clamp-3 text-xs leading-[1.15rem] sm:line-clamp-2 ${
             summary
               ? "text-zinc-600 dark:text-zinc-400"
               : "italic text-zinc-500 dark:text-zinc-400"
@@ -113,13 +113,13 @@ export async function WalletScandalsRow() {
   };
 
   const group = (hidden: boolean) => (
-    <ul className="flex shrink-0 gap-4 pr-4" aria-hidden={hidden || undefined}>
+    <ul className="flex shrink-0 gap-3 pr-3" aria-hidden={hidden || undefined}>
       {wallets.map(card)}
     </ul>
   );
 
   return (
-    <section className="flex flex-col gap-6">
+    <section className="flex flex-col gap-3">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-1 px-4 sm:px-6">
         <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
           {t("title")}

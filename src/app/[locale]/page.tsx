@@ -27,8 +27,8 @@ export default async function HomePage() {
   const t = await getTranslations("HomePage");
 
   return (
-    <main className="flex flex-1 flex-col gap-12 bg-zinc-50 sm:gap-16 dark:bg-black">
-      <div className="mx-auto flex w-full max-w-4xl flex-col px-4 pt-10 sm:px-6 sm:pt-16">
+    <main className="flex flex-1 flex-col gap-10 bg-zinc-50 sm:gap-8 dark:bg-black">
+      <div className="mx-auto flex w-full max-w-4xl flex-col px-4 pt-8 sm:px-6 sm:pt-8">
         <HomeHero />
       </div>
 

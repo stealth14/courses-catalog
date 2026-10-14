@@ -11,7 +11,7 @@ export async function HomeHero() {
   return (
     <section
       id="home-hero"
-      className="flex flex-col items-center gap-5 text-center"
+      className="flex flex-col items-center gap-4 text-center"
     >
       <h1 className="max-w-2xl text-balance text-3xl font-semibold tracking-tight text-black sm:text-4xl dark:text-zinc-50">
         {t("hero.title")}
@@ -22,7 +22,7 @@ export async function HomeHero() {
       </p>
       <LearningLinks
         size="hero"
-        className="mt-2 flex-wrap justify-center"
+        className="flex-wrap justify-center"
       />
     </section>
   );
