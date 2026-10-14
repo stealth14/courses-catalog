@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { HomeWhatsappCta } from "./home-whatsapp-cta";
+import { LearningLinks } from "@/components/learning-links";
 
 /**
  * Landing hero. Owns the page's only `<h1>`: the ownership promise and
@@ -9,7 +9,10 @@ export async function HomeHero() {
   const t = await getTranslations("HomePage");
 
   return (
-    <section className="flex flex-col items-center gap-5 text-center">
+    <section
+      id="home-hero"
+      className="flex flex-col items-center gap-5 text-center"
+    >
       <h1 className="max-w-2xl text-balance text-3xl font-semibold tracking-tight text-black sm:text-4xl dark:text-zinc-50">
         {t("hero.title")}
       </h1>
@@ -17,7 +20,10 @@ export async function HomeHero() {
       <p className="max-w-2xl text-pretty text-base leading-7 text-zinc-600 dark:text-zinc-400">
         {t("hero.subtitle")}
       </p>
-      <HomeWhatsappCta placement="hero" />
+      <LearningLinks
+        size="hero"
+        className="mt-2 flex-wrap justify-center"
+      />
     </section>
   );
 }

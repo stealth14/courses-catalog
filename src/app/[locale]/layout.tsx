@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
 import { Link } from "@/i18n/navigation";
-import { BackButton } from "@/components/back-button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { ProfilePhoto } from "@/components/profile-photo";
 import { SiteNav } from "@/components/site-nav";
@@ -74,9 +73,6 @@ export default async function LocaleLayout({
               >
                 <ProfilePhoto alt={t("navPhotoAlt")} size="tiny" />
               </Link>
-              <Suspense fallback={null}>
-                <BackButton />
-              </Suspense>
               <div className="ml-auto flex items-center gap-2 sm:gap-3">
                 <SiteNav />
                 <Suspense fallback={null}>

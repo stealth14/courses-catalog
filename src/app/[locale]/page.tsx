@@ -4,6 +4,7 @@ import { PaymentHeader } from "./payment/payment-header";
 import { HomeHero } from "./home-hero";
 import { HomeMetrics } from "./home-metrics";
 import { HomeWhatsappCta } from "./home-whatsapp-cta";
+import { WalletScandalsRow } from "@/components/wallet-scandals-row";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("HomePage");
@@ -30,6 +31,8 @@ export default async function HomePage() {
       <div className="mx-auto flex w-full max-w-4xl flex-col px-4 pt-10 sm:px-6 sm:pt-16">
         <HomeHero />
       </div>
+
+      <WalletScandalsRow />
 
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 sm:px-6">
         <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
