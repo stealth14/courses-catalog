@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ArrowIcon } from "@/components/arrow-icon";
 import { Link } from "@/i18n/navigation";
-import { HomeOffering } from "../home-offering";
-import { HomeWhatsappCta } from "../home-whatsapp-cta";
+import { HomeOffering } from "../../home-offering";
+import { HomeWhatsappCta } from "../../home-whatsapp-cta";
 
 /** Translation key suffixes under `PremiumPage.benefits`. */
 const BENEFITS = ["setup", "keys", "verify", "support"] as const;
@@ -70,7 +70,7 @@ export default async function PremiumPage() {
             {t("freeBody")}
           </p>
           <Link
-            href="/free"
+            href="/academy/free"
             className="group inline-flex items-center gap-1.5 text-sm font-medium text-[#9A5B00] underline-offset-4 transition-colors hover:underline dark:text-amber-400"
           >
             {t("freeCta")}

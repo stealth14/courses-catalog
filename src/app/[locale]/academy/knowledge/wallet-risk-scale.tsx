@@ -8,7 +8,7 @@ import { getTranslations } from "next-intl/server";
  * trusts only the holder's own verification.
  */
 type WalletRiskTier = {
-  /** Translation key suffix under `HomePage.riskScale.tiers`. */
+  /** Translation key suffix under `WalletKnowledge.riskScale.tiers`. */
   id: string;
   /** Risk intensity, mapped to a danger color for the node and label. */
   level: number;
@@ -47,8 +47,8 @@ const LEVEL_CLASSES: Record<
   },
 };
 
-export async function HomeWalletRiskScale() {
-  const t = await getTranslations("HomePage");
+export async function WalletRiskScale() {
+  const t = await getTranslations("WalletKnowledge");
 
   return (
     <section className="flex flex-col gap-6">

@@ -35,14 +35,14 @@ async function findWallet(id: string): Promise<WalletRecord | null> {
 }
 
 export async function generateMetadata(
-  props: PageProps<"/[locale]/wiki/[brand]">
+  props: PageProps<"/[locale]/academy/knowledge/[brand]">
 ): Promise<Metadata> {
   const { brand } = await props.params;
   const wallet = await findWallet(brand);
 
   if (!wallet) return {};
 
-  const t = await getTranslations("WalletWiki");
+  const t = await getTranslations("WalletKnowledge");
 
   return {
     title: t("entryMetadataTitle", { wallet: wallet.name }),
@@ -51,24 +51,25 @@ export async function generateMetadata(
 }
 
 /**
- * One wiki entry, rendered entirely from `public/wallet-incidents.json`:
- * architecture container, every incident recorded for the wallet, then the
- * article body. Add a wallet — or another incident for one already here —
- * to the data file and this page follows, including its route.
+ * One knowledge base entry, rendered entirely from
+ * `public/wallet-incidents.json`: architecture container, every incident
+ * recorded for the wallet, then the article body. Add a wallet — or another
+ * incident for one already here — to the data file and this page follows,
+ * including its route.
  *
  * Nothing in the data file is mandatory beyond the id, name and monogram,
  * so entry text that has not been written yet renders as an explicit
  * placeholder instead of an empty section.
  */
-export default async function WalletWikiEntryPage(
-  props: PageProps<"/[locale]/wiki/[brand]">
+export default async function KnowledgeEntryPage(
+  props: PageProps<"/[locale]/academy/knowledge/[brand]">
 ) {
   const { brand } = await props.params;
   const wallet = await findWallet(brand);
 
   if (!wallet) notFound();
 
-  const t = await getTranslations("WalletWiki");
+  const t = await getTranslations("WalletKnowledge");
   const locale = await getLocale();
   const article = localizedParagraphs(wallet.article, locale);
   const exposureSummary = localizedText(wallet.exposure?.summary ?? null, locale);
@@ -255,7 +256,7 @@ export default async function WalletWikiEntryPage(
         </h3>
         <p className={BODY}>{t("ctaBody")}</p>
         <Link
-          href="/premium"
+          href="/academy/premium"
           className="group mt-1 inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
         >
           {t("cta")}

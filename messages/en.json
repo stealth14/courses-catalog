@@ -11,6 +11,29 @@
     "premium": "Become an expert",
     "premiumShort": "Expert"
   },
+  "AcademyPage": {
+    "metadataTitle": "Academy — Bitcoin self-custody courses",
+    "metadataDescription": "Free guides, a wallet architecture knowledge base, and the expert track.",
+    "title": "Academy",
+    "subtitle": "Everything in one place: the free material, the expert track, and the wallet architecture knowledge base.",
+    "sections": {
+      "free": {
+        "title": "Learn for free",
+        "body": "Free, verifiable material on wallet architecture.",
+        "cta": "Start learning"
+      },
+      "premium": {
+        "title": "Become an expert",
+        "body": "One-to-one sessions to design, build and verify your own setup.",
+        "cta": "See the expert track"
+      },
+      "knowledge": {
+        "title": "Knowledge base",
+        "body": "How popular wallets are built and how they have failed.",
+        "cta": "Open the knowledge base"
+      }
+    }
+  },
   "HomePage": {
     "metadataTitle": "Ronny Cajas — Bitcoin for professionals",
     "metadataDescription": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited code with your keys.",
@@ -22,48 +45,9 @@
     "metricValue": "+15.000",
     "metricLabel": "dollars in Bitcoin our clients now hold in self-custody — under keys only they control.",
     "exploreCta": "Explore",
-    "scandals": {
-      "title": "Why is it necessary to learn?",
-      "subtitle": "Popular crypto wallets have cost users millions of dollars in Bitcoin savings they believed were completely safe.",
-      "footnote": "",
-      "sourceCta": "Read the report",
-      "datePending": "Date pending",
-      "bodyPending": "The incident write-up is still being put together — open the file to read what is documented so far."
-    },
     "learningSection": {
       "title": "Why these wallets fail, and why they will keep failing?",
       "body": "Your Bitcoin is safe when you have the right knowledge, not when you buy a device. Bitcoin already has the tools, you just need to learn how to use them."
-    },
-    "riskScale": {
-      "title": "The risk scale of wallet types",
-      "subtitle": "Highest risk to lowest: from trusting others to verifying your own setup.",
-      "examplesLabel": "Examples: ",
-      "tiers": {
-        "custodial": {
-          "label": "Critical",
-          "title": "Custodial wallets and exchanges",
-          "body": "Your keys live on a server you do not control. The platform can freeze, lose, or leak your funds — and if it fails, you are a creditor, not an owner.",
-          "examples": "exchanges, payment and savings apps."
-        },
-        "hot": {
-          "label": "High",
-          "title": "Hot software wallets",
-          "body": "The keys sit on an online device, next to the apps you install and the links you open. Malware or a convincing page can read them before you notice.",
-          "examples": "mobile, desktop, and browser wallets."
-        },
-        "commercial-cold": {
-          "label": "Caution",
-          "title": "Commercial cold wallets",
-          "body": "The keys stay offline, but the wallet runs firmware you cannot inspect, on hardware heavily exposed to supply chain risks.",
-          "examples": "Ledger, Trezor, Tangem, COLDCARD, and similar hardware wallets."
-        },
-        "opensource-verifiable": {
-          "label": "Safe",
-          "title": "Verifiable open-source self-custody",
-          "body": "You learn to identify misleading wallet setups. You create your own secure wallet using open-source tools.",
-          "examples": ""
-        }
-      }
     },
     "offering": {
       "title": "Plans",
@@ -81,16 +65,16 @@
   "FreePage": {
     "metadataTitle": "Learn the basics for free",
     "metadataDescription": "Free, verifiable material on Bitcoin wallet architecture: how the popular wallets are built and where your keys actually live.",
-    "title": "Learn the basics for free",
-    "subtitle": "Knowing how a wallet is built is what keeps your Bitcoin safe — not the device you buy. The basics stay free: read the schematics, understand the chips, and check it for yourself.",
+    "title": "To stay secure, you need concrete knowledge.",
+    "subtitle": "Bitcoin self-custody is not exclusive to experts. However, understanding the essentials is critical.",
     "knowledgeTitle": "Knowledge base",
     "knowledgeSubtitle": "Guides that explain how the wallets on the market actually work, always with the documented source.",
     "entries": {
       "walletArchitecture": {
-        "tag": "Wiki",
+        "tag": "Knowledge base",
         "title": "Popular wallet architectures",
         "body": "A schematic of each wallet: which chip holds the keys, what runs the firmware, and every failure documented to date.",
-        "cta": "Open the mini wiki"
+        "cta": "Open the knowledge base"
       }
     },
     "expertTitle": "Want a guided path?",
@@ -125,11 +109,42 @@
     "freeBody": "Start with the free material: how the popular wallets are built, and every failure they have already had.",
     "freeCta": "Learn the basics for free"
   },
-  "WalletWiki": {
-    "metadataTitle": "Wallet architecture wiki — how popular wallets are built",
-    "metadataDescription": "A wiki of Bitcoin wallet architectures: how each brand is built, where its keys live, and how it has failed in public.",
-    "title": "Wallet architecture wiki",
+  "WalletKnowledge": {
+    "metadataTitle": "Wallet architectures — how popular wallets are built",
+    "metadataDescription": "A knowledge base of Bitcoin wallet architectures: how each brand is built, where its keys live, and how it has failed in public.",
+    "title": "Wallet architectures",
     "subtitle": "Pick a wallet to see how it is built, where its keys live, and every failure documented so far.",
+    "riskScale": {
+      "title": "The risk scale of wallet types",
+      "subtitle": "Highest risk to lowest: from trusting others to verifying your own setup.",
+      "examplesLabel": "Examples: ",
+      "tiers": {
+        "custodial": {
+          "label": "Critical",
+          "title": "Custodial wallets and exchanges",
+          "body": "Your keys live on a server you do not control. The platform can freeze, lose, or leak your funds — and if it fails, you are a creditor, not an owner.",
+          "examples": "exchanges, payment and savings apps."
+        },
+        "hot": {
+          "label": "High",
+          "title": "Hot software wallets",
+          "body": "The keys sit on an online device, next to the apps you install and the links you open. Malware or a convincing page can read them before you notice.",
+          "examples": "mobile, desktop, and browser wallets."
+        },
+        "commercial-cold": {
+          "label": "Caution",
+          "title": "Commercial cold wallets",
+          "body": "The keys stay offline, but the wallet runs firmware you cannot inspect, on hardware heavily exposed to supply chain risks.",
+          "examples": "Ledger, Trezor, Tangem, COLDCARD, and similar hardware wallets."
+        },
+        "opensource-verifiable": {
+          "label": "Safe",
+          "title": "Verifiable open-source self-custody",
+          "body": "You learn to identify misleading wallet setups. You create your own secure wallet using open-source tools.",
+          "examples": ""
+        }
+      }
+    },
     "brandsTitle": "Wallets",
     "indexTitle": "Choose a wallet",
     "indexBody": "Each entry opens the schematic of the device, its documented failures and the sources behind them.",
@@ -159,6 +174,16 @@
     "ctaTitle": "Keep this from happening to you",
     "ctaBody": "Knowing how these wallets fail is half of it; building a setup that does not is the other half.",
     "cta": "Become an expert"
+  },
+  "WalletScams": {
+    "metadataTitle": "Wallet scams — documented failures",
+    "metadataDescription": "The popular wallets that lost their users' Bitcoin, with the documented failure behind each one.",
+    "title": "Wallet scams",
+    "subtitle": "Popular crypto wallets have cost users millions of dollars in Bitcoin savings they believed were completely safe.",
+    "footnote": "",
+    "sourceCta": "Read the report",
+    "datePending": "Date pending",
+    "bodyPending": "The incident write-up is still being put together — open the file to read what is documented so far."
   },
   "TransparencyPage": {
     "metadataTitle": "Verification — Secured Bitcoin wallets",

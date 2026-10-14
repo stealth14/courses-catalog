@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getWallets } from "@/lib/wallet-incidents";
-import { WikiBrandList } from "./wiki-brand-list";
+import { BrandList } from "./brand-list";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("WalletWiki");
+  const t = await getTranslations("WalletKnowledge");
 
   return {
     title: t("metadataTitle"),
@@ -13,20 +13,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Mini-wiki shell. The brand picker lives in this layout so it stays
+ * Knowledge base shell. The brand picker lives in this layout so it stays
  * mounted while the reader moves between entries: the nested routes under
- * `/wiki` only swap the panel beside it, and the page owns the single
- * `<h1>` so entries can start at `<h2>`.
+ * `/academy/knowledge` only swap the panel beside it, and the page owns the
+ * single `<h1>` so entries can start at `<h2>`.
  *
  * The wallet list comes from `public/wallet-incidents.json`, so a wallet
  * added there appears in the picker and gets its own entry route. Only the
  * fields the picker renders cross into the client component; the data
  * loader itself reads the filesystem and cannot ship to the browser.
  */
-export default async function WalletWikiLayout({
+export default async function KnowledgeLayout({
   children,
-}: LayoutProps<"/[locale]/wiki">) {
-  const t = await getTranslations("WalletWiki");
+}: LayoutProps<"/[locale]/academy/knowledge">) {
+  const t = await getTranslations("WalletKnowledge");
 
   const wallets = await getWallets();
   const brands = wallets.map(({ id, name, monogram }) => ({
@@ -48,7 +48,7 @@ export default async function WalletWikiLayout({
         </header>
 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-          <WikiBrandList brands={brands} />
+          <BrandList brands={brands} />
           <div className="min-w-0 flex-1">{children}</div>
         </div>
       </div>

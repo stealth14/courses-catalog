@@ -5,8 +5,8 @@ import { Link, usePathname } from "@/i18n/navigation";
 
 /** The two paths through the site: the free material and the paid track. */
 const NAV_ITEMS = [
-  { href: "/free", label: "free", short: "freeShort", tone: "quiet" },
-  { href: "/premium", label: "premium", short: "premiumShort", tone: "loud" },
+  { href: "/academy/free", label: "free", short: "freeShort", tone: "quiet" },
+  { href: "/academy/premium", label: "premium", short: "premiumShort", tone: "loud" },
 ] as const;
 
 /**

@@ -3,8 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { PaymentHeader } from "./payment/payment-header";
 import { HomeHero } from "./home-hero";
 import { HomeMetrics } from "./home-metrics";
-import { HomeWalletScandals } from "./home-wallet-scandals";
-import { HomeWalletRiskScale } from "./home-wallet-risk-scale";
 import { HomeWhatsappCta } from "./home-whatsapp-cta";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,8 +31,6 @@ export default async function HomePage() {
         <HomeHero />
       </div>
 
-      <HomeWalletScandals />
-
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 sm:px-6">
         <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
           {t("learningSection.title")}
@@ -46,8 +42,6 @@ export default async function HomePage() {
 
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 pb-10 sm:gap-16 sm:px-6 sm:pb-16">
         <HomeMetrics />
-
-        <HomeWalletRiskScale />
 
         <section className="flex flex-col items-center gap-5">
           <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">

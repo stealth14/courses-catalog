@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowIcon } from "@/components/arrow-icon";
@@ -44,11 +45,20 @@ const MONOGRAM_PALETTE = [
   "bg-orange-100 text-orange-800 dark:bg-orange-950/60 dark:text-orange-300",
 ];
 
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("WalletScams");
+
+  return {
+    title: t("metadataTitle"),
+    description: t("metadataDescription"),
+  };
+}
+
 /**
- * Hardware-wallet graveyard: a horizontally scrolling row of the wallets
- * that asked to be trusted with seed phrases and then lost that trust in
- * public. Each card names a dated, documented incident, not an opinion,
- * and links into the wallet wiki, where the incident is expanded and the
+ * Wallet scams: a horizontally scrolling row of the wallets that asked to
+ * be trusted with seed phrases and then lost that trust in public. Each
+ * card names a dated, documented incident, not an opinion, and links into
+ * the wallet knowledge base, where the incident is expanded and the
  * diagram of the device lives.
  *
  * Everything on a card comes from `public/wallet-incidents.json`: the
@@ -63,14 +73,13 @@ const MONOGRAM_PALETTE = [
  * Cards lay the mark beside the copy instead of stacking it above, so the
  * row stays short and the sections below stay a short scroll away.
  */
-export async function HomeWalletScandals() {
-  const t = await getTranslations("HomePage");
+export default async function WalletScamsPage() {
+  const t = await getTranslations("WalletScams");
   const locale = await getLocale();
   const logos = getBrandLogos();
   const wallets = await getWallets();
 
   if (wallets.length === 0) return null;
-
 
   const card = (wallet: WalletRecord, index: number) => {
     const logo = logos.get(wallet.id);
@@ -116,15 +125,15 @@ export async function HomeWalletScandals() {
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex items-center justify-between gap-2">
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9A5B00] dark:text-amber-400">
-              {date ?? t("scandals.datePending")}
+              {date ?? t("datePending")}
             </p>
 
             <Link
-              href={`/wiki/${wallet.id}`}
-              aria-label={`${wallet.name}: ${t("scandals.sourceCta")}`}
+              href={`/academy/knowledge/${wallet.id}`}
+              aria-label={`${wallet.name}: ${t("sourceCta")}`}
               className="inline-flex h-6 shrink-0 items-center gap-1 rounded-full border border-black/[.08] px-2.5 text-[11px] font-medium text-zinc-700 transition-colors hover:border-black/[.16] hover:bg-black/[.04] dark:border-white/[.145] dark:text-zinc-200 dark:hover:border-white/[.25] dark:hover:bg-white/[.06]"
             >
-              {t("scandals.sourceCta")}
+              {t("sourceCta")}
               <ArrowIcon className="h-3 w-3" />
             </Link>
           </div>
@@ -136,7 +145,7 @@ export async function HomeWalletScandals() {
                 : "mt-1.5 text-[11px] italic leading-4 text-zinc-500 dark:text-zinc-400"
             }
           >
-            {summary ?? t("scandals.bodyPending")}
+            {summary ?? t("bodyPending")}
           </p>
         </div>
       </li>
@@ -149,18 +158,20 @@ export async function HomeWalletScandals() {
     </ul>
   );
 
+  const footnote = t("footnote");
+
   return (
-    <section className="flex flex-col gap-6">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-1 px-4 sm:px-6">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
         <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
-          {t("scandals.title")}
+          {t("title")}
         </h2>
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {t("scandals.subtitle")}
+          {t("subtitle")}
         </p>
       </div>
 
-      <div className="wallet-marquee-viewport overflow-hidden px-4 sm:px-6">
+      <div className="wallet-marquee-viewport overflow-hidden">
         <div className="wallet-marquee flex w-max py-1">
           {group(false)}
           {group(true)}
@@ -169,11 +180,11 @@ export async function HomeWalletScandals() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
+      {footnote ? (
         <p className="text-xs leading-5 text-zinc-500 dark:text-zinc-400">
-          {t("scandals.footnote")}
+          {footnote}
         </p>
-      </div>
-    </section>
+      ) : null}
+    </div>
   );
 }

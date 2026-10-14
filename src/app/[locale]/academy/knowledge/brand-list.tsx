@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
 /** Only what the picker renders — the brand module itself is server-only. */
-export type WikiBrand = {
+export type Brand = {
   id: string;
   name: string;
   monogram: string;
@@ -28,14 +28,14 @@ const MONOGRAM_CLASSES = {
 };
 
 /**
- * Brand picker for the mini wiki. Stays a client component so it can mark
- * the entry being read with `aria-current`; the brand list itself is passed
- * in from the server layout.
+ * Brand picker for the knowledge base. Stays a client component so it can
+ * mark the entry being read with `aria-current`; the brand list itself is
+ * passed in from the server layout.
  *
  * Laid out as wrapping chips on phones and as a sticky column from `lg`.
  */
-export function WikiBrandList({ brands }: { brands: WikiBrand[] }) {
-  const t = useTranslations("WalletWiki");
+export function BrandList({ brands }: { brands: Brand[] }) {
+  const t = useTranslations("WalletKnowledge");
   const pathname = usePathname();
 
   return (
@@ -49,7 +49,7 @@ export function WikiBrandList({ brands }: { brands: WikiBrand[] }) {
 
       <ul className="mt-3 flex flex-wrap gap-1.5 lg:flex-col lg:gap-0.5">
         {brands.map((brand) => {
-          const href = `/wiki/${brand.id}`;
+          const href = `/academy/knowledge/${brand.id}`;
           const active = pathname === href;
           const variant = active ? "active" : "idle";
 

@@ -11,59 +11,43 @@
     "premium": "Sé un experto",
     "premiumShort": "Experto"
   },
+  "AcademyPage": {
+    "metadataTitle": "Academia — cursos de autocustodia de Bitcoin",
+    "metadataDescription": "Guías gratis, una base de conocimiento de arquitectura de billeteras y el camino experto.",
+    "title": "Academia",
+    "subtitle": "Todo en un solo lugar: el material gratis, el camino experto y la base de conocimiento de arquitectura de billeteras.",
+    "sections": {
+      "free": {
+        "title": "Aprende gratis",
+        "body": "Material gratis y verificable sobre arquitectura de billeteras.",
+        "cta": "Empieza a aprender"
+      },
+      "premium": {
+        "title": "Sé un experto",
+        "body": "Sesiones uno a uno para diseñar, construir y verificar tu propia configuración.",
+        "cta": "Ver el camino experto"
+      },
+      "knowledge": {
+        "title": "Base de conocimiento",
+        "body": "Cómo están construidas las billeteras populares y cómo han fallado.",
+        "cta": "Abrir la base de conocimiento"
+      }
+    }
+  },
   "HomePage": {
     "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
-      "title": "Conserva tus Bitcoins. Evita billeteras que no te dan control.",
+      "title": "Conserva tus Bitcoins. Evita billeteras que no te dan el control.",
       "subtitle": "Billeteras como Trezor y Coldcard exponen tus llaves privadas. Aprende a crear y gestionar billeteras verdaderamente seguras."
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "+15.000",
     "metricLabel": "dólares en Bitcoin que nuestros clientes hoy resguardan en autocustodia — bajo llaves que solo ellos controlan.",
     "exploreCta": "Explorar",
-    "scandals": {
-      "title": "¿Por qué es necesario aprender?",
-      "subtitle": "Las billeteras comerciales mas conocidas han causado la pérdida de millones de dólares en Bitcoin, ahorros de clientes que creyeron estar a salvo.",
-      "footnote": "",
-      "sourceCta": "Leer más",
-      "datePending": "Fecha pendiente",
-      "bodyPending": "El artículo del incidente todavía se está preparando: abre la ficha para leer lo que ya está documentado."
-    },
     "learningSection": {
       "title": "¿Por qué estas billeteras fallan y seguirán fallando?",
       "body": "Tu bitcoin está a salvo cuando tienes el conocimiento correcto, no cuando compras un dispositivo. Bitcoin ya tiene las herramientas, solo necesitas aprender a usarlas."
-    },
-    "riskScale": {
-      "title": "La escala de riesgo de los tipos de billetera",
-      "subtitle": "De mayor a menor riesgo: de confiar en otros a verificar tu propia configuración.",
-      "examplesLabel": "Ejemplos: ",
-      "tiers": {
-        "custodial": {
-          "label": "Crítico",
-          "title": "Billeteras custodiadas y exchanges",
-          "body": "Tus llaves viven en un servidor que no controlas. La plataforma puede congelar, perder o filtrar tus fondos, y si quiebra eres un acreedor, no un dueño.",
-          "examples": "exchanges y apps de pago o ahorro."
-        },
-        "hot": {
-          "label": "Alto",
-          "title": "Billeteras de software calientes",
-          "body": "Las llaves están en un dispositivo conectado a internet, junto a las apps que instalas y los enlaces que abres. Un malware o una página convincente puede leerlas antes de que lo notes.",
-          "examples": "billeteras de móvil, escritorio y navegador."
-        },
-        "commercial-cold": {
-          "label": "Precaución",
-          "title": "Billeteras frías comerciales",
-          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware expuesto, en hardware expuesto a ataques de cadena de suministro.",
-          "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."
-        },
-        "opensource-verifiable": {
-          "label": "Seguro",
-          "title": "Autocustodia de código abierto verificable",
-          "body": "Aprendes a identificar configuraciones de billetera engañosas. Creas tu billetera segura usando herramientas de código abierto.",
-          "examples": ""
-        }
-      }
     },
     "offering": {
       "title": "Planes",
@@ -81,16 +65,16 @@
   "FreePage": {
     "metadataTitle": "Aprende las bases gratis",
     "metadataDescription": "Material libre y verificable sobre arquitectura de billeteras Bitcoin: cómo están construidas las más populares y dónde viven realmente tus llaves.",
-    "title": "Aprende las bases gratis",
-    "subtitle": "Saber cómo está construida una billetera es lo que mantiene tu Bitcoin a salvo, no el dispositivo que compras. Las bases se quedan gratis: lee los esquemas, entiende los chips y compruébalo por tu cuenta.",
+    "title": "Para estar a salvo necesitas conocimiento duro.",
+    "subtitle": "La autocustodia de Bitcoin no es solo para expertos, todos pueden aprender lo importante.",
     "knowledgeTitle": "Base de conocimiento",
     "knowledgeSubtitle": "Guías que explican cómo funcionan de verdad las billeteras del mercado, siempre con la fuente documentada.",
     "entries": {
       "walletArchitecture": {
-        "tag": "Wiki",
+        "tag": "Base de conocimiento",
         "title": "Arquitectura de billeteras populares",
         "body": "Un esquema de cada billetera: qué chip guarda las llaves, qué ejecuta el firmware y cada fallo documentado hasta hoy.",
-        "cta": "Abrir la mini wiki"
+        "cta": "Abrir la base de conocimiento"
       }
     },
     "expertTitle": "¿Quieres un camino guiado?",
@@ -125,11 +109,42 @@
     "freeBody": "Empieza por el material gratis: cómo están construidas las billeteras populares y cada fallo que ya han tenido.",
     "freeCta": "Aprende las bases gratis"
   },
-  "WalletWiki": {
-    "metadataTitle": "Wiki de arquitectura de billeteras — cómo están construidas",
-    "metadataDescription": "Una wiki de arquitecturas de billeteras Bitcoin: cómo está construida cada marca, dónde viven sus llaves y cómo ha fallado en público.",
-    "title": "Wiki de arquitectura de billeteras",
+  "WalletKnowledge": {
+    "metadataTitle": "Arquitectura de billeteras — cómo están construidas",
+    "metadataDescription": "Una base de conocimiento de arquitecturas de billeteras Bitcoin: cómo está construida cada marca, dónde viven sus llaves y cómo ha fallado en público.",
+    "title": "Arquitectura de billeteras",
     "subtitle": "Elige una billetera para ver cómo está construida, dónde viven sus llaves y cada fallo documentado hasta hoy.",
+    "riskScale": {
+      "title": "La escala de riesgo de los tipos de billetera",
+      "subtitle": "De mayor a menor riesgo: de confiar en otros a verificar tu propia configuración.",
+      "examplesLabel": "Ejemplos: ",
+      "tiers": {
+        "custodial": {
+          "label": "Crítico",
+          "title": "Billeteras custodiadas y exchanges",
+          "body": "Tus llaves viven en un servidor que no controlas. La plataforma puede congelar, perder o filtrar tus fondos, y si quiebra eres un acreedor, no un dueño.",
+          "examples": "exchanges y apps de pago o ahorro."
+        },
+        "hot": {
+          "label": "Alto",
+          "title": "Billeteras de software calientes",
+          "body": "Las llaves están en un dispositivo conectado a internet, junto a las apps que instalas y los enlaces que abres. Un malware o una página convincente puede leerlas antes de que lo notes.",
+          "examples": "billeteras de móvil, escritorio y navegador."
+        },
+        "commercial-cold": {
+          "label": "Precaución",
+          "title": "Billeteras frías comerciales",
+          "body": "Las llaves permanecen fuera de línea, pero la billetera ejecuta firmware expuesto, en hardware expuesto a ataques de cadena de suministro.",
+          "examples": "Ledger, Trezor, Tangem, COLDCARD y billeteras de hardware similares."
+        },
+        "opensource-verifiable": {
+          "label": "Seguro",
+          "title": "Autocustodia de código abierto verificable",
+          "body": "Aprendes a identificar configuraciones de billetera engañosas. Creas tu billetera segura usando herramientas de código abierto.",
+          "examples": ""
+        }
+      }
+    },
     "brandsTitle": "Billeteras",
     "indexTitle": "Elige una billetera",
     "indexBody": "Cada entrada abre el esquema del dispositivo, sus fallos documentados y las fuentes detrás de ellos.",
@@ -159,6 +174,16 @@
     "ctaTitle": "Que no te pase lo mismo",
     "ctaBody": "Saber cómo fallan estas billeteras es la mitad; construir una configuración que no falle es la otra mitad.",
     "cta": "Sé un experto"
+  },
+  "WalletScams": {
+    "metadataTitle": "Estafas de billeteras — fallos documentados",
+    "metadataDescription": "Las billeteras populares que perdieron el Bitcoin de sus usuarios, con el fallo documentado detrás de cada una.",
+    "title": "Estafas de billeteras",
+    "subtitle": "Las billeteras comerciales mas conocidas han causado la pérdida de millones de dólares en Bitcoin, ahorros de clientes que creyeron estar a salvo.",
+    "footnote": "",
+    "sourceCta": "Leer más",
+    "datePending": "Fecha pendiente",
+    "bodyPending": "El artículo del incidente todavía se está preparando: abre la ficha para leer lo que ya está documentado."
   },
   "TransparencyPage": {
     "metadataTitle": "Verificación — Billeteras Bitcoin resguardadas",

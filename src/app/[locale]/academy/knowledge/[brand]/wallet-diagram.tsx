@@ -11,7 +11,7 @@ export type WalletDiagramLabels = {
 };
 
 /**
- * Architecture container for a wiki entry.
+ * Architecture container for a knowledge base entry.
  *
  * Renders the schematic dropped into `public/wallet-architectures` when
  * there is one — `next/image` passes SVG sources through untouched — and

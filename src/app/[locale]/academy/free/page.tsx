@@ -13,10 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Entrance to the free material. The guides themselves live under `/wiki`;
- * this page is the shelf, so a second guide only costs a card here plus
- * its own nested route. Rendered as a scrolling document on the same
- * `max-w-4xl` column as the landing page.
+ * Entrance to the free material. The guides themselves live under
+ * `/academy/knowledge`; this page is the shelf, so a second guide only
+ * costs a card here plus its own nested route. Rendered as a scrolling
+ * document on the same `max-w-4xl` column as the landing page.
  */
 export default async function FreePage() {
   const t = await getTranslations("FreePage");
@@ -46,7 +46,7 @@ export default async function FreePage() {
           <ul className="grid gap-4 sm:grid-cols-2">
             <li className="flex">
               <Link
-                href="/wiki"
+                href="/academy/knowledge"
                 className="group flex flex-1 flex-col gap-3 rounded-2xl border border-black/[.08] p-4 transition-colors hover:border-black/[.16] hover:bg-black/[.02] dark:border-white/[.145] dark:hover:border-white/[.25] dark:hover:bg-white/[.04]"
               >
                 <span className="self-start rounded-full bg-sky-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-sky-700 dark:bg-sky-950/60 dark:text-sky-300">
@@ -75,7 +75,7 @@ export default async function FreePage() {
             {t("expertBody")}
           </p>
           <Link
-            href="/premium"
+            href="/academy/premium"
             className="group inline-flex items-center gap-1.5 text-sm font-medium text-[#9A5B00] underline-offset-4 transition-colors hover:underline dark:text-amber-400"
           >
             {t("expertCta")}

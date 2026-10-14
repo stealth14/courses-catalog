@@ -15,14 +15,16 @@ export type LocalizedParagraphs = Partial<Record<Locale, string[]>>;
 /**
  * One documented failure of a wallet. Every field is optional in the data
  * file: an incident can be registered before its copy is written, and the
- * wiki fills the gaps with placeholders instead of rendering nothing.
+ * knowledge base fills the gaps with placeholders instead of rendering
+ * nothing.
  */
 export type WalletIncident = {
   date: LocalizedText | null;
   /** Where the claim comes from — vendor advisory, lab write-up, press. */
   source: string | null;
   summary: LocalizedText | null;
-  /** Extra paragraphs shown inside the wiki entry, under the summary. */
+  /** Extra paragraphs shown inside the knowledge base entry, under the
+   *  summary. */
   details: LocalizedParagraphs | null;
 };
 
@@ -45,7 +47,8 @@ export type WalletExposure = {
 
 /** A wallet the site documents, as read from `public/wallet-incidents.json`. */
 export type WalletRecord = {
-  /** URL segment on `/wiki/<id>` and the asset file stem in `public`. */
+  /** URL segment on `/academy/knowledge/<id>` and the asset file stem in
+   *  `public`. */
   id: string;
   name: string;
   monogram: string;
@@ -61,11 +64,11 @@ const FILE_PATH = path.join(process.cwd(), "public", "wallet-incidents.json");
  * Reads the documented incidents from `public/wallet-incidents.json`.
  *
  * The file is the single source of truth for both the landing-page row and
- * the wallet wiki: add a wallet (or another incident for one already
- * listed) there and both surfaces pick it up on the next request, with no
- * code change. Structure errors throw — a typo in an `id` would silently
- * move a page — but missing *copy* is legitimate and becomes `null`, which
- * the UI renders as a placeholder.
+ * the wallet knowledge base: add a wallet (or another incident for one
+ * already listed) there and both surfaces pick it up on the next request,
+ * with no code change. Structure errors throw — a typo in an `id` would
+ * silently move a page — but missing *copy* is legitimate and becomes
+ * `null`, which the UI renders as a placeholder.
  *
  * Server-only. `id` is used as a route segment, so it must be URL-safe.
  */
@@ -92,7 +95,7 @@ function parseWallet(entry: unknown, index: number): WalletRecord {
 
   if (!/^[a-z0-9-]+$/.test(id)) {
     throw new Error(
-      `Invalid public/wallet-incidents.json: ${where}.id must be lowercase letters, digits or dashes (it is part of the /wiki URL).`
+      `Invalid public/wallet-incidents.json: ${where}.id must be lowercase letters, digits or dashes (it is part of the /academy/knowledge URL).`
     );
   }
 

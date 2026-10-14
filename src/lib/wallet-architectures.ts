@@ -2,13 +2,14 @@ import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 /**
- * Optional architecture schematics for the wallet wiki, one per wallet.
+ * Optional architecture schematics for the wallet knowledge base, one per
+ * wallet.
  *
  * Diagrams are drawn artwork, so they are not committed here: drop a file
  * in `public/wallet-architectures` named after the wallet id —
- * `ledger.svg`, `trezor.png`, `coldcard.webp`, … — and the wiki renders it
- * in place of the placeholder block diagram. Wallets without a file keep
- * the placeholder.
+ * `ledger.svg`, `trezor.png`, `coldcard.webp`, … — and the knowledge base
+ * renders it in place of the placeholder block diagram. Wallets without a
+ * file keep the placeholder.
  */
 const DIAGRAM_DIR = path.join(process.cwd(), "public", "wallet-architectures");
 
