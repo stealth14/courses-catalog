@@ -22,20 +22,55 @@
     "metadataTitle": "Academy — Bitcoin self-custody courses",
     "metadataDescription": "A wallet architecture knowledge base and the expert track.",
     "title": "To stay safe, you need hard knowledge.",
-    "subtitle": "Bitcoin self-custody isn't just for experts; everyone can learn what matters.",
+    "subtitle": "Bitcoin self-custody isn't just for experts; everyone can learn what matters and recognize vague answers from AI chats in this industry.",
+    "contentsLabel": "Academy table of contents",
+    "openTopic": "Open topic",
+    "comingSoon": "Coming soon",
     "recommendedTitle": "Recommended readings",
     "recommendedLoading": "Loading recommended posts…",
     "recommendedLoadError": "Could not load recommended posts",
-    "sections": {
-      "premium": {
-        "title": "Become an expert",
-        "body": "One-to-one sessions to design, build and verify your own setup.",
-        "cta": "See the expert track"
+    "contents": {
+      "fundamentals": {
+        "title": "Fundamentals",
+        "description": "Begin with Bitcoin itself: the network, its money, and how it reaches agreement."
       },
-      "architectures": {
-        "title": "Wallet architectures",
-        "body": "Explore how popular wallets are built, where their keys live, and how they have failed.",
-        "cta": "Explore architectures"
+      "advanced": {
+        "title": "Advanced topics",
+        "description": "Go deeper into wallet design, stronger security models, and guided practice."
+      },
+      "topics": {
+        "bitcoinBasics": {
+          "title": "What is Bitcoin?",
+          "description": "Explore Bitcoin as a peer-to-peer monetary network and the problem it was designed to solve."
+        },
+        "transactions": {
+          "title": "Transactions and UTXOs",
+          "description": "Learn how value moves across the network and how unspent transaction outputs work."
+        },
+        "blockchain": {
+          "title": "Blocks and the blockchain",
+          "description": "See how transactions are grouped into blocks and linked into a shared ledger."
+        },
+        "consensus": {
+          "title": "Mining and consensus",
+          "description": "Understand proof of work and how independent nodes agree on Bitcoin's history."
+        },
+        "architectures": {
+          "title": "Wallet architectures",
+          "description": "Explore how popular wallets are built, where their keys live, and how they have failed."
+        },
+        "threatModels": {
+          "title": "Threat modeling",
+          "description": "Identify what you need to protect and choose safeguards that fit your situation."
+        },
+        "multisig": {
+          "title": "Multisignature and distributed security",
+          "description": "Understand how multiple keys can share control and reduce single points of failure."
+        },
+        "mentorship": {
+          "title": "Guided setup and review",
+          "description": "Work one-to-one to design, build, and verify a personal self-custody setup."
+        }
       }
     }
   },

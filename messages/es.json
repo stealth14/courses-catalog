@@ -23,19 +23,54 @@
     "metadataDescription": "Una base de conocimiento de arquitectura de billeteras y el camino experto.",
     "title": "Para estar a salvo necesitas conocimiento duro.",
     "subtitle": "La autocustodia de Bitcoin no es solo para expertos, todos pueden aprender lo importante.",
+    "contentsLabel": "Índice de contenidos de la academia",
+    "openTopic": "Abrir tema",
+    "comingSoon": "Próximamente",
     "recommendedTitle": "Lecturas recomendadas",
     "recommendedLoading": "Cargando recomendaciones…",
     "recommendedLoadError": "No se pudieron cargar las recomendaciones",
-    "sections": {
-      "premium": {
-        "title": "Sé un experto",
-        "body": "Sesiones uno a uno para diseñar, construir y verificar tu propia configuración.",
-        "cta": "Ver el camino experto"
+    "contents": {
+      "fundamentals": {
+        "title": "Fundamentos",
+        "description": "Empieza por Bitcoin: la red, su dinero y cómo alcanza un consenso."
       },
-      "architectures": {
-        "title": "Arquitecturas de billeteras",
-        "body": "Explora cómo están construidas las billeteras populares, dónde viven sus llaves y cómo han fallado.",
-        "cta": "Explorar arquitecturas"
+      "advanced": {
+        "title": "Temas avanzados",
+        "description": "Profundiza en el diseño de billeteras, modelos de seguridad y práctica guiada."
+      },
+      "topics": {
+        "bitcoinBasics": {
+          "title": "¿Qué es Bitcoin?",
+          "description": "Explora Bitcoin como una red monetaria entre pares y el problema que busca resolver."
+        },
+        "transactions": {
+          "title": "Transacciones y UTXO",
+          "description": "Aprende cómo se transfiere valor en la red y cómo funcionan las salidas de transacción no gastadas."
+        },
+        "blockchain": {
+          "title": "Bloques y cadena de bloques",
+          "description": "Descubre cómo se agrupan las transacciones en bloques y se enlazan en un registro compartido."
+        },
+        "consensus": {
+          "title": "Minería y consenso",
+          "description": "Entiende la prueba de trabajo y cómo los nodos independientes acuerdan el historial de Bitcoin."
+        },
+        "architectures": {
+          "title": "Arquitecturas de billeteras",
+          "description": "Explora cómo están construidas las billeteras populares, dónde viven sus llaves y cómo han fallado."
+        },
+        "threatModels": {
+          "title": "Modelos de amenazas",
+          "description": "Identifica qué necesitas proteger y elige medidas adecuadas para tu situación."
+        },
+        "multisig": {
+          "title": "Multifirma y seguridad distribuida",
+          "description": "Entiende cómo varias llaves pueden compartir el control y reducir puntos únicos de fallo."
+        },
+        "mentorship": {
+          "title": "Diseño y revisión guiados",
+          "description": "Trabaja individualmente para diseñar, crear y verificar tu configuración de autocustodia."
+        }
       }
     }
   },
