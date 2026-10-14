@@ -7,7 +7,11 @@
     "languageOptions": "Opciones de idioma"
   },
   "Nav": {
-    "label": "Elige cómo aprender",
+    "label": "Navegación principal",
+    "home": "Inicio",
+    "academy": "Academia",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
     "free": "Aprende gratis",
     "freeShort": "Gratis",
     "premium": "Sé un experto",
