@@ -7,11 +7,9 @@ import { Link } from "@/i18n/navigation";
 import { usePostCache } from "./post-cache-provider";
 
 export function RecommendedPosts({
-  title,
   loadingText,
   errorText,
 }: {
-  title: string;
   loadingText: string;
   errorText: string;
 }) {
@@ -24,9 +22,6 @@ export function RecommendedPosts({
 
   return (
     <section className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
-        {title}
-      </h2>
       {result.status === "error" ? (
         <p role="alert" className="text-sm text-red-700 dark:text-red-300">
           {errorText}

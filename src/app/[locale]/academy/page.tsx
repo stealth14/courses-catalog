@@ -43,6 +43,11 @@ export default async function AcademyPage() {
           </p>
         </header>
 
+        <RecommendedPosts
+          loadingText={t("recommendedLoading")}
+          errorText={t("recommendedLoadError")}
+        />
+
         <nav
           aria-label={t("contentsLabel")}
           className="flex flex-col gap-10"
@@ -125,12 +130,6 @@ export default async function AcademyPage() {
             </section>
           ))}
         </nav>
-
-        <RecommendedPosts
-          title={t("recommendedTitle")}
-          loadingText={t("recommendedLoading")}
-          errorText={t("recommendedLoadError")}
-        />
       </div>
     </main>
   );
