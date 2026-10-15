@@ -39,22 +39,24 @@ export function RecommendedPosts({
       ) : (
         <ul className="grid gap-5 sm:grid-cols-3">
           {result.items.map((post) => (
-            <li key={post.documentId} className="flex flex-col gap-2">
+            <li key={post.documentId}>
               <Link
                 href={`/academy/${post.slug}`}
                 aria-label={post.title}
-                className="group flex flex-col gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                className="group relative block aspect-[3/2] overflow-hidden bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:bg-zinc-900"
               >
-                <span className="relative block aspect-[3/2] w-full overflow-hidden rounded-xl bg-white dark:bg-zinc-900">
-                  <Image
-                    src={post.thumbnail.url}
-                    alt={post.thumbnail.alternativeText ?? ""}
-                    fill
-                    sizes="(min-width: 640px) 33vw, 100vw"
-                    className="object-cover transition-transform group-hover:scale-[1.03]"
-                  />
-                </span>
-                <span className="self-start text-sm font-semibold text-black underline-offset-4 group-hover:underline dark:text-zinc-50">
+                <Image
+                  src={post.thumbnail.url}
+                  alt={post.thumbnail.alternativeText ?? ""}
+                  fill
+                  sizes="(min-width: 640px) 33vw, 100vw"
+                  className="object-cover transition-transform group-hover:scale-[1.03]"
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"
+                />
+                <span className="absolute inset-x-0 bottom-0 p-4 text-sm font-semibold text-white">
                   {post.title}
                 </span>
               </Link>
