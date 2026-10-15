@@ -137,8 +137,9 @@
     "title": "Arquitectura de billeteras",
     "subtitle": "Elige una billetera para ver cómo está construida, dónde viven sus llaves y cada fallo documentado hasta hoy.",
     "riskScale": {
-      "title": "La escala de riesgo de los tipos de billetera",
-      "subtitle": "De mayor a menor riesgo: de confiar en otros a verificar tu propia configuración.",
+      "title": "¿Qué tan expuestos están realmente tus fondos?",
+      "subtitle": "Escala de riesgo",
+      "learnMore": "Conoce más",
       "examplesLabel": "Ejemplos: ",
       "tiers": {
         "custodial": {

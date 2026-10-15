@@ -24,7 +24,7 @@
         "ext": ".png",
         "mime": "image/png",
         "size": 239.58,
-        "url": "/posts/wallets-hardware.png",
+        "url": "/posts/wallets-hardware.jpg",
         "previewUrl": null,
         "provider": "local",
         "provider_metadata": null,
@@ -46,7 +46,7 @@
         "ext": ".png",
         "mime": "image/png",
         "size": 239.58,
-        "url": "/posts/wallets-hardware.png",
+        "url": "/posts/wallets-hardware.jpg",
         "previewUrl": null,
         "provider": "local",
         "provider_metadata": null,
@@ -219,6 +219,61 @@
         "updatedAt": "2026-10-14T00:00:00.000Z",
         "publishedAt": "2026-10-14T00:00:00.000Z"
       }
+    },
+    {
+      "id": 5,
+      "documentId": "e5f6g7h8i9j0k1l2a3b4c5d6",
+      "slug": "escala-de-riesgo-de-billeteras",
+      "title": "¿Qué tan expuestos están realmente tus fondos?",
+      "description": "Compara los riesgos de distintos tipos de billetera: desde fondos custodiados por terceros hasta una configuración que puedes verificar por tu cuenta.",
+      "content": "Contenido próximamente.",
+      "createdAt": "2026-10-14T00:00:00.000Z",
+      "updatedAt": "2026-10-14T00:00:00.000Z",
+      "publishedAt": "2026-10-14T00:00:00.000Z",
+      "thumbnail": {
+        "id": 501,
+        "documentId": "thumbnail-e5f6g7h8i9j0k1l2a3b4c5d6",
+        "name": "wallets-hardware-thumbnail.jpg",
+        "alternativeText": "Dispositivos de hardware para billeteras Bitcoin",
+        "caption": null,
+        "focalPoint": null,
+        "width": 696,
+        "height": 460,
+        "formats": null,
+        "hash": "wallets-hardware-thumbnail",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 57.5,
+        "url": "/posts/wallets-hardware.jpg",
+        "previewUrl": null,
+        "provider": "local",
+        "provider_metadata": null,
+        "createdAt": "2026-10-14T00:00:00.000Z",
+        "updatedAt": "2026-10-14T00:00:00.000Z",
+        "publishedAt": "2026-10-14T00:00:00.000Z"
+      },
+      "cover": {
+        "id": 502,
+        "documentId": "cover-e5f6g7h8i9j0k1l2a3b4c5d6",
+        "name": "wallets-hardware-cover.jpg",
+        "alternativeText": "Dispositivos de hardware para billeteras Bitcoin",
+        "caption": null,
+        "focalPoint": null,
+        "width": 696,
+        "height": 460,
+        "formats": null,
+        "hash": "wallets-hardware-cover",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 57.5,
+        "url": "/posts/wallets-hardware.jpg",
+        "previewUrl": null,
+        "provider": "local",
+        "provider_metadata": null,
+        "createdAt": "2026-10-14T00:00:00.000Z",
+        "updatedAt": "2026-10-14T00:00:00.000Z",
+        "publishedAt": "2026-10-14T00:00:00.000Z"
+      }
     }
   ],
   "meta": {
@@ -226,7 +281,7 @@
       "page": 1,
       "pageSize": 25,
       "pageCount": 1,
-      "total": 3
+      "total": 5
     }
   }
 }

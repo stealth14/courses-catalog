@@ -46,16 +46,18 @@ export default async function HomePage() {
             {t("learningSection.title")}
           </Link>
         </h2>
-        <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {t("learningSection.body")}
-        </p>
-        <Link
-          href="/academy/por-que-fallan-las-billeteras"
-          className="inline-flex items-center gap-1.5 self-start text-sm font-medium text-[#9A5B00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-amber-400"
-        >
-          {t("learningSection.learnMore")}
-          <ArrowIcon />
-        </Link>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
+          <p className="max-w-md text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+            {t("learningSection.body")}
+          </p>
+          <Link
+            href="/academy/por-que-fallan-las-billeteras"
+            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-[#9A5B00] underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:self-auto dark:text-amber-400"
+          >
+            {t("learningSection.learnMore")}
+            <ArrowIcon />
+          </Link>
+        </div>
       </section>
 
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 pb-10 sm:gap-16 sm:px-6 sm:pb-16">

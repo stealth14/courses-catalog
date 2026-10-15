@@ -137,8 +137,9 @@
     "title": "Wallet architectures",
     "subtitle": "Pick a wallet to see how it is built, where its keys live, and every failure documented so far.",
     "riskScale": {
-      "title": "The risk scale of wallet types",
-      "subtitle": "Highest risk to lowest: from trusting others to verifying your own setup.",
+      "title": "How exposed are your funds, really?",
+      "subtitle": "Scale of risk",
+      "learnMore": "Learn more",
       "examplesLabel": "Examples: ",
       "tiers": {
         "custodial": {
