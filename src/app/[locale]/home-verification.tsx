@@ -10,7 +10,7 @@ export async function HomeVerification() {
   const t = await getTranslations("HomePage");
 
   return (
-    <section className="flex flex-col items-center gap-4 rounded-2xl border border-[#F7931A]/25 bg-gradient-to-b from-[#F7931A]/[.09] to-transparent px-6 py-8 text-center dark:border-[#F7931A]/20 dark:from-[#F7931A]/[.12]">
+    <section className="flex flex-col items-center gap-4 rounded-2xl border border-bitcoin/25 bg-gradient-to-b from-bitcoin/[.09] to-transparent px-6 py-8 text-center dark:border-bitcoin/20 dark:from-bitcoin/[.12]">
       <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
         {t("verification.title")}
       </h2>
@@ -19,7 +19,7 @@ export async function HomeVerification() {
       </p>
       <Link
         href="/transparency"
-        className="inline-flex h-10 items-center gap-2 rounded-full border border-[#F7931A]/35 px-5 text-sm font-medium text-[#9A5B00] transition-colors hover:bg-[#F7931A]/10 dark:border-[#F7931A]/35 dark:text-amber-400 dark:hover:bg-[#F7931A]/15"
+        className="inline-flex h-10 items-center gap-2 rounded-full border border-bitcoin/35 px-5 text-sm font-medium text-[#9A5B00] transition-colors hover:bg-bitcoin/10 dark:border-bitcoin/35 dark:text-amber-400 dark:hover:bg-bitcoin/15"
       >
         {t("verification.cta")}
       </Link>

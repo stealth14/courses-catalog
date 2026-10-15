@@ -6,7 +6,7 @@ import type { SecuredWallet } from "@/lib/secured-wallets";
 
 /** Bitcoin-orange palette; slices cycle through it. */
 const SLICE_COLORS = [
-  "#F7931A",
+  "var(--bitcoin-color)",
   "#FBBF24",
   "#D97706",
   "#FCD34D",
@@ -283,7 +283,7 @@ export function WalletPieChart({
           <li key={wallet.address}>
             <div
               className={`flex items-center gap-4 px-3 py-3 transition-colors ${
-                active === index ? "bg-[#F7931A]/[.07]" : ""
+                active === index ? "bg-bitcoin/[.07]" : ""
               }`}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
