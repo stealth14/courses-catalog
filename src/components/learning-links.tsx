@@ -56,7 +56,9 @@ export function LearningLinks({
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={`inline-flex items-center rounded-full font-semibold whitespace-nowrap select-none transition active:scale-95 [-webkit-tap-highlight-color:transparent] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9A5B00] dark:focus-visible:outline-amber-400 ${CHIP_SIZES[size]} ${
-              CHIP_CLASSES[item.tone][active ? "active" : "idle"]
+              size === "hero"
+                ? "border border-[#F7931A] bg-[#F7931A] text-zinc-950 shadow-[0_0_32px_10px_rgba(247,147,26,0.4)] hover:bg-[#ff9f2e] hover:shadow-[0_0_44px_14px_rgba(247,147,26,0.55)]"
+                : CHIP_CLASSES[item.tone][active ? "active" : "idle"]
             }`}
           >
             {t(item.label)}
