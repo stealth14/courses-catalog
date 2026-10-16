@@ -13,14 +13,15 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  props: { params: Promise<{ slug: string }> }
+  props: { params: Promise<{ locale: string; slug: string }> }
 ): Promise<Metadata> {
-  const { slug } = await props.params;
+  const { locale, slug } = await props.params;
   const post = posts.find((entry) => entry.slug === slug);
 
-  return post
-    ? { title: post.title, description: post.description }
-    : {};
+  if (!post) return {};
+
+  const localized = Post.localize(post, locale);
+  return { title: localized.title, description: localized.description };
 }
 
 export default async function AcademyPostRoute(

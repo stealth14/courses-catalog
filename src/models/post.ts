@@ -1,14 +1,19 @@
 import type { Meta } from "@/interfaces/results";
 import type { StrapiMedia } from "@/interfaces/strapi-media";
 
-/** Flat Strapi v5 post entry with populated, one-to-one media relations. */
+export type PostText = {
+  title: string;
+  description: string;
+  content: string;
+};
+
+/** Strapi v5 post entry with localized text and populated media relations. */
 export type PostData = {
   id: number;
   documentId: string;
   slug: string;
-  title: string;
-  description: string;
-  content: string;
+  en: PostText;
+  es: PostText;
   thumbnail: StrapiMedia;
   cover: StrapiMedia;
   createdAt: string;
@@ -35,9 +40,8 @@ export class Post {
   readonly id: number;
   readonly documentId: string;
   readonly slug: string;
-  readonly title: string;
-  readonly description: string;
-  readonly content: string;
+  readonly en: PostText;
+  readonly es: PostText;
   readonly thumbnail: StrapiMedia;
   readonly cover: StrapiMedia;
   readonly createdAt: string;
@@ -48,9 +52,8 @@ export class Post {
     this.id = data.id;
     this.documentId = data.documentId;
     this.slug = data.slug;
-    this.title = data.title;
-    this.description = data.description;
-    this.content = data.content;
+    this.en = data.en;
+    this.es = data.es;
     this.thumbnail = data.thumbnail;
     this.cover = data.cover;
     this.createdAt = data.createdAt;
@@ -60,6 +63,11 @@ export class Post {
 
   static fromData(data: PostData): Post {
     return new Post(data);
+  }
+
+  /** Resolves a post's text for the active locale, defaulting to English. */
+  static localize(post: Pick<PostData, "en" | "es">, locale: string): PostText {
+    return locale === "es" ? post.es : post.en;
   }
 
   static async search(
