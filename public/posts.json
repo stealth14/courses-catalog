@@ -390,6 +390,26 @@
         "publishedAt": "2026-10-16T00:00:00.000Z"
       },
       "cover": null
+    },
+    {
+      "id": 9,
+      "documentId": "i9j0k1l2a3b4c5d6e7f8g9h0",
+      "slug": "schematic-of-the-safest-wallet",
+      "en": {
+        "title": "Schematic of the Safest Wallet",
+        "description": "A reference diagram of the wallet setup that removes the single point of failure: which keys exist, where each one lives, and what you have to verify yourself.",
+        "content": "Content coming soon."
+      },
+      "es": {
+        "title": "Esquema de la billetera más segura",
+        "description": "Un diagrama de referencia de la configuración que elimina el punto único de falla: qué llaves existen, dónde vive cada una y qué debes verificar por tu cuenta.",
+        "content": "Contenido próximamente."
+      },
+      "createdAt": "2026-10-20T00:00:00.000Z",
+      "updatedAt": "2026-10-20T00:00:00.000Z",
+      "publishedAt": "2026-10-20T00:00:00.000Z",
+      "thumbnail": null,
+      "cover": null
     }
   ],
   "meta": {
@@ -397,7 +417,7 @@
       "page": 1,
       "pageSize": 25,
       "pageCount": 1,
-      "total": 8
+      "total": 9
     }
   }
 }
