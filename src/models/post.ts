@@ -14,8 +14,8 @@ export type PostData = {
   slug: string;
   en: PostText;
   es: PostText;
-  thumbnail: StrapiMedia;
-  cover: StrapiMedia;
+  thumbnail: StrapiMedia | null;
+  cover: StrapiMedia | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string | null;
@@ -42,8 +42,8 @@ export class Post {
   readonly slug: string;
   readonly en: PostText;
   readonly es: PostText;
-  readonly thumbnail: StrapiMedia;
-  readonly cover: StrapiMedia;
+  readonly thumbnail: StrapiMedia | null;
+  readonly cover: StrapiMedia | null;
   readonly createdAt: string;
   readonly updatedAt: string;
   readonly publishedAt: string | null;

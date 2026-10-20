@@ -46,13 +46,20 @@ export function RecommendedPosts({
                   aria-label={localized.title}
                   className="group relative block aspect-[3/2] overflow-hidden bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:bg-zinc-900"
                 >
-                  <Image
-                    src={post.thumbnail.url}
-                    alt={post.thumbnail.alternativeText ?? ""}
-                    fill
-                    sizes="(min-width: 640px) 33vw, 100vw"
-                    className="object-cover transition-transform group-hover:scale-[1.03]"
-                  />
+                  {post.thumbnail ? (
+                    <Image
+                      src={post.thumbnail.url}
+                      alt={post.thumbnail.alternativeText ?? ""}
+                      fill
+                      sizes="(min-width: 640px) 33vw, 100vw"
+                      className="object-cover transition-transform group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-zinc-200 dark:bg-zinc-800"
+                    />
+                  )}
                   <span
                     aria-hidden="true"
                     className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"
