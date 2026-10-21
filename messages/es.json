@@ -22,7 +22,7 @@
     "metadataTitle": "Academia — cursos de autocustodia de Bitcoin",
     "metadataDescription": "Una base de conocimiento de arquitectura de billeteras y el camino experto.",
     "title": "Para estar a salvo necesitas conocimiento duro.",
-    "subtitle": "Custodiar es algo técnico. No hace falta ser experto, pero hay que saber lo escencial.",
+    "subtitle": "Custodiar bitcoin es algo técnico. No hace falta ser experto, pero ignorar los fundamentos te deja vulnerable.",
     "contentsLabel": "Índice de contenidos de la academia",
     "openTopic": "Abrir tema",
     "comingSoon": "Próximamente",
@@ -145,8 +145,8 @@
         "description": "Muestra una dirección, un monto o una comisión distintos de los que realmente firma."
       },
       "touch": {
-        "short": "Confirmación táctil",
-        "name": "Confirmación táctil",
+        "short": "Toque falso",
+        "name": "Toque falso",
         "description": "Registra un toque que nunca hiciste para que un pago parezca aprobado."
       },
       "usb": {
