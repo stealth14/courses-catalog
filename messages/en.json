@@ -131,6 +131,56 @@
     "architecturesBody": "Browse the architecture of popular wallets, where their keys live, and their documented failures.",
     "architecturesCta": "Explore wallet architectures"
   },
+  "FirmwareDiagram": {
+    "sectionTitle": "Malicious firmware",
+    "device": "Trezor Safe 5",
+    "model": "threat model — what malicious firmware could reach",
+    "hubTitle": "Malicious firmware",
+    "prompt": "Select any element to see its full name and what malicious firmware could do with it.",
+    "caption": "Simplified threat model of the Trezor Safe 5: if the signed firmware image itself were malicious, these are the parts of the device it could lie about or abuse. The secure element is shown because firmware might try to attack it — not because it is easy to infect.",
+    "targets": {
+      "display": {
+        "short": "Display",
+        "name": "Touchscreen display",
+        "description": "Shows an address, amount or fee that differs from the transaction it actually signs."
+      },
+      "touch": {
+        "short": "Touch confirm",
+        "name": "Touch confirmation",
+        "description": "Registers a tap you never made, so a payout looks approved on the spot."
+      },
+      "usb": {
+        "short": "USB link",
+        "name": "USB data link",
+        "description": "Tells Trezor Suite the balance and recipient it expects while sending something else to the chip."
+      },
+      "seed": {
+        "short": "Seed & keys",
+        "name": "Seed and private keys",
+        "description": "Reads the decrypted seed from device memory and signs transactions of its own."
+      },
+      "passphrase": {
+        "short": "Passphrase",
+        "name": "Passphrase entry",
+        "description": "Captures the passphrase as it is typed and clones every hidden wallet it unlocks."
+      },
+      "storage": {
+        "short": "Storage",
+        "name": "Firmware storage",
+        "description": "Rewrites its own image and re-infects the device after a factory reset."
+      },
+      "secure-element": {
+        "short": "Secure element",
+        "name": "Secure element",
+        "description": "Replays PIN attempts past the limit and hides the counters that would expose it."
+      },
+      "randomness": {
+        "short": "Randomness",
+        "name": "Random number generator",
+        "description": "Feeds rigged entropy, so keys generated after infection can be guessed."
+      }
+    }
+  },
   "WalletKnowledge": {
     "metadataTitle": "Wallet architectures — how popular wallets are built",
     "metadataDescription": "A knowledge base of Bitcoin wallet architectures: how each brand is built, where its keys live, and how it has failed in public.",

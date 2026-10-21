@@ -131,6 +131,56 @@
     "architecturesBody": "Consulta la arquitectura de las billeteras populares, dónde viven sus llaves y los fallos documentados.",
     "architecturesCta": "Explorar arquitecturas de billeteras"
   },
+  "FirmwareDiagram": {
+    "sectionTitle": "Firmware malicioso",
+    "device": "Trezor Safe 5",
+    "model": "modelo de amenazas — qué podría alcanzar un firmware malicioso",
+    "hubTitle": "Firmware malicioso",
+    "prompt": "Selecciona un elemento para ver su nombre completo y qué podría hacer un firmware malicioso.",
+    "caption": "Modelo simplificado de amenazas del Trezor Safe 5: si la imagen de firmware firmada fuera maliciosa, estas son las partes del dispositivo sobre las que podría mentir o que podría abusar. Se muestra el elemento seguro porque el firmware podría intentar atacarlo, no porque sea fácil de infectar.",
+    "targets": {
+      "display": {
+        "short": "Pantalla",
+        "name": "Pantalla táctil",
+        "description": "Muestra una dirección, un monto o una comisión distintos de los que realmente firma."
+      },
+      "touch": {
+        "short": "Confirmación táctil",
+        "name": "Confirmación táctil",
+        "description": "Registra un toque que nunca hiciste para que un pago parezca aprobado."
+      },
+      "usb": {
+        "short": "Enlace USB",
+        "name": "Enlace de datos USB",
+        "description": "Le informa a Trezor Suite el saldo y destinatario esperados mientras envía otros datos al chip."
+      },
+      "seed": {
+        "short": "Semilla y llaves",
+        "name": "Semilla y llaves privadas",
+        "description": "Lee la semilla descifrada de la memoria del dispositivo y firma sus propias transacciones."
+      },
+      "passphrase": {
+        "short": "Frase secreta",
+        "name": "Ingreso de frase secreta",
+        "description": "Captura la frase secreta mientras la escribes y clona cada billetera oculta que desbloquea."
+      },
+      "storage": {
+        "short": "Almacenamiento",
+        "name": "Almacenamiento del firmware",
+        "description": "Reescribe su propia imagen y vuelve a infectar el dispositivo después de un restablecimiento de fábrica."
+      },
+      "secure-element": {
+        "short": "Elemento seguro",
+        "name": "Elemento seguro",
+        "description": "Repite intentos de PIN más allá del límite y oculta los contadores que lo delatarían."
+      },
+      "randomness": {
+        "short": "Aleatoriedad",
+        "name": "Generador de números aleatorios",
+        "description": "Produce entropía manipulada para que se puedan adivinar las llaves generadas después de la infección."
+      }
+    }
+  },
   "WalletKnowledge": {
     "metadataTitle": "Arquitectura de billeteras — cómo están construidas",
     "metadataDescription": "Una base de conocimiento de arquitecturas de billeteras Bitcoin: cómo está construida cada marca, dónde viven sus llaves y cómo ha fallado en público.",
