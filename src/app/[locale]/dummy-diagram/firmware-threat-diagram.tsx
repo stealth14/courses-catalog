@@ -27,59 +27,37 @@ type FirmwareTarget = {
     | "secure-element"
     | "randomness";
   icon: ComponentType<FirmwareIconProps>;
-  /** Where the spoke from the firmware hub ends, in percent. */
-  spoke: { x: number; y: number };
 };
 
-/**
- * Reading order is also the grid order: interface on top, secrets on the
- * sides, internals at the bottom. The hub itself is rendered between the
- * second and third row.
- */
 const TARGETS: FirmwareTarget[] = [
-  {
-    id: "display",
-    icon: DisplayIcon,
-    spoke: { x: 16.5, y: 16.5 },
-  },
-  {
-    id: "touch",
-    icon: TapIcon,
-    spoke: { x: 50, y: 14 },
-  },
-  {
-    id: "usb",
-    icon: UsbIcon,
-    spoke: { x: 83.5, y: 16.5 },
-  },
-  {
-    id: "seed",
-    icon: KeyIcon,
-    spoke: { x: 16.5, y: 50 },
-  },
-  {
-    id: "passphrase",
-    icon: KeypadIcon,
-    spoke: { x: 83.5, y: 50 },
-  },
-  {
-    id: "storage",
-    icon: DatabaseIcon,
-    spoke: { x: 16.5, y: 84 },
-  },
-  {
-    id: "secure-element",
-    icon: ShieldIcon,
-    spoke: { x: 50, y: 86 },
-  },
-  {
-    id: "randomness",
-    icon: DiceIcon,
-    spoke: { x: 83.5, y: 84 },
-  },
+  { id: "display", icon: DisplayIcon },
+  { id: "touch", icon: TapIcon },
+  { id: "usb", icon: UsbIcon },
+  { id: "seed", icon: KeyIcon },
+  { id: "passphrase", icon: KeypadIcon },
+  { id: "storage", icon: DatabaseIcon },
+  { id: "secure-element", icon: ShieldIcon },
+  { id: "randomness", icon: DiceIcon },
 ];
 
+/** Angles in degrees for a regular octagon ring: top-left, top, top-right, left, right, bottom-left, bottom, bottom-right. */
+const RING_ANGLES = [-135, -90, -45, 180, 0, 135, 90, 45];
+
+/** Ring geometry, as percentages of the square diagram box. */
+const RING_RADIUS = 36.5;
+const TILE_SIZE = 25;
+const HUB_SIZE = 26;
+
 const HUB = { x: 50, y: 50 };
+
+function ringPosition(index: number) {
+  const radians = ((RING_ANGLES[index] ?? 0) * Math.PI) / 180;
+
+  return {
+    x: HUB.x + RING_RADIUS * Math.cos(radians),
+    y: HUB.y + RING_RADIUS * Math.sin(radians),
+  };
+}
 
 function SpokeLines({ selectedId }: { selectedId: string | null }) {
   return (
@@ -89,17 +67,18 @@ function SpokeLines({ selectedId }: { selectedId: string | null }) {
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
     >
-      {TARGETS.map((target) => {
+      {TARGETS.map((target, index) => {
         const isSelected = target.id === selectedId;
         const dimmed = selectedId !== null && !isSelected;
+        const end = ringPosition(index);
 
         return (
           <line
             key={target.id}
             x1={HUB.x}
             y1={HUB.y}
-            x2={target.spoke.x}
-            y2={target.spoke.y}
+            x2={end.x}
+            y2={end.y}
             strokeWidth={isSelected ? 3 : 1}
             strokeDasharray={isSelected ? "1 5" : "2 6"}
             strokeLinecap="round"
@@ -127,9 +106,11 @@ function FirmwareHub() {
   const t = useTranslations("FirmwareDiagram");
 
   return (
-    <div className="relative w-full min-h-0 self-start aspect-square flex flex-col items-center justify-center gap-2 rounded-2xl border border-rose-500/40 bg-rose-50 p-2 text-center">
-      <FirmwareChipIcon className="h-8 w-8 shrink-0 text-rose-600" />
-      <p className="text-xs leading-4 font-semibold tracking-tight text-rose-900">
+    <div className="relative w-full aspect-square flex select-none flex-col items-center justify-center gap-1.5 rounded-full border border-rose-900/30 bg-gradient-to-br from-rose-600 via-rose-700 to-rose-900 p-3 text-center text-white shadow-lg shadow-rose-900/25 ring-1 ring-white/20 ring-inset">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15">
+        <FirmwareChipIcon className="h-5 w-5 text-white" />
+      </span>
+      <p className="text-xs leading-4 font-semibold tracking-tight text-white">
         {t("hubTitle")}
       </p>
     </div>
@@ -194,32 +175,39 @@ export function FirmwareThreatDiagram() {
         </div>
 
         <div className="overflow-x-auto">
-          <div className="mx-auto w-[24rem] pb-3 pt-4 md:w-full md:max-w-[26rem]">
-            <div className="relative grid grid-cols-3 gap-8">
+          <div className="mx-auto w-[27rem] pb-3 pt-4 md:w-full md:max-w-[30rem]">
+            <div className="relative aspect-square w-full select-none">
               <SpokeLines selectedId={selectedId} />
 
-              {/* Split around the hub so it lands in the centre cell. */}
-              {TARGETS.slice(0, 4).map((target) => (
-                <TargetTile
-                  key={target.id}
-                  target={target}
-                  short={t(`targets.${target.id}.short`)}
-                  selected={selectedId === target.id}
-                  onSelect={setSelectedId}
-                />
-              ))}
+              {TARGETS.map((target, index) => {
+                const { x, y } = ringPosition(index);
 
-              <FirmwareHub />
+                return (
+                  <div
+                    key={target.id}
+                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                    style={{
+                      left: `${x}%`,
+                      top: `${y}%`,
+                      width: `${TILE_SIZE}%`,
+                    }}
+                  >
+                    <TargetTile
+                      target={target}
+                      short={t(`targets.${target.id}.short`)}
+                      selected={selectedId === target.id}
+                      onSelect={setSelectedId}
+                    />
+                  </div>
+                );
+              })}
 
-              {TARGETS.slice(4).map((target) => (
-                <TargetTile
-                  key={target.id}
-                  target={target}
-                  short={t(`targets.${target.id}.short`)}
-                  selected={selectedId === target.id}
-                  onSelect={setSelectedId}
-                />
-              ))}
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                style={{ width: `${HUB_SIZE}%` }}
+              >
+                <FirmwareHub />
+              </div>
             </div>
           </div>
         </div>
@@ -275,14 +263,14 @@ function TargetTile({
       aria-label={short}
       aria-pressed={selected}
       onClick={() => onSelect(selected ? null : target.id)}
-      className={`relative w-full min-h-0 self-start aspect-square flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border p-2 text-center transition-colors focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:outline-none ${
+      className={`relative w-full aspect-square flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-full border px-1 py-2 text-center transition-colors focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:outline-none ${
         selected
           ? "fw-infected-tile isolate border-rose-700 bg-rose-100 text-rose-950"
           : "border-zinc-300 bg-white text-black hover:border-zinc-500"
       }`}
     >
       <span
-        className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+        className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
           selected
             ? "bg-rose-200 text-rose-900"
             : "bg-zinc-100 text-zinc-600"
