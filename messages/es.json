@@ -181,6 +181,66 @@
       }
     }
   },
+  "HardwareWalletDiagram": {
+    "sectionTitle": "Superficie de ataque del hardware wallet",
+    "device": "Cualquier hardware wallet comercial",
+    "model": "modelo de amenazas — todos los componentes frente a los que se sienta un firmware malicioso, hoy y en modelos futuros",
+    "hubTitle": "Firmware malicioso",
+    "prompt": "Selecciona cualquier elemento para ver su nombre completo y qué podría hacer un firmware malicioso con él.",
+    "caption": "Modelo de amenazas genérico para hardware wallets comerciales: el firmware se sienta entre el usuario y cada componente, así que una imagen maliciosa puede mentir, capturar o redirigir todo lo que pasa por él. Los enlaces inalámbricos, cámaras, biometría y la circuitería de batería o manipulación llegan en modelos nuevos: la exposición empieza en cuanto el componente se envía.",
+    "targets": {
+      "display": {
+        "short": "Pantalla",
+        "name": "Pantalla",
+        "description": "Dibuja una dirección, un monto o una comisión distintos de la transacción que el usuario aprobó realmente."
+      },
+      "input": {
+        "short": "Táctil y botones",
+        "name": "Pantalla táctil y botones",
+        "description": "Registra toques y pulsaciones que nunca ocurrieron, y captura el PIN mientras se escribe."
+      },
+      "usb": {
+        "short": "Enlace USB",
+        "name": "Enlace de datos USB",
+        "description": "Le muestra una transacción a la app de escritorio mientras le entrega otra distinta a la rutina de firma."
+      },
+      "wireless": {
+        "short": "NFC / Bluetooth",
+        "name": "Enlace inalámbrico (NFC o Bluetooth)",
+        "description": "Abre un canal hacia un atacante cercano que la pantalla nunca muestra; es común en modelos nuevos."
+      },
+      "camera": {
+        "short": "Cámara / QR",
+        "name": "Cámara y lector de QR",
+        "description": "Lee o reescribe el contenido del QR para que un escaneo aislado firme algo distinto de lo que se mostró."
+      },
+      "storage-media": {
+        "short": "microSD",
+        "name": "Almacenamiento extraíble",
+        "description": "Cambia el archivo de transacción de la tarjeta por uno que el usuario nunca revisó."
+      },
+      "seed": {
+        "short": "Semilla",
+        "name": "Semilla y llaves almacenadas",
+        "description": "Lee la semilla descifrada de la memoria del dispositivo y firma sus propias transacciones."
+      },
+      "secure-element": {
+        "short": "Elemento seguro",
+        "name": "Elemento seguro",
+        "description": "Repite intentos de PIN más allá del límite, falsifica un resultado de verificación u oculta los contadores que lo delatarían."
+      },
+      "biometrics": {
+        "short": "Huella",
+        "name": "Sensor de huella",
+        "description": "Repite una lectura anterior o reporta una coincidencia para un dedo que nunca se apoyó."
+      },
+      "power": {
+        "short": "Batería y tamper",
+        "name": "Batería, carga y malla antimanipulación",
+        "description": "Silencia alertas de manipulación y de batería, o baja el voltaje del chip para saltarse una verificación."
+      }
+    }
+  },
   "WalletKnowledge": {
     "metadataTitle": "Arquitectura de billeteras — cómo están construidas",
     "metadataDescription": "Una base de conocimiento de arquitecturas de billeteras Bitcoin: cómo está construida cada marca, dónde viven sus llaves y cómo ha fallado en público.",

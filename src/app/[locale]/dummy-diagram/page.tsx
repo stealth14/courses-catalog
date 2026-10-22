@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { FirmwareThreatDiagram } from "./firmware-threat-diagram";
+import { HardwareWalletThreatDiagram } from "./hardware-wallet-threat-diagram";
 
 export const metadata: Metadata = {
   title: "Diagram prototype",
   description:
-    "Scratch page for prototyping the Trezor Safe 5 firmware threat-model diagram.",
+    "Scratch page for prototyping the Trezor Safe 5 firmware threat model and the generic hardware-wallet attack surface.",
   robots: { index: false, follow: false },
 };
 
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
  */
 export default async function DummyDiagramPage() {
   const t = await getTranslations("FirmwareDiagram");
+  const tHardware = await getTranslations("HardwareWalletDiagram");
 
   return (
     <main className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
@@ -40,6 +42,19 @@ export default async function DummyDiagramPage() {
             {t("sectionTitle")}
           </h2>
           <FirmwareThreatDiagram />
+        </section>
+
+        <section
+          aria-labelledby="hardware-wallet-heading"
+          className="flex flex-col gap-4"
+        >
+          <h2
+            id="hardware-wallet-heading"
+            className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50"
+          >
+            {tHardware("sectionTitle")}
+          </h2>
+          <HardwareWalletThreatDiagram />
         </section>
       </div>
     </main>

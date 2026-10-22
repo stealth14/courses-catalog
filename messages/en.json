@@ -181,6 +181,66 @@
       }
     }
   },
+  "HardwareWalletDiagram": {
+    "sectionTitle": "Hardware wallet attack surface",
+    "device": "Any commercial hardware wallet",
+    "model": "threat model — every component malicious firmware sits in front of, today and on future models",
+    "hubTitle": "Malicious firmware",
+    "prompt": "Select any element to see its full name and what malicious firmware could do with it.",
+    "caption": "Generic threat model for commercial hardware wallets: the firmware sits between the user and every component, so a malicious image can lie about, capture or reroute whatever passes through it. Wireless links, cameras, biometrics and battery or tamper circuitry are arriving on newer models — the exposure begins the moment the component ships.",
+    "targets": {
+      "display": {
+        "short": "Display",
+        "name": "Screen",
+        "description": "Draws an address, amount or fee that differs from the transaction the user actually approved."
+      },
+      "input": {
+        "short": "Touch & buttons",
+        "name": "Touchscreen and buttons",
+        "description": "Registers taps and presses that never happened, and captures the PIN on the way in."
+      },
+      "usb": {
+        "short": "USB link",
+        "name": "USB data link",
+        "description": "Tells the desktop app one transaction while handing a different one to the signing routine."
+      },
+      "wireless": {
+        "short": "NFC / Bluetooth",
+        "name": "Wireless link (NFC or Bluetooth)",
+        "description": "Opens a channel to a nearby attacker that the screen never shows — standard on newer models."
+      },
+      "camera": {
+        "short": "Camera / QR",
+        "name": "Camera and QR scanner",
+        "description": "Reads or rewrites the QR payload so an air-gapped scan signs something other than what was shown."
+      },
+      "storage-media": {
+        "short": "microSD",
+        "name": "Removable storage",
+        "description": "Swaps the transaction file on the card for one the user never reviewed."
+      },
+      "seed": {
+        "short": "Seed storage",
+        "name": "Seed and key storage",
+        "description": "Reads the decrypted seed from device memory and signs transactions of its own."
+      },
+      "secure-element": {
+        "short": "Secure element",
+        "name": "Secure element",
+        "description": "Replays PIN attempts past the limit, fakes a verification result, or hides the counters that would expose it."
+      },
+      "biometrics": {
+        "short": "Fingerprint",
+        "name": "Fingerprint sensor",
+        "description": "Replays an earlier scan or reports a match for a finger that was never placed."
+      },
+      "power": {
+        "short": "Battery & tamper",
+        "name": "Battery, charging and tamper mesh",
+        "description": "Suppresses tamper and battery alerts, or browns out the chip so a check is skipped."
+      }
+    }
+  },
   "WalletKnowledge": {
     "metadataTitle": "Wallet architectures — how popular wallets are built",
     "metadataDescription": "A knowledge base of Bitcoin wallet architectures: how each brand is built, where its keys live, and how it has failed in public.",
