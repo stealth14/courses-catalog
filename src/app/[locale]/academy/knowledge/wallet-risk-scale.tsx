@@ -55,7 +55,7 @@ export async function WalletRiskScale() {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-semibold tracking-tight text-primary-deep dark:text-primary-soft">
+        <h2 className="text-xl font-semibold tracking-tight text-primary">
           <Link
             href="/academy/escala-de-riesgo-de-billeteras"
             className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"

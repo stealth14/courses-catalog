@@ -38,7 +38,7 @@ export default async function HomePage() {
       <WalletScandalsRow />
 
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 sm:px-6">
-        <h2 className="text-xl font-semibold tracking-tight text-primary-deep dark:text-primary-soft">
+        <h2 className="text-xl font-semibold tracking-tight text-primary">
           <Link
             href="/academy/por-que-fallan-las-billeteras"
             className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"

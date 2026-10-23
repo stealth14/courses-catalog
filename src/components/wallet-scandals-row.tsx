@@ -121,7 +121,7 @@ export async function WalletScandalsRow() {
   return (
     <section className="flex flex-col gap-3">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-1 px-4 sm:px-6">
-        <h2 className="text-xl font-semibold tracking-tight text-primary-deep dark:text-primary-soft">
+        <h2 className="text-xl font-semibold tracking-tight text-primary">
           {t("title")}
         </h2>
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">

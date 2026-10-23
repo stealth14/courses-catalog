@@ -7,7 +7,7 @@
   /* Single source of truth for the brand accent. Every other brand shade
      (hover/deep/soft/faint/edge/dim) is derived from this one value, so
      changing it restyles the whole site. */
-  --primary-color: #0ea5e9;
+  --primary-color: #ffb900 ;
 }
 
 @theme inline {

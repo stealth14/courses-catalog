@@ -16,7 +16,7 @@ export async function HomeMetrics() {
   return (
     <section className="border-t border-black/[.08] pt-8 dark:border-white/[.145]">
       <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold tracking-tight text-primary-deep dark:text-primary-soft">
+        <h2 className="text-xl font-semibold tracking-tight text-primary">
           <Link
             href="/transparency"
             className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
