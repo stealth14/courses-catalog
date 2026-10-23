@@ -13,7 +13,7 @@ import {
 import { WalletDiagram } from "./wallet-diagram";
 
 const SECTION_LABEL =
-  "text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9A5B00] dark:text-amber-400";
+  "text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-deep dark:text-primary-soft";
 
 /** Dashed shell used wherever the data file has no copy yet. */
 const PENDING_BOX =
@@ -113,7 +113,7 @@ export default async function KnowledgeEntryPage(
         <section className="flex flex-col gap-3">
           <h3 className={SECTION_LABEL}>{t("exposureTitle")}</h3>
 
-          <div className="flex flex-col gap-3 rounded-2xl border border-amber-200 bg-amber-50/60 p-4 dark:border-amber-900/50 dark:bg-amber-950/20">
+          <div className="flex flex-col gap-3 rounded-2xl border border-primary-edge bg-primary-faint/60 p-4 dark:border-primary-dim/50 dark:bg-primary-dim/20">
             {exposureSummary ? <p className={BODY}>{exposureSummary}</p> : null}
 
             {exposurePoints ? (
@@ -122,7 +122,7 @@ export default async function KnowledgeEntryPage(
                   <li key={index} className="flex gap-2">
                     <span
                       aria-hidden="true"
-                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#9A5B00] dark:bg-amber-400"
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-deep dark:bg-primary-soft"
                     />
                     <span className={BODY}>{point}</span>
                   </li>

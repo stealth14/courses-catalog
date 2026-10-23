@@ -55,9 +55,9 @@ export function LearningLinks({
             key={item.href}
             href={item.href}
             aria-current={active ? "page" : undefined}
-            className={`inline-flex items-center rounded-full font-semibold whitespace-nowrap select-none transition active:scale-95 [-webkit-tap-highlight-color:transparent] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9A5B00] dark:focus-visible:outline-amber-400 ${CHIP_SIZES[size]} ${
+            className={`inline-flex items-center rounded-full font-semibold whitespace-nowrap select-none transition active:scale-95 [-webkit-tap-highlight-color:transparent] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-deep dark:focus-visible:outline-primary-soft ${CHIP_SIZES[size]} ${
               size === "hero"
-                ? "border border-bitcoin bg-bitcoin text-zinc-950 shadow-[0_0_32px_10px_color-mix(in_srgb,var(--bitcoin-color)_40%,transparent)] hover:bg-bitcoin-hover hover:shadow-[0_0_44px_14px_color-mix(in_srgb,var(--bitcoin-color)_55%,transparent)]"
+                ? "border border-primary bg-primary text-zinc-950 shadow-[0_0_32px_10px_color-mix(in_srgb,var(--primary-color)_40%,transparent)] hover:bg-primary-hover hover:shadow-[0_0_44px_14px_color-mix(in_srgb,var(--primary-color)_55%,transparent)]"
                 : CHIP_CLASSES[item.tone][active ? "active" : "idle"]
             }`}
           >

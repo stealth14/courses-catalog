@@ -59,7 +59,7 @@ export default async function AcademyPage() {
               className="flex flex-col"
             >
               <div className="mb-3 flex items-baseline gap-3 border-b border-black/[.12] pb-3 dark:border-white/[.16]">
-                <span className="font-mono text-xs tracking-widest text-[#9A5B00] dark:text-amber-400">
+                <span className="font-mono text-xs tracking-widest text-primary-deep dark:text-primary-soft">
                   {String(groupIndex + 1).padStart(2, "0")}
                 </span>
                 <div>
@@ -113,7 +113,7 @@ export default async function AcademyPage() {
                         <Link
                           href={href}
                           aria-label={`${t(`contents.topics.${topic}.title`)} — ${t("openTopic")}`}
-                          className="inline-flex min-h-8 items-center gap-1.5 whitespace-nowrap text-xs font-medium text-[#9A5B00] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-amber-400"
+                          className="inline-flex min-h-8 items-center gap-1.5 whitespace-nowrap text-xs font-medium text-primary-deep hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-primary-soft"
                         >
                           <span className="hidden sm:inline">{t("openTopic")}</span>
                           <ArrowIcon />

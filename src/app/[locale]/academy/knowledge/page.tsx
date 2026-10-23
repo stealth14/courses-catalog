@@ -40,7 +40,7 @@ export default async function KnowledgePage() {
               <span className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight text-black dark:text-zinc-50">
                 {wallet.name}
               </span>
-              <ArrowIcon className="h-4 w-4 text-[#9A5B00] dark:text-amber-400" />
+              <ArrowIcon className="h-4 w-4 text-primary-deep dark:text-primary-soft" />
             </Link>
           </li>
         ))}

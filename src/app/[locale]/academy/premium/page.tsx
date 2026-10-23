@@ -71,7 +71,7 @@ export default async function PremiumPage() {
           </p>
           <Link
             href="/academy/knowledge"
-            className="group inline-flex items-center gap-1.5 text-sm font-medium text-[#9A5B00] underline-offset-4 transition-colors hover:underline dark:text-amber-400"
+            className="group inline-flex items-center gap-1.5 text-sm font-medium text-primary-deep underline-offset-4 transition-colors hover:underline dark:text-primary-soft"
           >
             {t("architecturesCta")}
             <ArrowIcon />

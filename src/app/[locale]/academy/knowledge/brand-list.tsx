@@ -12,7 +12,7 @@ export type Brand = {
 
 /** Chip geometry only; the variants below own every color. */
 const ITEM_BASE =
-  "flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9A5B00] dark:focus-visible:outline-amber-400";
+  "flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-deep dark:focus-visible:outline-primary-soft";
 
 const ITEM_CLASSES = {
   idle: "text-zinc-600 hover:bg-black/[.04] dark:text-zinc-300 dark:hover:bg-white/[.06]",
@@ -43,7 +43,7 @@ export function BrandList({ brands }: { brands: Brand[] }) {
       aria-label={t("brandsTitle")}
       className="lg:sticky lg:top-24 lg:w-56 lg:shrink-0"
     >
-      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9A5B00] dark:text-amber-400">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-deep dark:text-primary-soft">
         {t("brandsTitle")}
       </p>
 
