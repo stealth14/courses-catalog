@@ -2,7 +2,8 @@
   "Layout": {
     "title": "Ronny Cajas — Self-custody Bitcoin mentorship",
     "description": "I teach individuals and companies to hold their own Bitcoin, in wallets they control.",
-    "navPhotoAlt": "Ronny Cajas profile photo",
+    "navHomeLabel": "Ronny Cajas — home",
+    "themeToggleLabel": "Dark mode",
     "languageLabel": "Change language",
     "languageOptions": "Language options"
   },

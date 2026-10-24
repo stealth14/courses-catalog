@@ -2,7 +2,8 @@
   "Layout": {
     "title": "Ronny Cajas — Mentoría de autocustodia de Bitcoin",
     "description": "Enseño a individuos y empresas a resguardar su propio Bitcoin, en billeteras que ellos controlan.",
-    "navPhotoAlt": "Foto de perfil de Ronny Cajas",
+    "navHomeLabel": "Ronny Cajas — inicio",
+    "themeToggleLabel": "Modo oscuro",
     "languageLabel": "Cambiar idioma",
     "languageOptions": "Opciones de idioma"
   },

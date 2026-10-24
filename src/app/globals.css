@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+/* Dark mode is class-driven: the theme bootstrap script in the locale layout
+   resolves the stored (or OS) preference into `.dark` on <html> before paint. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
   /* Single source of truth for the brand accent. Every other brand shade
@@ -24,11 +28,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
