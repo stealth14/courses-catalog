@@ -26,7 +26,7 @@ const CHIP_CLASSES: Record<
 
 const CHIP_SIZES = {
   nav: "h-8 px-2.5 text-xs",
-  hero: "h-12 w-full justify-center px-5 text-sm sm:w-auto",
+  hero: "h-14 w-full justify-center px-7 text-base sm:w-auto",
 } as const;
 
 export function LearningLinks({

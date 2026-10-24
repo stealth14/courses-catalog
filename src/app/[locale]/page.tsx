@@ -31,7 +31,7 @@ export default async function HomePage() {
 
   return (
     <main className="flex flex-1 flex-col gap-10 bg-zinc-50 sm:gap-8 dark:bg-black">
-      <div className="mx-auto flex w-full max-w-4xl flex-col px-4 pt-8 sm:px-6 sm:pt-8">
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pt-12 pb-6 sm:px-6 sm:pt-20 sm:pb-10 lg:pt-24">
         <HomeHero />
       </div>
 
