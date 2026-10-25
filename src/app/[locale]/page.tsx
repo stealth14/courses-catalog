@@ -69,6 +69,31 @@ export default async function HomePage() {
             {t("who.title")}
           </h2>
           <PaymentHeader variant="full" headingLevel="none" />
+          <a
+            href="mailto:ronny.cajas@custodioseguro.com"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-black/[.1] bg-white py-1.5 pl-1.5 pr-4 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:border-black/[.2] hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:border-white/[.145] dark:bg-white/[.04] dark:text-zinc-200 dark:hover:border-white/[.25] dark:hover:bg-white/[.08] dark:hover:text-white"
+          >
+            <span
+              aria-hidden="true"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 text-primary-deep transition-colors group-hover:bg-primary/25 dark:bg-primary/20 dark:text-primary dark:group-hover:bg-primary/30"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3.5 7 8.5 6 8.5-6" />
+              </svg>
+            </span>
+            <span className="tracking-tight">
+              ronny.cajas@custodioseguro.com
+            </span>
+          </a>
           <HomeWhatsappCta placement="profile" />
         </section>
       </div>
