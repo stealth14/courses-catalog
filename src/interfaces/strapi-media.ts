@@ -38,7 +38,9 @@ export interface StrapiMedia {
     publishedAt: string;
 }
 
-/** Strapi v5 media data node (non-populated — id + attributes wrapper). */
+/** Strapi v5 medi
+ * 
+ * a data node (non-populated — id + attributes wrapper). */
 export interface StrapiMediaData {
     id: number;
     attributes: Omit<StrapiMedia, 'id' | 'documentId'>;

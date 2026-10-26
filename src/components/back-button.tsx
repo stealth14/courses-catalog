@@ -82,7 +82,7 @@ export function BackButton() {
     <Link
       href={href}
       aria-label={t(target.labelKey)}
-      className="flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-zinc-300"
+      className="flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-zinc-300 md:hidden"
     >
       <svg
         viewBox="0 0 20 20"

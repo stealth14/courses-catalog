@@ -2,66 +2,255 @@
   "Layout": {
     "title": "Ronny Cajas — Mentoría de autocustodia de Bitcoin",
     "description": "Enseño a individuos y empresas a resguardar su propio Bitcoin, en billeteras que ellos controlan.",
-    "navPhotoAlt": "Foto de perfil de Ronny Cajas"
+    "navHomeLabel": "Ronny Cajas — inicio",
+    "themeToggleLabel": "Modo oscuro",
+    "languageLabel": "Cambiar idioma",
+    "languageOptions": "Opciones de idioma"
+  },
+  "Nav": {
+    "label": "Navegación principal",
+    "home": "Inicio",
+    "academy": "Academia",
+    "learnForFree": "Aprende gratis",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
+    "architectures": "Arquitecturas de billeteras",
+    "architecturesShort": "Arquitecturas",
+    "premium": "Sé un experto",
+    "premiumShort": "Experto"
+  },
+  "AcademyPage": {
+    "metadataTitle": "Academia — cursos de autocustodia de Bitcoin",
+    "metadataDescription": "Una base de conocimiento de arquitectura de billeteras y el camino experto.",
+    "title": "Para estar a salvo necesitas conocimiento duro.",
+    "subtitle": "Custodiar bitcoin es algo técnico. No hace falta ser experto, pero ignorar los fundamentos te deja vulnerable.",
+    "contentsLabel": "Índice de contenidos de la academia",
+    "openTopic": "Abrir tema",
+    "comingSoon": "Próximamente",
+    "recommendedTitle": "Empieza donde quieras",
+    "recommendedLoading": "Cargando recomendaciones…",
+    "recommendedLoadError": "No se pudieron cargar las recomendaciones",
+    "contents": {
+      "fundamentals": {
+        "title": "Fundamentos",
+        "description": "Empieza por Bitcoin: la red, su dinero y cómo alcanza un consenso."
+      },
+      "advanced": {
+        "title": "Temas avanzados",
+        "description": "Profundiza en el diseño de billeteras, modelos de seguridad y práctica guiada."
+      },
+      "topics": {
+        "bitcoinBasics": {
+          "title": "¿Qué es Bitcoin?",
+          "description": "Explora Bitcoin como una red monetaria entre pares y el problema que busca resolver."
+        },
+        "transactions": {
+          "title": "Transacciones y UTXO",
+          "description": "Aprende cómo se transfiere valor en la red y cómo funcionan las salidas de transacción no gastadas."
+        },
+        "blockchain": {
+          "title": "Bloques y cadena de bloques",
+          "description": "Descubre cómo se agrupan las transacciones en bloques y se enlazan en un registro compartido."
+        },
+        "consensus": {
+          "title": "Minería y consenso",
+          "description": "Entiende la prueba de trabajo y cómo los nodos independientes acuerdan el historial de Bitcoin."
+        },
+        "architectures": {
+          "title": "Arquitecturas de billeteras",
+          "description": "Explora cómo están construidas las billeteras populares, dónde viven sus llaves y cómo han fallado."
+        },
+        "threatModels": {
+          "title": "Modelos de amenazas",
+          "description": "Identifica qué necesitas proteger y elige medidas adecuadas para tu situación."
+        },
+        "multisig": {
+          "title": "Multifirma y seguridad distribuida",
+          "description": "Entiende cómo varias llaves pueden compartir el control y reducir puntos únicos de fallo."
+        },
+        "mentorship": {
+          "title": "Diseño y revisión guiados",
+          "description": "Trabaja individualmente para diseñar, crear y verificar tu configuración de autocustodia."
+        }
+      }
+    }
   },
   "HomePage": {
     "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
-      "title": "Conserva tus Bitcoins. Evita billeteras que no te dan control.",
+      "title": "Conserva tus Bitcoins. Evita billeteras que no te dan el control.",
       "subtitle": "Aprende a crear y gestionar billeteras verdaderamente seguras."
     },
     "metricsLabel": "¿Por qué aprender con nosotros?",
     "metricValue": "+15.000",
     "metricLabel": "dólares en Bitcoin que nuestros clientes hoy resguardan en autocustodia — bajo llaves que solo ellos controlan.",
     "exploreCta": "Explorar",
-    "scandals": {
-      "title": "¿Por qué es necesario aprender?",
-      "subtitle": "Las billeteras comerciales mas conocidas han causado la pérdida de millones de dólares en Bitcoin, ahorros de clientes que creyeron estar a salvo.",
-      "footnote": "",
-      "sourceCta": "Leer más",
-      "brands": {
-        "ledger": {
-          "date": "Dic 2023",
-          "incident": "Un empleado víctima de phishing permitió publicar un drenador de fondos dentro del SDK Ledger Connect Kit: unos 600.000 USD barridos en horas, más filtraciones de datos de clientes en 2020 y 2026."
-        },
-        "trezor": {
-          "date": "Jun 2026",
-          "incident": "Un ataque de inyección de fallos con láser contra el chip seguro del Safe 7, seguido de filtraciones en proveedores que expusieron cientos de miles de registros de clientes."
-        },
-        "coldcard": {
-          "date": "Jul 2026",
-          "incident": "Un bug de entropía en el firmware hacía predecibles las semillas. Se barrieron unos 88,6 M USD en bitcoin de las billeteras afectadas, y actualizar el firmware no repara una semilla ya creada."
-        },
-        "tangem": {
-          "date": "Jul 2026",
-          "incident": "Un pulso láser temporizado salta la verificación para cambiar la contraseña de la tarjeta y permite fijar una nueva. El fallo no se puede parchear."
-        },
-        "keepkey": {
-          "date": "Dic 2019",
-          "incident": "Kraken Security Labs extrajo la semilla del dispositivo en unos quince minutos. No existe corrección por firmware: requería rediseñar el hardware."
-        },
-        "bitbox02": {
-          "date": "Ago 2026",
-          "incident": "Una actualización de firmware corrigió un fallo del bootloader y un bug de corrupción de memoria que permitía a un ordenador hostil ejecutar código en el dispositivo."
-        },
-        "safepal": {
-          "date": "Ago 2026",
-          "incident": "Un fallo en el seguimiento de pedidos expuso nombres, direcciones y teléfonos de unos 39.798 clientes."
-        },
-        "ellipal": {
-          "date": "Jun 2019",
-          "incident": "Ledger Donjon extrajo la semilla de la billetera air-gapped, derrotando el aislamiento con el que se vende."
-        }
-      }
-    },
     "learningSection": {
       "title": "¿Por qué estas billeteras fallan y seguirán fallando?",
-      "body": "Tu bitcoin está a salvo cuando tienes el conocimiento correcto, no cuando compras un dispositivo. Bitcoin ya tiene las herramientas, solo necesitas aprender a usarlas."
+      "body": "Tu bitcoin está a salvo cuando tienes el conocimiento correcto, no cuando compras un dispositivo. Bitcoin ya tiene las herramientas, solo necesitas aprender a usarlas.",
+      "learnMore": "Conoce más"
     },
+    "offering": {
+      "title": "Planes",
+      "subtitle": "Sesiones puntuales, suscripción o consultoría continua.",
+      "fallbackCta": "Ver los planes"
+    },
+    "who": {
+      "title": "Con quién vas a aprender"
+    },
+    "whatsappCta": {
+      "hero": "Quiero aprender",
+      "profile": "Contáctame"
+    }
+  },
+  "PremiumPage": {
+    "metadataTitle": "Sé un experto — mentoría 1 a 1 de autocustodia de Bitcoin",
+    "metadataDescription": "Sesiones uno a uno para diseñar, construir y verificar tu propia autocustodia de Bitcoin, a un precio conveniente.",
+    "title": "Sé un experto por un precio conveniente",
+    "subtitle": "El conocimiento es gratis; la diferencia es tener a alguien que se siente contigo, revise tu hardware y te acompañe en tu primera transacción, hasta que puedas verificarla tú mismo.",
+    "benefitsTitle": "En qué trabajamos juntos",
+    "benefits": {
+      "setup": {
+        "title": "Diseñar tu configuración",
+        "body": "Qué hardware, cuántas llaves, un solo dispositivo o multifirma: elegido según tu modelo de amenaza, no según una página de ventas."
+      },
+      "keys": {
+        "title": "Generar y resguardar llaves",
+        "body": "Dados, entropía, respaldos, passphrase y metal. Lo hacemos una vez, juntos, y lo anotas de una forma que puedas recuperar de verdad."
+      },
+      "verify": {
+        "title": "Verificar en lugar de confiar",
+        "body": "Construyes y firmas una transacción real, y luego la compruebas con tu propio nodo y tus propios ojos."
+      },
+      "support": {
+        "title": "Seguir preguntando",
+        "body": "Una suscripción mantiene la conversación abierta mientras cambian tu configuración, el firmware o las amenazas."
+      }
+    },
+    "architecturesTitle": "¿Quieres explorar por tu cuenta?",
+    "architecturesBody": "Consulta la arquitectura de las billeteras populares, dónde viven sus llaves y los fallos documentados.",
+    "architecturesCta": "Explorar arquitecturas de billeteras"
+  },
+  "FirmwareDiagram": {
+    "sectionTitle": "Firmware malicioso",
+    "device": "Trezor Safe 5",
+    "model": "modelo de amenazas — qué podría alcanzar un firmware malicioso",
+    "hubTitle": "Firmware malicioso",
+    "prompt": "Selecciona un elemento para ver su nombre completo y qué podría hacer un firmware malicioso.",
+    "caption": "Modelo simplificado de amenazas del Trezor Safe 5: si la imagen de firmware firmada fuera maliciosa, estas son las partes del dispositivo sobre las que podría mentir o que podría abusar. Se muestra el elemento seguro porque el firmware podría intentar atacarlo, no porque sea fácil de infectar.",
+    "targets": {
+      "display": {
+        "short": "Pantalla",
+        "name": "Pantalla táctil",
+        "description": "Muestra una dirección, un monto o una comisión distintos de los que realmente firma."
+      },
+      "touch": {
+        "short": "Toque falso",
+        "name": "Toque falso",
+        "description": "Registra un toque que nunca hiciste para que un pago parezca aprobado."
+      },
+      "usb": {
+        "short": "Enlace USB",
+        "name": "Enlace de datos USB",
+        "description": "Le informa a Trezor Suite el saldo y destinatario esperados mientras envía otros datos al chip."
+      },
+      "seed": {
+        "short": "Semilla y llaves",
+        "name": "Semilla y llaves privadas",
+        "description": "Lee la semilla descifrada de la memoria del dispositivo y firma sus propias transacciones."
+      },
+      "passphrase": {
+        "short": "Frase secreta",
+        "name": "Ingreso de frase secreta",
+        "description": "Captura la frase secreta mientras la escribes y clona cada billetera oculta que desbloquea."
+      },
+      "storage": {
+        "short": "Almacenamiento",
+        "name": "Almacenamiento del firmware",
+        "description": "Reescribe su propia imagen y vuelve a infectar el dispositivo después de un restablecimiento de fábrica."
+      },
+      "secure-element": {
+        "short": "Elemento seguro",
+        "name": "Elemento seguro",
+        "description": "Repite intentos de PIN más allá del límite y oculta los contadores que lo delatarían."
+      },
+      "randomness": {
+        "short": "Aleatoriedad",
+        "name": "Generador de números aleatorios",
+        "description": "Produce entropía manipulada para que se puedan adivinar las llaves generadas después de la infección."
+      }
+    }
+  },
+  "HardwareWalletDiagram": {
+    "sectionTitle": "Superficie de ataque del hardware wallet",
+    "device": "Cualquier hardware wallet comercial",
+    "model": "modelo de amenazas — todos los componentes frente a los que se sienta un firmware malicioso, hoy y en modelos futuros",
+    "hubTitle": "Firmware malicioso",
+    "prompt": "Selecciona cualquier elemento para ver su nombre completo y qué podría hacer un firmware malicioso con él.",
+    "caption": "Modelo de amenazas genérico para hardware wallets comerciales: el firmware se sienta entre el usuario y cada componente, así que una imagen maliciosa puede mentir, capturar o redirigir todo lo que pasa por él. Los enlaces inalámbricos, cámaras, biometría y la circuitería de batería o manipulación llegan en modelos nuevos: la exposición empieza en cuanto el componente se envía.",
+    "targets": {
+      "display": {
+        "short": "Pantalla",
+        "name": "Pantalla",
+        "description": "Dibuja una dirección, un monto o una comisión distintos de la transacción que el usuario aprobó realmente."
+      },
+      "input": {
+        "short": "Táctil y botones",
+        "name": "Pantalla táctil y botones",
+        "description": "Registra toques y pulsaciones que nunca ocurrieron, y captura el PIN mientras se escribe."
+      },
+      "usb": {
+        "short": "Enlace USB",
+        "name": "Enlace de datos USB",
+        "description": "Le muestra una transacción a la app de escritorio mientras le entrega otra distinta a la rutina de firma."
+      },
+      "wireless": {
+        "short": "NFC / Bluetooth",
+        "name": "Enlace inalámbrico (NFC o Bluetooth)",
+        "description": "Abre un canal hacia un atacante cercano que la pantalla nunca muestra; es común en modelos nuevos."
+      },
+      "camera": {
+        "short": "Cámara / QR",
+        "name": "Cámara y lector de QR",
+        "description": "Lee o reescribe el contenido del QR para que un escaneo aislado firme algo distinto de lo que se mostró."
+      },
+      "storage-media": {
+        "short": "microSD",
+        "name": "Almacenamiento extraíble",
+        "description": "Cambia el archivo de transacción de la tarjeta por uno que el usuario nunca revisó."
+      },
+      "seed": {
+        "short": "Semilla",
+        "name": "Semilla y llaves almacenadas",
+        "description": "Lee la semilla descifrada de la memoria del dispositivo y firma sus propias transacciones."
+      },
+      "secure-element": {
+        "short": "Elemento seguro",
+        "name": "Elemento seguro",
+        "description": "Repite intentos de PIN más allá del límite, falsifica un resultado de verificación u oculta los contadores que lo delatarían."
+      },
+      "biometrics": {
+        "short": "Huella",
+        "name": "Sensor de huella",
+        "description": "Repite una lectura anterior o reporta una coincidencia para un dedo que nunca se apoyó."
+      },
+      "power": {
+        "short": "Batería y tamper",
+        "name": "Batería, carga y malla antimanipulación",
+        "description": "Silencia alertas de manipulación y de batería, o baja el voltaje del chip para saltarse una verificación."
+      }
+    }
+  },
+  "WalletKnowledge": {
+    "metadataTitle": "Arquitectura de billeteras — cómo están construidas",
+    "metadataDescription": "Una base de conocimiento de arquitecturas de billeteras Bitcoin: cómo está construida cada marca, dónde viven sus llaves y cómo ha fallado en público.",
+    "title": "Arquitectura de billeteras",
+    "subtitle": "Elige una billetera para ver cómo está construida, dónde viven sus llaves y cada fallo documentado hasta hoy.",
     "riskScale": {
-      "title": "La escala de riesgo de los tipos de billetera",
-      "subtitle": "De mayor a menor riesgo: de confiar en otros a verificar tu propia configuración.",
+      "title": "¿Qué tan expuestos están realmente tus fondos?",
+      "subtitle": "Escala de riesgo",
+      "learnMore": "Conoce más",
       "examplesLabel": "Ejemplos: ",
       "tiers": {
         "custodial": {
@@ -90,18 +279,45 @@
         }
       }
     },
-    "offering": {
-      "title": "Planes",
-      "subtitle": "Sesiones puntuales, suscripción o consultoría continua.",
-      "fallbackCta": "Ver los planes"
+    "brandsTitle": "Billeteras",
+    "indexTitle": "Elige una billetera",
+    "indexBody": "Cada entrada abre el esquema del dispositivo, sus fallos documentados y las fuentes detrás de ellos.",
+    "indexEntryCta": "Abrir la ficha",
+    "entryMetadataTitle": "Arquitectura y fallos documentados de {wallet}",
+    "entryMetadataDescription": "Cómo está construida la billetera {wallet}, dónde viven sus llaves y cada fallo documentado hasta hoy.",
+    "diagramTitle": "Arquitectura",
+    "diagramAlt": "Esquema de arquitectura de {wallet}",
+    "diagramPending": "Esquema de ejemplo — aquí irá el diagrama de {wallet}.",
+    "placeholder": {
+      "host": "Anfitrión",
+      "hostHint": "computadora / teléfono",
+      "txOut": "tx sin firmar",
+      "txIn": "firma",
+      "firmware": "Firmware de la billetera (MCU)",
+      "keys": "Llaves / semilla"
     },
-    "who": {
-      "title": "Con quién vas a aprender"
-    },
-    "whatsappCta": {
-      "hero": "Quiero aprender",
-      "profile": "Contáctame"
-    }
+    "incidentTitle": "Fallos documentados",
+    "incidentSource": "Leer la fuente",
+    "exposureTitle": "Exposición actual",
+    "sourcesTitle": "Fuentes",
+    "articleTitle": "Cómo está construida esta billetera",
+    "articlePending": "El artículo de esta billetera aún no está redactado. Lo que ya está documentado aparece arriba, con su fuente.",
+    "incidentPending": "Todavía no hay ningún incidente documentado para {wallet}.",
+    "datePending": "Fecha pendiente",
+    "summaryPending": "El artículo de este incidente todavía se está preparando.",
+    "ctaTitle": "Que no te pase lo mismo",
+    "ctaBody": "Saber cómo fallan estas billeteras es la mitad; construir una configuración que no falle es la otra mitad.",
+    "cta": "Sé un experto"
+  },
+  "WalletScams": {
+    "metadataTitle": "Estafas de billeteras — fallos documentados",
+    "metadataDescription": "Las billeteras populares que perdieron el Bitcoin de sus usuarios, con el fallo documentado detrás de cada una.",
+    "title": "¿Por qué es necesario aprender?",
+    "subtitle": "Las billeteras comerciales mas conocidas han causado la pérdida de millones de dólares en Bitcoin, ahorros de clientes que creyeron estar a salvo.",
+    "footnote": "",
+    "sourceCta": "Leer más",
+    "datePending": "Fecha pendiente",
+    "bodyPending": "El artículo del incidente todavía se está preparando: abre la ficha para leer lo que ya está documentado."
   },
   "TransparencyPage": {
     "metadataTitle": "Verificación — Billeteras Bitcoin resguardadas",

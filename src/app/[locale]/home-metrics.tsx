@@ -16,8 +16,13 @@ export async function HomeMetrics() {
   return (
     <section className="border-t border-black/[.08] pt-8 dark:border-white/[.145]">
       <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold tracking-tight text-[#9A5B00] dark:text-amber-400">
-          {t("metricsLabel")}
+        <h2 className="text-xl font-semibold tracking-tight text-primary">
+          <Link
+            href="/transparency"
+            className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+          >
+            {t("metricsLabel")}
+          </Link>
         </h2>
 
         <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
@@ -33,7 +38,7 @@ export async function HomeMetrics() {
 
           <Link
             href="/transparency"
-            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-[#9A5B00] underline-offset-4 transition-colors hover:underline sm:self-auto dark:text-amber-400"
+            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-primary-deep underline-offset-4 transition-colors hover:underline sm:self-auto dark:text-primary-soft"
           >
             {t("exploreCta")}
             <svg

@@ -4,9 +4,13 @@ import { Suspense } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
-import { BackButton } from "@/components/back-button";
+import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
-import { ProfilePhoto } from "@/components/profile-photo";
+import { PostCacheProvider } from "@/components/post-cache-provider";
+import { ShieldAvatar } from "@/components/shield-avatar";
+import { SiteNav } from "@/components/site-nav";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -61,17 +65,38 @@ export default async function LocaleLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col"
       >
+        {/* Parsed inline before any body content so the resolved theme paints
+            on the first frame, without a light flash. */}
+        <script
+          id="theme-init"
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
         <NextIntlClientProvider>
-          <header className="sticky top-0 z-50 border-b border-black/[.06] bg-zinc-50/80 backdrop-blur-md dark:border-white/[.08] dark:bg-black/70">
-            <div className="mx-auto flex h-16 w-full max-w-4xl items-center gap-3 px-4 sm:px-6">
-              <ProfilePhoto alt={t("navPhotoAlt")} size="tiny" />
-              <Suspense fallback={null}>
-                <BackButton />
-                <LocaleSwitcher />
-              </Suspense>
-            </div>
-          </header>
-          {children}
+          <PostCacheProvider>
+            <header className="sticky top-0 z-50 border-b border-black/[.06] bg-zinc-50/80 backdrop-blur-md dark:border-white/[.08] dark:bg-black/70">
+              {/* Wraps on very narrow screens: the two path CTAs drop to a
+                  second row instead of squeezing the rest of the bar. */}
+              <div className="mx-auto flex min-h-16 w-full max-w-4xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 sm:h-16 sm:flex-nowrap sm:px-6 sm:py-0">
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <Link
+                    href="/"
+                    aria-label={t("navHomeLabel")}
+                    className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                  >
+                    <ShieldAvatar />
+                  </Link>
+                  <ThemeToggle />
+                </div>
+                <div className="ml-auto flex items-center gap-2 sm:gap-3">
+                  <SiteNav />
+                  <Suspense fallback={null}>
+                    <LocaleSwitcher />
+                  </Suspense>
+                </div>
+              </div>
+            </header>
+            {children}
+          </PostCacheProvider>
         </NextIntlClientProvider>
         <Analytics />
       </body>
