@@ -2,78 +2,19 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 /**
- * The hardware-wallet brands the landing page calls out. Each `id` maps to
- * a `HomePage.scandals.brands.<id>` entry in `messages/*.json` holding a
- * dated, publicly documented incident — never an opinion about the brand.
+ * Licensed brand marks for the wallet row, discovered from
+ * `public/wallets-brands`.
+ *
+ * Logos are assets the brands own and license, so they are not committed
+ * here: drop a file in and this picks it up. The file stem must match the
+ * wallet id in `public/wallet-incidents.json` (`ledger.png`, `trezor.svg`,
+ * …); wallets without a file fall back to their monogram badge.
+ *
+ * Resolved per render rather than once at module load, so a file added
+ * while `next dev` is running appears on the next request.
  */
-export type HardwareWalletBrand = {
-  /** Translation key suffix and logo file stem. */
-  id: string;
-  /** Display name for the wordmark fallback and the logo alt text. */
-  name: string;
-  /** Two-letter mark shown in the monogram badge when no logo is present. */
-  monogram: string;
-  /** URL of the advisory / report the incident copy is based on. */
-  source: string;
-};
-
-/** Ordered by prominence, most recent incidents first. */
-export const HARDWARE_WALLET_BRANDS: HardwareWalletBrand[] = [
-  {
-    id: "ledger",
-    name: "Ledger",
-    monogram: "LE",
-    source:
-      "https://thehackernews.com/2023/12/crypto-hardware-wallet-ledgers-supply.html",
-  },
-  {
-    id: "trezor",
-    name: "Trezor",
-    monogram: "TR",
-    source:
-      "https://trezor.io/blog/news/Trezor-response-TROPIC01-chip-disclosure-no-impact-to-your-funds",
-  },
-  {
-    id: "coldcard",
-    name: "COLDCARD",
-    monogram: "CC",
-    source: "https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/",
-  },
-  {
-    id: "tangem",
-    name: "Tangem",
-    monogram: "TA",
-    source:
-      "https://donjon.ledger.com/blog/bypassing-tangem-card-security-with-laser-attack/",
-  },
-  {
-    id: "keepkey",
-    name: "KeepKey",
-    monogram: "KK",
-    source:
-      "https://blog.kraken.com/product/security/flaw-found-in-keepkey-crypto-hardware-wallet",
-  },
-  {
-    id: "bitbox02",
-    name: "BitBox02",
-    monogram: "BB",
-    source: "https://blog.bitbox.swiss/en/bitbox-08-2026-dixence-update/",
-  },
-  {
-    id: "safepal",
-    name: "SafePal",
-    monogram: "SP",
-    source: "https://www.safepal.com/en/blog/security-update",
-  },
-  {
-    id: "ellipal",
-    name: "Ellipal",
-    monogram: "EL",
-    source: "https://blog.ledger.com/Extracting-Seeds/",
-  },
-];
-
 const LOGO_DIR = path.join(process.cwd(), "public", "wallets-brands");
+
 const LOGO_EXTENSIONS = new Set([
   ".svg",
   ".png",
@@ -155,14 +96,9 @@ function readImageSize(
 }
 
 /**
- * Maps each brand id to a logo in `public/wallets-brands`, where the file
- * is named after the id (`ledger.png`, `trezor.png`, …).
- *
- * Logos are licensed assets the brands own, so they are not committed here:
- * you drop the files in and this picks them up. Resolved per render rather
- * than once at module load, so a file added while `next dev` is running
- * appears on the next request. Brands without a matching file simply have
- * no entry, and the landing page hides those cards until a logo arrives.
+ * Maps each wallet id to the logo file named after it, omitting ids that
+ * have no file. Formats whose header we cannot parse still get an entry,
+ * with a 1×1 intrinsic size, so the caller can contain it in a fixed box.
  */
 export function getBrandLogos(): Map<string, BrandLogo> {
   const logos = new Map<string, BrandLogo>();

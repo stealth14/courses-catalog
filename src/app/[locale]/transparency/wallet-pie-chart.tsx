@@ -4,14 +4,14 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { SecuredWallet } from "@/lib/secured-wallets";
 
-/** Bitcoin-orange palette; slices cycle through it. */
+/** Shades derived from --primary-color; slices cycle through them. */
 const SLICE_COLORS = [
-  "#F7931A",
-  "#FBBF24",
-  "#D97706",
-  "#FCD34D",
-  "#B45309",
-  "#FB923C",
+  "var(--primary-color)",
+  "color-mix(in srgb, var(--primary-color) 35%, white)",
+  "color-mix(in srgb, var(--primary-color) 15%, white)",
+  "color-mix(in srgb, var(--primary-color) 30%, black)",
+  "color-mix(in srgb, var(--primary-color) 45%, black)",
+  "color-mix(in srgb, var(--primary-color) 60%, black)",
 ];
 
 const SIZE = 100;
@@ -198,7 +198,7 @@ export function WalletPieChart({
           {/* Total secured: the dollar figure leads — it is the number
               people compare — with the exact BTC amount under it. */}
           <div className="flex flex-col gap-1.5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9A5B00] dark:text-amber-400">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-deep dark:text-primary-soft">
               {t("totalLabel")}
             </p>
             <p className="flex items-baseline gap-1 text-3xl font-semibold tracking-tight text-black tabular-nums sm:text-4xl dark:text-zinc-50">
@@ -283,7 +283,7 @@ export function WalletPieChart({
           <li key={wallet.address}>
             <div
               className={`flex items-center gap-4 px-3 py-3 transition-colors ${
-                active === index ? "bg-[#F7931A]/[.07]" : ""
+                active === index ? "bg-primary/[.07]" : ""
               }`}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}

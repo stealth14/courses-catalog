@@ -2,7 +2,78 @@
   "Layout": {
     "title": "Ronny Cajas — Self-custody Bitcoin mentorship",
     "description": "I teach individuals and companies to hold their own Bitcoin, in wallets they control.",
-    "navPhotoAlt": "Ronny Cajas profile photo"
+    "navHomeLabel": "Ronny Cajas — home",
+    "themeToggleLabel": "Dark mode",
+    "languageLabel": "Change language",
+    "languageOptions": "Language options"
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "academy": "Academy",
+    "learnForFree": "Learn for free",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "architectures": "Wallet architectures",
+    "architecturesShort": "Architectures",
+    "premium": "Become an expert",
+    "premiumShort": "Expert"
+  },
+  "AcademyPage": {
+    "metadataTitle": "Academy — Bitcoin self-custody courses",
+    "metadataDescription": "A wallet architecture knowledge base and the expert track.",
+    "title": "To stay safe, you need hard knowledge.",
+    "subtitle": "Bitcoin Self-custody is a technical skill. No need to be an expert, but you need to understand the fundamentals.",
+    "contentsLabel": "Academy table of contents",
+    "openTopic": "Open topic",
+    "comingSoon": "Coming soon",
+    "recommendedTitle": "Recommended readings",
+    "recommendedLoading": "Loading recommended posts…",
+    "recommendedLoadError": "Could not load recommended posts",
+    "contents": {
+      "fundamentals": {
+        "title": "Fundamentals",
+        "description": "Begin with Bitcoin itself: the network, its money, and how it reaches agreement."
+      },
+      "advanced": {
+        "title": "Advanced topics",
+        "description": "Go deeper into wallet design, stronger security models, and guided practice."
+      },
+      "topics": {
+        "bitcoinBasics": {
+          "title": "What is Bitcoin?",
+          "description": "Explore Bitcoin as a peer-to-peer monetary network and the problem it was designed to solve."
+        },
+        "transactions": {
+          "title": "Transactions and UTXOs",
+          "description": "Learn how value moves across the network and how unspent transaction outputs work."
+        },
+        "blockchain": {
+          "title": "Blocks and the blockchain",
+          "description": "See how transactions are grouped into blocks and linked into a shared ledger."
+        },
+        "consensus": {
+          "title": "Mining and consensus",
+          "description": "Understand proof of work and how independent nodes agree on Bitcoin's history."
+        },
+        "architectures": {
+          "title": "Wallet architectures",
+          "description": "Explore how popular wallets are built, where their keys live, and how they have failed."
+        },
+        "threatModels": {
+          "title": "Threat modeling",
+          "description": "Identify what you need to protect and choose safeguards that fit your situation."
+        },
+        "multisig": {
+          "title": "Multisignature and distributed security",
+          "description": "Understand how multiple keys can share control and reduce single points of failure."
+        },
+        "mentorship": {
+          "title": "Guided setup and review",
+          "description": "Work one-to-one to design, build, and verify a personal self-custody setup."
+        }
+      }
+    }
   },
   "HomePage": {
     "metadataTitle": "Ronny Cajas — Bitcoin for professionals",
@@ -15,53 +86,171 @@
     "metricValue": "+15.000",
     "metricLabel": "dollars in Bitcoin our clients now hold in self-custody — under keys only they control.",
     "exploreCta": "Explore",
-    "scandals": {
-      "title": "Why is it necessary to learn?",
-      "subtitle": "Popular crypto wallets have cost users millions of dollars in Bitcoin savings they believed were completely safe.",
-      "footnote": "",
-      "sourceCta": "Read the report",
-      "brands": {
-        "ledger": {
-          "date": "Dec 2023",
-          "incident": "A phished employee let attackers publish a wallet drainer inside the Ledger Connect Kit SDK — roughly $600,000 swept in hours, plus customer-data breaches in 2020 and 2026."
-        },
-        "trezor": {
-          "date": "Jun 2026",
-          "incident": "A laser fault-injection attack on the secure chip in the Safe 7, followed by partner breaches that exposed hundreds of thousands of customer records."
-        },
-        "coldcard": {
-          "date": "Jul 2026",
-          "incident": "A firmware entropy bug made seed phrases predictable. An estimated $88.6M in bitcoin was swept from affected wallets, and updating the firmware does not repair an existing seed."
-        },
-        "tangem": {
-          "date": "Jul 2026",
-          "incident": "A timed laser pulse defeats the card's password-reset check, letting an attacker set a new password. The flaw cannot be patched."
-        },
-        "keepkey": {
-          "date": "Dec 2019",
-          "incident": "Kraken Security Labs pulled the seed phrase out of the device in about fifteen minutes. No firmware fix exists; it needed a hardware redesign."
-        },
-        "bitbox02": {
-          "date": "Aug 2026",
-          "incident": "A firmware update fixed a bootloader flaw and a memory-corruption bug that let a hostile computer run code on the device."
-        },
-        "safepal": {
-          "date": "Aug 2026",
-          "incident": "An order-tracking flaw exposed the names, addresses and phone numbers of roughly 39,798 customers."
-        },
-        "ellipal": {
-          "date": "Jun 2019",
-          "incident": "Ledger Donjon extracted the seed from the air-gapped wallet, defeating the isolation it is sold on."
-        }
-      }
-    },
     "learningSection": {
       "title": "Why these wallets fail, and why they will keep failing?",
-      "body": "Your Bitcoin is safe when you have the right knowledge, not when you buy a device. Bitcoin already has the tools, you just need to learn how to use them."
+      "body": "Your Bitcoin is safe when you have the right knowledge, not when you buy a device. Bitcoin already has the tools, you just need to learn how to use them.",
+      "learnMore": "Learn more"
     },
+    "offering": {
+      "title": "Plans",
+      "subtitle": "One-off sessions, a subscription, or ongoing consultancy.",
+      "fallbackCta": "See the plans"
+    },
+    "who": {
+      "title": "Who you're learning with"
+    },
+    "whatsappCta": {
+      "hero": "Learn more",
+      "profile": "Contact me"
+    }
+  },
+  "PremiumPage": {
+    "metadataTitle": "Become an expert — 1:1 Bitcoin self-custody mentorship",
+    "metadataDescription": "One-to-one sessions to design, build and verify your own Bitcoin self-custody setup, at a convenient price.",
+    "title": "Be an expert for a convenient price",
+    "subtitle": "The knowledge is free; the difference is having someone who sits with you, reviews your hardware and walks you through your first transaction — until you can verify it yourself.",
+    "benefitsTitle": "What we work on together",
+    "benefits": {
+      "setup": {
+        "title": "Designing your setup",
+        "body": "Which hardware, how many keys, one device or a multisig — chosen against your threat model, not a sales page."
+      },
+      "keys": {
+        "title": "Generating and storing keys",
+        "body": "Dice, entropy, backups, passphrases and metal. We do it once, together, and you write it down in a way you can actually recover."
+      },
+      "verify": {
+        "title": "Verifying instead of trusting",
+        "body": "You build and sign a real transaction, then check it with your own node and your own eyes."
+      },
+      "support": {
+        "title": "Keep asking",
+        "body": "A subscription keeps the conversation open while your setup, the firmware or the threats change."
+      }
+    },
+    "architecturesTitle": "Want to explore on your own?",
+    "architecturesBody": "Browse the architecture of popular wallets, where their keys live, and their documented failures.",
+    "architecturesCta": "Explore wallet architectures"
+  },
+  "FirmwareDiagram": {
+    "sectionTitle": "Malicious firmware",
+    "device": "Trezor Safe 5",
+    "model": "threat model — what malicious firmware could reach",
+    "hubTitle": "Malicious firmware",
+    "prompt": "Select any element to see its full name and what malicious firmware could do with it.",
+    "caption": "Simplified threat model of the Trezor Safe 5: if the signed firmware image itself were malicious, these are the parts of the device it could lie about or abuse. The secure element is shown because firmware might try to attack it — not because it is easy to infect.",
+    "targets": {
+      "display": {
+        "short": "Display",
+        "name": "Touchscreen display",
+        "description": "Shows an address, amount or fee that differs from the transaction it actually signs."
+      },
+      "touch": {
+        "short": "Touch confirm",
+        "name": "Touch confirmation",
+        "description": "Registers a tap you never made, so a payout looks approved on the spot."
+      },
+      "usb": {
+        "short": "USB link",
+        "name": "USB data link",
+        "description": "Tells Trezor Suite the balance and recipient it expects while sending something else to the chip."
+      },
+      "seed": {
+        "short": "Seed & keys",
+        "name": "Seed and private keys",
+        "description": "Reads the decrypted seed from device memory and signs transactions of its own."
+      },
+      "passphrase": {
+        "short": "Passphrase",
+        "name": "Passphrase entry",
+        "description": "Captures the passphrase as it is typed and clones every hidden wallet it unlocks."
+      },
+      "storage": {
+        "short": "Storage",
+        "name": "Firmware storage",
+        "description": "Rewrites its own image and re-infects the device after a factory reset."
+      },
+      "secure-element": {
+        "short": "Secure element",
+        "name": "Secure element",
+        "description": "Replays PIN attempts past the limit and hides the counters that would expose it."
+      },
+      "randomness": {
+        "short": "Randomness",
+        "name": "Random number generator",
+        "description": "Feeds rigged entropy, so keys generated after infection can be guessed."
+      }
+    }
+  },
+  "HardwareWalletDiagram": {
+    "sectionTitle": "Hardware wallet attack surface",
+    "device": "Any commercial hardware wallet",
+    "model": "threat model — every component malicious firmware sits in front of, today and on future models",
+    "hubTitle": "Malicious firmware",
+    "prompt": "Select any element to see its full name and what malicious firmware could do with it.",
+    "caption": "Generic threat model for commercial hardware wallets: the firmware sits between the user and every component, so a malicious image can lie about, capture or reroute whatever passes through it. Wireless links, cameras, biometrics and battery or tamper circuitry are arriving on newer models — the exposure begins the moment the component ships.",
+    "targets": {
+      "display": {
+        "short": "Display",
+        "name": "Screen",
+        "description": "Draws an address, amount or fee that differs from the transaction the user actually approved."
+      },
+      "input": {
+        "short": "Touch & buttons",
+        "name": "Touchscreen and buttons",
+        "description": "Registers taps and presses that never happened, and captures the PIN on the way in."
+      },
+      "usb": {
+        "short": "USB link",
+        "name": "USB data link",
+        "description": "Tells the desktop app one transaction while handing a different one to the signing routine."
+      },
+      "wireless": {
+        "short": "NFC / Bluetooth",
+        "name": "Wireless link (NFC or Bluetooth)",
+        "description": "Opens a channel to a nearby attacker that the screen never shows — standard on newer models."
+      },
+      "camera": {
+        "short": "Camera / QR",
+        "name": "Camera and QR scanner",
+        "description": "Reads or rewrites the QR payload so an air-gapped scan signs something other than what was shown."
+      },
+      "storage-media": {
+        "short": "microSD",
+        "name": "Removable storage",
+        "description": "Swaps the transaction file on the card for one the user never reviewed."
+      },
+      "seed": {
+        "short": "Seed storage",
+        "name": "Seed and key storage",
+        "description": "Reads the decrypted seed from device memory and signs transactions of its own."
+      },
+      "secure-element": {
+        "short": "Secure element",
+        "name": "Secure element",
+        "description": "Replays PIN attempts past the limit, fakes a verification result, or hides the counters that would expose it."
+      },
+      "biometrics": {
+        "short": "Fingerprint",
+        "name": "Fingerprint sensor",
+        "description": "Replays an earlier scan or reports a match for a finger that was never placed."
+      },
+      "power": {
+        "short": "Battery & tamper",
+        "name": "Battery, charging and tamper mesh",
+        "description": "Suppresses tamper and battery alerts, or browns out the chip so a check is skipped."
+      }
+    }
+  },
+  "WalletKnowledge": {
+    "metadataTitle": "Wallet architectures — how popular wallets are built",
+    "metadataDescription": "A knowledge base of Bitcoin wallet architectures: how each brand is built, where its keys live, and how it has failed in public.",
+    "title": "Wallet architectures",
+    "subtitle": "Pick a wallet to see how it is built, where its keys live, and every failure documented so far.",
     "riskScale": {
-      "title": "The risk scale of wallet types",
-      "subtitle": "Highest risk to lowest: from trusting others to verifying your own setup.",
+      "title": "How exposed are your funds, really?",
+      "subtitle": "Scale of risk",
+      "learnMore": "Learn more",
       "examplesLabel": "Examples: ",
       "tiers": {
         "custodial": {
@@ -90,18 +279,45 @@
         }
       }
     },
-    "offering": {
-      "title": "Plans",
-      "subtitle": "One-off sessions, a subscription, or ongoing consultancy.",
-      "fallbackCta": "See the plans"
+    "brandsTitle": "Wallets",
+    "indexTitle": "Choose a wallet",
+    "indexBody": "Each entry opens the schematic of the device, its documented failures and the sources behind them.",
+    "indexEntryCta": "Open the file",
+    "entryMetadataTitle": "{wallet} architecture and documented failures",
+    "entryMetadataDescription": "How the {wallet} wallet is built, where its keys live, and every documented failure to date.",
+    "diagramTitle": "Architecture",
+    "diagramAlt": "{wallet} architecture schematic",
+    "diagramPending": "Placeholder schematic — the {wallet} diagram lands here.",
+    "placeholder": {
+      "host": "Host",
+      "hostHint": "computer / phone",
+      "txOut": "unsigned tx",
+      "txIn": "signature",
+      "firmware": "Wallet firmware (MCU)",
+      "keys": "Keys / seed storage"
     },
-    "who": {
-      "title": "Who you're learning with"
-    },
-    "whatsappCta": {
-      "hero": "Learn more",
-      "profile": "Contact me"
-    }
+    "incidentTitle": "Documented failures",
+    "incidentSource": "Read the source",
+    "exposureTitle": "Current exposure",
+    "sourcesTitle": "Sources",
+    "articleTitle": "How this wallet is built",
+    "articlePending": "The write-up for this wallet has not been drafted yet. What is documented so far is listed above, with its source.",
+    "incidentPending": "No incident has been documented for {wallet} yet.",
+    "datePending": "Date pending",
+    "summaryPending": "The write-up of this incident is still being put together.",
+    "ctaTitle": "Keep this from happening to you",
+    "ctaBody": "Knowing how these wallets fail is half of it; building a setup that does not is the other half.",
+    "cta": "Become an expert"
+  },
+  "WalletScams": {
+    "metadataTitle": "Wallet scams — documented failures",
+    "metadataDescription": "The popular wallets that lost their users' Bitcoin, with the documented failure behind each one.",
+    "title": "Why is important to learn?",
+    "subtitle": "Popular crypto wallets have cost users millions of dollars in Bitcoin savings they believed were completely safe.",
+    "footnote": "",
+    "sourceCta": "Read the report",
+    "datePending": "Date pending",
+    "bodyPending": "The incident write-up is still being put together — open the file to read what is documented so far."
   },
   "TransparencyPage": {
     "metadataTitle": "Verification — Secured Bitcoin wallets",

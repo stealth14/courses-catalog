@@ -38,7 +38,6 @@ export function ProfilePhoto({
       width={s.dims}
       height={s.dims}
       className={`${s.box} shrink-0 rounded-full object-cover ring-2 ring-black/[.08] dark:ring-white/[.145]`}
-      priority
       onError={() => setFailed(true)}
     />
   );

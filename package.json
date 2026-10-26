@@ -15,8 +15,9 @@
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
+    "@xyflow/react": "^12.12.0",
     "axios": "^1.20.0",
-    "next": "16.3.1",
+    "next": "^16.4.3",
     "next-intl": "^4.13.7",
     "qrcode": "^1.5.4",
     "react": "19.2.8",

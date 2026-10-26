@@ -69,7 +69,7 @@ export default async function SummaryPage({
       <div className="overflow-hidden rounded-2xl border border-black/[.08] bg-white shadow-sm dark:border-white/[.145] dark:bg-[#111]">
         <div className="flex flex-col gap-4 p-5">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-faint text-primary-deep dark:bg-primary-dim/60 dark:text-primary-soft">
               <svg
                 viewBox="0 0 24 24"
                 aria-hidden="true"

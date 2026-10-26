@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# graphify (only graph.json and manifest.json are tracked, see graphify docs)
+/graphify-out/*
+!/graphify-out/graph.json
+!/graphify-out/manifest.json
