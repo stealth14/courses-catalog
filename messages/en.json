@@ -1,8 +1,9 @@
 {
   "Layout": {
-    "title": "Ronny Cajas — Self-custody Bitcoin mentorship",
+    "title": "Custodio Seguro — Self-custody Bitcoin mentorship",
     "description": "I teach individuals and companies to hold their own Bitcoin, in wallets they control.",
-    "navHomeLabel": "Ronny Cajas — home",
+    "brandName": "Custodio Seguro",
+    "navHomeLabel": "Custodio Seguro — home",
     "themeToggleLabel": "Dark mode",
     "languageLabel": "Change language",
     "languageOptions": "Language options"
@@ -76,7 +77,7 @@
     }
   },
   "HomePage": {
-    "metadataTitle": "Ronny Cajas — Bitcoin for professionals",
+    "metadataTitle": "Custodio Seguro — Bitcoin for professionals",
     "metadataDescription": "Learn to hold your own Bitcoin in a wallet you control — without custodians, and without trusting an app, a device, or unaudited code with your keys.",
     "hero": {
       "title": "Own your Bitcoin, not a wallet you don't really control.",
@@ -413,7 +414,7 @@
   },
   "PaymentHub": {
     "metadataTitle": "Payment",
-    "metadataDescription": "Choose how you would like to pay Ronny Cajas.",
+    "metadataDescription": "Choose how you would like to pay Custodio Seguro.",
     "subtitle": "Choose your payment method",
     "purchasingLabel": "You are purchasing",
     "bookingLabel": "You are booking a session about",

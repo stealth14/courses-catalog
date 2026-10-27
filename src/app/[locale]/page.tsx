@@ -38,7 +38,7 @@ export default async function HomePage() {
       <WalletScandalsRow />
 
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 sm:px-6">
-        <h2 className="text-xl font-semibold tracking-tight text-primary">
+        <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
           <Link
             href="/academy/por-que-fallan-las-billeteras"
             className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
@@ -52,7 +52,7 @@ export default async function HomePage() {
           </p>
           <Link
             href="/academy/por-que-fallan-las-billeteras"
-            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-primary-deep underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:self-auto dark:text-primary-soft"
+            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-black underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:self-auto dark:text-zinc-50"
           >
             {t("learningSection.learnMore")}
             <ArrowIcon />
@@ -78,7 +78,7 @@ export default async function HomePage() {
           >
             <span
               aria-hidden="true"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 text-primary-deep transition-colors group-hover:bg-primary/25 dark:bg-primary/20 dark:text-primary dark:group-hover:bg-primary/30"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-black/[.06] text-black transition-colors group-hover:bg-black/[.1] dark:bg-white/[.1] dark:text-white dark:group-hover:bg-white/[.16]"
             >
               <svg
                 viewBox="0 0 24 24"

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { NextIntlClientProvider } from "next-intl";
@@ -7,12 +8,16 @@ import { Analytics } from "@vercel/analytics/next";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { PostCacheProvider } from "@/components/post-cache-provider";
-import { ShieldAvatar } from "@/components/shield-avatar";
 import { SiteNav } from "@/components/site-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+
+/** Square cube mark extracted from the Custodio Seguro logo. */
+const BRAND_MARK = "/brand/custodio-seguro-mark.png";
+const BRAND_MARK_SIZE = 192;
+const BRAND_OG_IMAGE = "/brand/og-image.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,9 +47,9 @@ export async function generateMetadata(
     title: t("title"),
     description: t("description"),
     icons: {
-      icon: "/profile.jpg",
-      shortcut: "/profile.jpg",
-      apple: "/profile.jpg",
+      icon: BRAND_MARK,
+      shortcut: BRAND_MARK,
+      apple: BRAND_MARK,
     },
   };
 }
@@ -81,9 +86,20 @@ export default async function LocaleLayout({
                   <Link
                     href="/"
                     aria-label={t("navHomeLabel")}
-                    className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                    className="flex items-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                   >
-                    <ShieldAvatar />
+                    <Image
+                      src={BRAND_MARK}
+                      alt=""
+                      aria-hidden="true"
+                      width={BRAND_MARK_SIZE}
+                      height={BRAND_MARK_SIZE}
+                      loading="eager"
+                      className="h-9 w-9 shrink-0"
+                    />
+                    <span className="text-xs font-semibold tracking-tight text-brand-navy sm:text-sm dark:text-brand-mist">
+                      {t("brandName")}
+                    </span>
                   </Link>
                   <ThemeToggle />
                 </div>

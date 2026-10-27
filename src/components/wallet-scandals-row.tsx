@@ -84,7 +84,7 @@ export async function WalletScandalsRow() {
             <p className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
               {wallet.name}
             </p>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-deep dark:text-primary-soft">
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
               {date ?? t("datePending")}
             </p>
           </div>
@@ -121,7 +121,7 @@ export async function WalletScandalsRow() {
   return (
     <section className="flex flex-col gap-3">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-1 px-4 sm:px-6">
-        <h2 className="text-xl font-semibold tracking-tight text-primary">
+        <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
           {t("title")}
         </h2>
         <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
