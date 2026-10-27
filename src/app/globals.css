@@ -40,6 +40,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* In-page anchors (e.g. the hero CTA jumping to the profile section) glide
+   instead of snapping, unless the user asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* Hides native scrollbars (WebKit, Firefox, legacy Edge/IE) while
    keeping the element scrollable. */
 .no-scrollbar {

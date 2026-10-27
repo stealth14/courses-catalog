@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-const WHATSAPP_URL = "https://wa.me/593992825956";
+const WHATSAPP_URL = "https://wa.me/593986588168";
 
 export async function HomeWhatsappCta({
   placement,

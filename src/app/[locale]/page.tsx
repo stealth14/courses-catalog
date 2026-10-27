@@ -64,7 +64,10 @@ export default async function HomePage() {
         <WalletRiskScale />
         <HomeMetrics />
 
-        <section className="flex flex-col items-center gap-5">
+        <section
+          id="profile"
+          className="flex scroll-mt-24 flex-col items-center gap-5"
+        >
           <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
             {t("who.title")}
           </h2>
