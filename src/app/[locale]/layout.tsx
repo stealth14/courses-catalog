@@ -16,7 +16,10 @@ import "../globals.css";
 
 /** Square cube mark extracted from the Custodio Seguro logo. */
 const BRAND_MARK = "/brand/custodio-seguro-mark.png";
-const BRAND_MARK_SIZE = 192;
+const BRAND_WORDMARK = "/brand/custodio_seguro_light_transparent.png";
+const BRAND_WORDMARK_DARK = "/brand/custodio_seguro_dark_transparent.png";
+const BRAND_WORDMARK_WIDTH = 1938;
+const BRAND_WORDMARK_HEIGHT = 452;
 const BRAND_OG_IMAGE = "/brand/og-image.png";
 
 const geistSans = Geist({
@@ -89,25 +92,31 @@ export default async function LocaleLayout({
                     className="flex items-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                   >
                     <Image
-                      src={BRAND_MARK}
+                      src={BRAND_WORDMARK}
                       alt=""
                       aria-hidden="true"
-                      width={BRAND_MARK_SIZE}
-                      height={BRAND_MARK_SIZE}
+                      width={BRAND_WORDMARK_WIDTH}
+                      height={BRAND_WORDMARK_HEIGHT}
                       loading="eager"
-                      className="h-9 w-9 shrink-0"
+                      className="h-9 w-auto shrink-0 dark:hidden"
                     />
-                    <span className="text-xs font-semibold tracking-tight text-brand-navy sm:text-sm dark:text-brand-mist">
-                      {t("brandName")}
-                    </span>
+                    <Image
+                      src={BRAND_WORDMARK_DARK}
+                      alt=""
+                      aria-hidden="true"
+                      width={BRAND_WORDMARK_WIDTH}
+                      height={BRAND_WORDMARK_HEIGHT}
+                      loading="eager"
+                      className="hidden h-9 w-auto shrink-0 dark:block"
+                    />
                   </Link>
-                  <ThemeToggle />
                 </div>
                 <div className="ml-auto flex items-center gap-2 sm:gap-3">
                   <SiteNav />
                   <Suspense fallback={null}>
                     <LocaleSwitcher />
                   </Suspense>
+                  <ThemeToggle />
                 </div>
               </div>
             </header>

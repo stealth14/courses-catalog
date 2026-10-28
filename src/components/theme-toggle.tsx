@@ -74,7 +74,7 @@ export function ThemeToggle() {
       aria-label={t("themeToggleLabel")}
       aria-pressed={isDark}
       title={t("themeToggleLabel")}
-      className="flex h-10 w-10 items-center justify-center rounded-full text-zinc-500 transition-colors hover:bg-black/[.05] hover:text-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-zinc-400 dark:hover:bg-white/[.08] dark:hover:text-zinc-100"
+      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-zinc-500 transition-colors hover:bg-black/[.05] hover:text-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:text-zinc-400 dark:hover:bg-white/[.08] dark:hover:text-zinc-100"
     >
       <svg
         viewBox="0 0 24 24"
