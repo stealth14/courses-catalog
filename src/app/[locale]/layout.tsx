@@ -112,11 +112,22 @@ export default async function LocaleLayout({
                   </Link>
                 </div>
                 <div className="ml-auto flex items-center gap-2 sm:gap-3">
-                  <SiteNav />
-                  <Suspense fallback={null}>
-                    <LocaleSwitcher />
-                  </Suspense>
-                  <ThemeToggle />
+                  <SiteNav
+                    mobileMenuControls={
+                      <div className="mt-2 flex items-center justify-end gap-2 border-t border-black/[.08] pt-2 dark:border-white/[.12]">
+                        <Suspense fallback={null}>
+                          <LocaleSwitcher />
+                        </Suspense>
+                        <ThemeToggle />
+                      </div>
+                    }
+                  />
+                  <div className="hidden items-center gap-2 sm:flex">
+                    <Suspense fallback={null}>
+                      <LocaleSwitcher />
+                    </Suspense>
+                    <ThemeToggle />
+                  </div>
                 </div>
               </div>
             </header>
