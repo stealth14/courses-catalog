@@ -1,10 +1,12 @@
 import type { Meta } from "@/interfaces/results";
 import type { StrapiMedia } from "@/interfaces/strapi-media";
+import type { StrapiRichTextBlock } from "@/interfaces/strapi-rich-text";
 
 export type PostText = {
   title: string;
   description: string;
   content: string;
+  richContent?: StrapiRichTextBlock[];
 };
 
 /** Strapi v5 post entry with localized text and populated media relations. */
