@@ -18,8 +18,10 @@ import "../globals.css";
 const BRAND_MARK = "/brand/custodio-seguro-mark.png";
 const BRAND_WORDMARK = "/brand/custodio_seguro_light_transparent.png";
 const BRAND_WORDMARK_DARK = "/brand/custodio_seguro_dark_transparent.png";
-const BRAND_WORDMARK_WIDTH = 1938;
-const BRAND_WORDMARK_HEIGHT = 452;
+const BRAND_WORDMARK_LIGHT_WIDTH = 1938;
+const BRAND_WORDMARK_LIGHT_HEIGHT = 452;
+const BRAND_WORDMARK_DARK_WIDTH = 1938;
+const BRAND_WORDMARK_DARK_HEIGHT = 452;
 const BRAND_OG_IMAGE = "/brand/og-image.png";
 
 const geistSans = Geist({
@@ -95,8 +97,8 @@ export default async function LocaleLayout({
                       src={BRAND_WORDMARK}
                       alt=""
                       aria-hidden="true"
-                      width={BRAND_WORDMARK_WIDTH}
-                      height={BRAND_WORDMARK_HEIGHT}
+                      width={BRAND_WORDMARK_LIGHT_WIDTH}
+                      height={BRAND_WORDMARK_LIGHT_HEIGHT}
                       loading="eager"
                       className="h-9 w-auto shrink-0 dark:hidden"
                     />
@@ -104,8 +106,8 @@ export default async function LocaleLayout({
                       src={BRAND_WORDMARK_DARK}
                       alt=""
                       aria-hidden="true"
-                      width={BRAND_WORDMARK_WIDTH}
-                      height={BRAND_WORDMARK_HEIGHT}
+                      width={BRAND_WORDMARK_DARK_WIDTH}
+                      height={BRAND_WORDMARK_DARK_HEIGHT}
                       loading="eager"
                       className="hidden h-9 w-auto shrink-0 dark:block"
                     />
