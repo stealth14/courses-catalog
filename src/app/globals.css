@@ -8,15 +8,22 @@
   color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
-  /* Single source of truth for the brand accent. Every other brand shade
-     (hover/deep/soft/faint/edge/dim) is derived from this one value, so
-     changing it restyles the whole site. */
-  --primary-color: #ffb900 ;
+
+  /* Brand identity. `--primary-color` stays the single source of truth for
+     the accent: every brand shade (hover/deep/soft/faint/edge/dim) is derived
+     from it, so changing it restyles the whole site. */
+  --brand-navy: #172a3a;
+  --brand-ice: #6ca9c8;
+  --brand-mist: #eaf1f5;
+  --primary-color: var(--brand-ice);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-ice: var(--brand-ice);
+  --color-brand-mist: var(--brand-mist);
   --color-primary: var(--primary-color);
   --color-primary-hover: color-mix(in srgb, var(--primary-color) 88%, white);
   --color-primary-deep: color-mix(in srgb, var(--primary-color) 55%, black);
@@ -38,6 +45,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* In-page anchors (e.g. the hero CTA jumping to the profile section) glide
+   instead of snapping, unless the user asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Hides native scrollbars (WebKit, Firefox, legacy Edge/IE) while

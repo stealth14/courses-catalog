@@ -118,7 +118,7 @@ export default async function PaymentMethodsPage({
           disabled
           className="flex w-full cursor-not-allowed items-center gap-4 rounded-2xl border border-dashed border-black/[.12] p-4 text-left opacity-60 dark:border-white/[.2] sm:p-5"
         >
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-primary dark:bg-white/[.08]">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-primary-deep dark:bg-white/[.08] dark:text-primary">
             ₿
           </span>
           <span className="min-w-0 flex-1">

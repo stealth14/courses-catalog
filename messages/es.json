@@ -1,8 +1,9 @@
 {
   "Layout": {
-    "title": "Ronny Cajas — Mentoría de autocustodia de Bitcoin",
+    "title": "Custodio Seguro — Mentoría de autocustodia de Bitcoin",
     "description": "Enseño a individuos y empresas a resguardar su propio Bitcoin, en billeteras que ellos controlan.",
-    "navHomeLabel": "Ronny Cajas — inicio",
+    "brandName": "Custodio Seguro",
+    "navHomeLabel": "Custodio Seguro — inicio",
     "themeToggleLabel": "Modo oscuro",
     "languageLabel": "Cambiar idioma",
     "languageOptions": "Opciones de idioma"
@@ -76,7 +77,7 @@
     }
   },
   "HomePage": {
-    "metadataTitle": "Ronny Cajas — Bitcoin para profesionales",
+    "metadataTitle": "Custodio Seguro — Bitcoin para profesionales",
     "metadataDescription": "Aprende a resguardar tu propio Bitcoin en una billetera que controlas, sin custodios y sin confiar tus llaves a una app, un dispositivo o código sin auditar.",
     "hero": {
       "title": "Conserva tus Bitcoins. Evita billeteras que no te dan el control.",
@@ -413,7 +414,7 @@
   },
   "PaymentHub": {
     "metadataTitle": "Pago",
-    "metadataDescription": "Elige cómo deseas pagar a Ronny Cajas.",
+    "metadataDescription": "Elige cómo deseas pagar a Custodio Seguro.",
     "subtitle": "Elige tu método de pago",
     "purchasingLabel": "Estás comprando",
     "bookingLabel": "Agendar primera sesión: ",
