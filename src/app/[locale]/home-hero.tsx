@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { LearningLinks } from "@/components/learning-links";
 
 /**
  * Landing hero. Owns the page's only `<h1>`: the ownership promise and
@@ -7,6 +6,7 @@ import { LearningLinks } from "@/components/learning-links";
  */
 export async function HomeHero() {
   const t = await getTranslations("HomePage");
+  const tNav = await getTranslations("Nav");
 
   return (
     <section
@@ -23,7 +23,13 @@ export async function HomeHero() {
         <p className="max-w-md text-pretty text-base leading-7 text-zinc-600 sm:text-lg dark:text-zinc-400">
           {t("hero.subtitle")}
         </p>
-        <LearningLinks size="hero" className="shrink-0 flex-wrap justify-center" />
+        {/* Jumps to the profile section's WhatsApp CTA instead of the academy. */}
+        <a
+          href="#profile"
+          className="inline-flex h-14 w-full max-w-xs shrink-0 items-center justify-center rounded-full border border-primary bg-primary px-7 text-base font-semibold whitespace-nowrap text-zinc-950 shadow-[0_0_32px_10px_color-mix(in_srgb,var(--primary-color)_40%,transparent)] transition select-none [-webkit-tap-highlight-color:transparent] hover:bg-primary-hover hover:shadow-[0_0_44px_14px_color-mix(in_srgb,var(--primary-color)_55%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-deep active:scale-95 sm:w-auto sm:max-w-none dark:focus-visible:outline-primary-soft"
+        >
+          {tNav("learnForFree")}
+        </a>
       </div>
     </section>
   );

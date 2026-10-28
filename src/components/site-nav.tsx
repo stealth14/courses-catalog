@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
@@ -10,7 +12,11 @@ const NAV_ITEMS = [
   // { href: "/academy", label: "academy", icon: "book" },
 ] as const;
 
-export function SiteNav() {
+export function SiteNav({
+  mobileMenuControls,
+}: {
+  mobileMenuControls: ReactNode;
+}) {
   const t = useTranslations("Nav");
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -97,15 +103,29 @@ export function SiteNav() {
         </svg>
       </button>
 
+      {isMenuOpen &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <button
+            type="button"
+            aria-hidden="true"
+            tabIndex={-1}
+            onClick={() => setIsMenuOpen(false)}
+            className="fixed inset-0 z-40 cursor-pointer bg-black/40 sm:hidden"
+          />,
+          document.body
+        )}
+
       <nav
         id="mobile-site-navigation"
         aria-label={t("label")}
-        className={`absolute inset-x-0 top-full border-b border-black/[.08] bg-zinc-50/95 px-4 py-3 shadow-lg backdrop-blur-md sm:hidden dark:border-white/[.12] dark:bg-zinc-950/95 ${
+        className={`absolute inset-x-0 top-full z-50 border-b border-black/[.08] bg-zinc-50/95 px-4 py-3 shadow-lg backdrop-blur-md sm:hidden dark:border-white/[.12] dark:bg-zinc-950/95 ${
           isMenuOpen ? "block" : "hidden"
         }`}
       >
         <div className="mx-auto flex w-full max-w-4xl flex-col gap-1">
           {renderLinks("mobile")}
+          {mobileMenuControls}
         </div>
       </nav>
     </>

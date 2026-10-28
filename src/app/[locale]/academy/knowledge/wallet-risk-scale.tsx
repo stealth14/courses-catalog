@@ -55,7 +55,7 @@ export async function WalletRiskScale() {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-semibold tracking-tight text-primary">
+        <h2 className="text-xl font-semibold tracking-tight text-black dark:text-zinc-50">
           <Link
             href="/academy/escala-de-riesgo-de-billeteras"
             className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
@@ -69,7 +69,7 @@ export async function WalletRiskScale() {
           </p>
           <Link
             href="/academy/escala-de-riesgo-de-billeteras"
-            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-primary-deep underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:self-auto dark:text-primary-soft"
+            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-black underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:self-auto dark:text-zinc-50"
           >
             {t("riskScale.learnMore")}
             <ArrowIcon />

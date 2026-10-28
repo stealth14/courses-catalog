@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { NextIntlClientProvider } from "next-intl";
@@ -7,12 +8,21 @@ import { Analytics } from "@vercel/analytics/next";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { PostCacheProvider } from "@/components/post-cache-provider";
-import { ShieldAvatar } from "@/components/shield-avatar";
 import { SiteNav } from "@/components/site-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+
+/** Square cube mark extracted from the Custodio Seguro logo. */
+const BRAND_MARK = "/brand/custodio-seguro-mark.png";
+const BRAND_WORDMARK = "/brand/custodio_seguro_light_transparent.png";
+const BRAND_WORDMARK_DARK = "/brand/custodio_seguro_dark_transparent.png";
+const BRAND_WORDMARK_LIGHT_WIDTH = 1938;
+const BRAND_WORDMARK_LIGHT_HEIGHT = 452;
+const BRAND_WORDMARK_DARK_WIDTH = 1938;
+const BRAND_WORDMARK_DARK_HEIGHT = 452;
+const BRAND_OG_IMAGE = "/brand/og-image.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,9 +52,9 @@ export async function generateMetadata(
     title: t("title"),
     description: t("description"),
     icons: {
-      icon: "/profile.jpg",
-      shortcut: "/profile.jpg",
-      apple: "/profile.jpg",
+      icon: BRAND_MARK,
+      shortcut: BRAND_MARK,
+      apple: BRAND_MARK,
     },
   };
 }
@@ -81,17 +91,45 @@ export default async function LocaleLayout({
                   <Link
                     href="/"
                     aria-label={t("navHomeLabel")}
-                    className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                    className="flex items-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                   >
-                    <ShieldAvatar />
+                    <Image
+                      src={BRAND_WORDMARK}
+                      alt=""
+                      aria-hidden="true"
+                      width={BRAND_WORDMARK_LIGHT_WIDTH}
+                      height={BRAND_WORDMARK_LIGHT_HEIGHT}
+                      loading="eager"
+                      className="h-9 w-auto shrink-0 dark:hidden"
+                    />
+                    <Image
+                      src={BRAND_WORDMARK_DARK}
+                      alt=""
+                      aria-hidden="true"
+                      width={BRAND_WORDMARK_DARK_WIDTH}
+                      height={BRAND_WORDMARK_DARK_HEIGHT}
+                      loading="eager"
+                      className="hidden h-9 w-auto shrink-0 dark:block"
+                    />
                   </Link>
-                  <ThemeToggle />
                 </div>
                 <div className="ml-auto flex items-center gap-2 sm:gap-3">
-                  <SiteNav />
-                  <Suspense fallback={null}>
-                    <LocaleSwitcher />
-                  </Suspense>
+                  <SiteNav
+                    mobileMenuControls={
+                      <div className="mt-2 flex items-center justify-end gap-2 border-t border-black/[.08] pt-2 dark:border-white/[.12]">
+                        <Suspense fallback={null}>
+                          <LocaleSwitcher />
+                        </Suspense>
+                        <ThemeToggle />
+                      </div>
+                    }
+                  />
+                  <div className="hidden items-center gap-2 sm:flex">
+                    <Suspense fallback={null}>
+                      <LocaleSwitcher />
+                    </Suspense>
+                    <ThemeToggle />
+                  </div>
                 </div>
               </div>
             </header>

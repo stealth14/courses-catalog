@@ -33,7 +33,9 @@ export async function PaymentHeader({
           <p className="text-xs font-medium tracking-wide text-zinc-500 dark:text-zinc-400">
             {t.rich("roleSelfCustody", {
               btc: (chunks) => (
-                <span className="font-semibold text-primary">{chunks}</span>
+                <span className="font-semibold text-black dark:text-zinc-50">
+                  {chunks}
+                </span>
               ),
             })}
           </p>
@@ -76,7 +78,7 @@ export async function PaymentHeader({
             <span className="font-medium tracking-wide">
               {t.rich("roleSelfCustody", {
                 btc: (chunks) => (
-                  <span className="font-semibold text-primary">
+                  <span className="font-semibold text-black dark:text-zinc-50">
                     {chunks}
                   </span>
                 ),
