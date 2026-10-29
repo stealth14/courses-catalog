@@ -6,7 +6,8 @@
     "navHomeLabel": "Custodio Seguro — inicio",
     "themeToggleLabel": "Modo oscuro",
     "languageLabel": "Cambiar idioma",
-    "languageOptions": "Opciones de idioma"
+    "languageOptions": "Opciones de idioma",
+    "versionUpdateLabel": "Hay una versión nueva disponible: recargando…"
   },
   "Nav": {
     "label": "Navegación principal",

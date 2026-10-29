@@ -10,6 +10,7 @@ import { LocaleSwitcher } from "@/components/locale-switcher";
 import { PostCacheProvider } from "@/components/post-cache-provider";
 import { SiteNav } from "@/components/site-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { VersionWatcher } from "@/components/version-watcher";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -134,6 +135,7 @@ export default async function LocaleLayout({
               </div>
             </header>
             {children}
+            <VersionWatcher />
           </PostCacheProvider>
         </NextIntlClientProvider>
         <Analytics />

@@ -20,6 +20,19 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Stale UI checks
+
+Every deployment gets a build version, inlined into both the server and the
+browser bundles. Open tabs poll `/api/version` about once a minute (and again
+whenever they become visible); when the server reports a different version the
+page hard-reloads, so nobody keeps clicking through UI from an older deploy.
+
+The version is taken from `VERCEL_GIT_COMMIT_SHA`, `VERCEL_DEPLOYMENT_ID` or
+`GITHUB_SHA` when available, otherwise from a timestamp of the build (or of the
+`next dev` start, so a restarted dev server also refreshes open tabs). Set
+`NEXT_PUBLIC_APP_VERSION` at build time to override it (for example when the
+same build is promoted across environments).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
