@@ -6,10 +6,9 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
-// Temporarily hidden: "/academy" will be re-enabled later.
 const NAV_ITEMS = [
   { href: "/", label: "home", icon: "home" },
-  // { href: "/academy", label: "academy", icon: "book" },
+  { href: "/academy", label: "academy", icon: "book" },
 ] as const;
 
 export function SiteNav({

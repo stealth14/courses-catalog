@@ -1,11 +1,12 @@
 import type { Meta } from "@/interfaces/results";
+import type { StrapiMarkdown } from "@/interfaces/strapi-markdown";
 import type { StrapiMedia } from "@/interfaces/strapi-media";
 import api from "@/utils/api";
 
 export type PostText = {
   title: string;
   description: string;
-  content: string;
+  markdown: StrapiMarkdown;
 };
 
 /** Strapi v5 post entry with localized text and populated media relations. */
@@ -68,12 +69,28 @@ export class Post {
   }
 
   static fromData(data: PostData): Post {
-    return new Post(data);
+    return new Post({
+      ...data,
+      en: Post.normalizeText(data.en),
+      es: Post.normalizeText(data.es),
+      thumbnail: data.thumbnail ?? null,
+      cover: data.cover ?? null,
+      publishedAt: data.publishedAt ?? null,
+    });
   }
 
   /** Resolves a post's text for the active locale, defaulting to English. */
   static localize(post: Pick<PostData, "en" | "es">, locale: string): PostText {
     return locale === "es" ? post.es : post.en;
+  }
+
+  /** Strapi returns `null` for an unfilled locale component. */
+  private static normalizeText(text: PostText | null): PostText {
+    return {
+      title: text?.title ?? "",
+      description: text?.description ?? "",
+      markdown: text?.markdown ?? "",
+    };
   }
 
   /**

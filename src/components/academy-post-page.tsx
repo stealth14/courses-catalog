@@ -3,6 +3,7 @@
 import { useLocale } from "next-intl";
 import { Post, type PostData } from "@/models/post";
 import { usePostCache } from "./post-cache-provider";
+import { PostMarkdown } from "./post-markdown";
 
 export function AcademyPostPage({
   slug,
@@ -28,6 +29,8 @@ export function AcademyPostPage({
         <p className="max-w-2xl text-pretty text-base leading-7 text-zinc-600 dark:text-zinc-400">
           {localized.description}
         </p>
+
+        <PostMarkdown markdown={localized.markdown} />
       </article>
     </main>
   );
