@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import postRecords from "../../../../../public/posts.json";
+import { cache } from "react";
 import { AcademyPostPage } from "@/components/academy-post-page";
-import { Post, type StrapiPostCollection } from "@/models/post";
+import { Post } from "@/models/post";
 
-const posts = (
-  postRecords as StrapiPostCollection
-).data.map(Post.fromData);
-
-export async function generateStaticParams() {
-  return posts.map(({ slug }) => ({ slug }));
-}
+/** Memoized per request so `generateMetadata` and the page share one query. */
+const findPost = cache((slug: string) => Post.findBySlug(slug));
 
 export async function generateMetadata(
   props: { params: Promise<{ locale: string; slug: string }> }
 ): Promise<Metadata> {
   const { locale, slug } = await props.params;
-  const post = posts.find((entry) => entry.slug === slug);
+  const post = await findPost(slug);
 
   if (!post) return {};
 
@@ -28,7 +23,7 @@ export default async function AcademyPostRoute(
   props: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await props.params;
-  const post = posts.find((entry) => entry.slug === slug);
+  const post = await findPost(slug);
 
   if (!post) notFound();
 

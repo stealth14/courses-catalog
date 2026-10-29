@@ -1,5 +1,6 @@
 import type { Meta } from "@/interfaces/results";
 import type { StrapiMedia } from "@/interfaces/strapi-media";
+import api from "@/utils/api";
 
 export type PostText = {
   title: string;
@@ -35,7 +36,12 @@ export type StrapiPostCollection = {
   meta?: Meta;
 };
 
-/** Post model backed by the local Strapi-shaped fixture until API wiring. */
+/** Strapi v5 single-entry response for `GET /api/posts/:documentId`. */
+export type StrapiPostSingle = {
+  data: PostData | null;
+};
+
+/** Post model backed by the Strapi `api::post.post` content type. */
 export class Post {
   readonly id: number;
   readonly documentId: string;
@@ -70,27 +76,34 @@ export class Post {
     return locale === "es" ? post.es : post.en;
   }
 
+  /**
+   * Lists posts from Strapi.
+   *
+   * `populate=*` is always applied so relations/components come back
+   * resolved; the caller cannot override it. Errors are re-thrown so
+   * callers can surface them in the UI — there is no local-data fallback.
+   *
+   * @param params Strapi query params (pagination, filters, sort, …).
+   * @returns The posts and their pagination meta.
+   */
   static async search(
     params: PostSearchParams = {}
   ): Promise<{ items: Post[]; meta: Meta }> {
     try {
-      // The local fixture doesn't implement Strapi query parameters.
-      void params;
-      const response = await fetch("/posts.json");
+      // populate=* covers everything — strip any caller-supplied value.
+      const rest: Record<string, unknown> = { ...params };
+      delete rest.populate;
 
-      if (!response.ok) {
-        throw new Error(`Posts request failed with status ${response.status}.`);
-      }
+      const response = await api.public.get<StrapiPostCollection>(
+        "/posts?populate=*",
+        { params: rest }
+      );
 
-      const collection =
-        (await response.json()) as StrapiPostCollection;
-      const items = collection.data.map(Post.fromData);
+      const items = (response.data.data ?? []).map(Post.fromData);
 
       return {
         items,
-        meta:
-          collection.meta ??
-          Post.buildMeta(items.length),
+        meta: response.data.meta ?? Post.buildMeta(items.length),
       };
     } catch (error) {
       console.error("[Post.search]", error);
@@ -98,12 +111,41 @@ export class Post {
     }
   }
 
+  /**
+   * Finds one post by its Strapi `documentId` (the stable UUID — not the
+   * numeric `id`, which can change between environments).
+   *
+   * @returns The post, or null when Strapi has no such entry.
+   */
   static async findOne(documentId: string): Promise<Post | null> {
     try {
-      const { items } = await Post.search();
-      return items.find((post) => post.documentId === documentId) ?? null;
+      const response = await api.public.get<StrapiPostSingle>(
+        `/posts/${documentId}?populate=*`
+      );
+
+      return response.data.data ? Post.fromData(response.data.data) : null;
     } catch (error) {
       console.error("[Post.findOne]", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Finds one post by its `slug`, using a Strapi filter so the whole
+   * collection is not transferred.
+   *
+   * @returns The post, or null when no entry matches the slug.
+   */
+  static async findBySlug(slug: string): Promise<Post | null> {
+    try {
+      const { items } = await Post.search({
+        filters: { slug: { $eq: slug } },
+        pagination: { pageSize: 1 },
+      });
+
+      return items[0] ?? null;
+    } catch (error) {
+      console.error("[Post.findBySlug]", error);
       throw error;
     }
   }

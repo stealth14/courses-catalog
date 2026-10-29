@@ -6,6 +6,7 @@ import { useLocale } from "next-intl";
 import usePosts from "@/hooks/posts";
 import { Link } from "@/i18n/navigation";
 import { Post } from "@/models/post";
+import { resolveStrapiMediaUrl } from "@/utils/strapi-media";
 import { usePostCache } from "./post-cache-provider";
 
 export function RecommendedPosts({
@@ -38,6 +39,7 @@ export function RecommendedPosts({
         <ul className="grid gap-5 sm:grid-cols-3">
           {result.items.map((post) => {
             const localized = Post.localize(post, locale);
+            const thumbnailUrl = resolveStrapiMediaUrl(post.thumbnail);
 
             return (
               <li key={post.documentId}>
@@ -46,10 +48,10 @@ export function RecommendedPosts({
                   aria-label={localized.title}
                   className="group relative block aspect-[3/2] overflow-hidden bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground dark:bg-zinc-900"
                 >
-                  {post.thumbnail ? (
+                  {thumbnailUrl ? (
                     <Image
-                      src={post.thumbnail.url}
-                      alt={post.thumbnail.alternativeText ?? ""}
+                      src={thumbnailUrl}
+                      alt={post.thumbnail?.alternativeText ?? ""}
                       fill
                       sizes="(min-width: 640px) 33vw, 100vw"
                       className="object-cover transition-transform group-hover:scale-[1.03]"
