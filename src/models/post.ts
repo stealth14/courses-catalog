@@ -1,12 +1,10 @@
 import type { Meta } from "@/interfaces/results";
 import type { StrapiMedia } from "@/interfaces/strapi-media";
-import type { StrapiMarkdown } from "@/interfaces/strapi-markdown";
 
 export type PostText = {
   title: string;
   description: string;
   content: string;
-  markdown?: StrapiMarkdown;
 };
 
 /** Strapi v5 post entry with localized text and populated media relations. */
