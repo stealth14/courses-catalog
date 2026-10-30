@@ -260,6 +260,16 @@ export function NoteIcon(props: FirmwareIconProps) {
   );
 }
 
+export function SignedNoteIcon(props: FirmwareIconProps) {
+  return (
+    <FirmwareIcon {...props}>
+      <path d="M5.5 3.5h9l4 4v13h-13v-17Z" />
+      <path d="M14.5 3.5v4h4" />
+      <path d="M8.5 14.6l2.1 2.1 4.4-4.4" />
+    </FirmwareIcon>
+  );
+}
+
 export function ExternalLinkIcon(props: FirmwareIconProps) {
   return (
     <FirmwareIcon {...props}>

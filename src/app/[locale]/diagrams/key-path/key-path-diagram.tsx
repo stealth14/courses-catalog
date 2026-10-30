@@ -13,7 +13,9 @@ import {
   GlobeIcon,
   KeyIcon,
   LaptopIcon,
+  NoteIcon,
   ShieldIcon,
+  SignedNoteIcon,
   UsbIcon,
   type FirmwareIconProps,
 } from "@/components/icons/firmware-icons";
@@ -134,6 +136,56 @@ const SPEEDS = {
 
 type SpeedId = keyof typeof SPEEDS;
 
+/**
+ * How long each traveller rests where its job ends before the next one sets
+ * off, so the hand-over is visible instead of one blur.
+ */
+const HANDOVER_MS = 400;
+
+/** The three things that move through the diagram, in the order they appear. */
+type TrackId = "unsigned" | "key" | "signed";
+
+type Track = {
+  /** The route the traveller follows, as an SVG path. */
+  path: string;
+  delayMs: number;
+  durationMs: number;
+};
+
+type Actor = {
+  id: TrackId;
+  label: string;
+  icon: ComponentType<FirmwareIconProps>;
+  /** Ring and icon colours of the traveller badge. */
+  badge: string;
+};
+
+/**
+ * Who travels when. Trezor Suite builds the unsigned transaction, the
+ * private key only ever moves inside the device, and the signed transaction
+ * goes back out. Each traveller stops where its phase ends.
+ */
+const ACTORS: Actor[] = [
+  {
+    id: "unsigned",
+    label: "Unsigned transaction",
+    icon: NoteIcon,
+    badge: "text-orange-600 ring-orange-400",
+  },
+  {
+    id: "key",
+    label: "Private key",
+    icon: KeyIcon,
+    badge: "text-yellow-600 ring-yellow-400",
+  },
+  {
+    id: "signed",
+    label: "Signed transaction",
+    icon: SignedNoteIcon,
+    badge: "text-emerald-600 ring-emerald-400",
+  },
+];
+
 type Point = { x: number; y: number };
 
 type CardRect = { l: number; t: number; r: number; b: number; cy: number };
@@ -142,12 +194,10 @@ type Milestone = { id: StepId; ms: number };
 
 type Geometry = {
   cards: CardRect[];
-  fullPath: string;
+  tracks: Record<TrackId, Track>;
   railPath: string;
   totalMs: number;
   milestones: Milestone[];
-  amberEndPct: number;
-  goldEndPct: number;
   railY: number;
   broadcastLabel: Point;
   deviceBox: { left: number; top: number; width: number; height: number };
@@ -172,11 +222,12 @@ function polyLength(points: Point[]) {
 }
 
 /**
- * Builds the single journey the one dot follows, plus when the dot reaches
- * each element. The dot's meaning (and colour) changes with the phase:
- * - amber: unsigned transaction, Suite -> USB -> firmware -> screen
- * - gold: private key, secure elements -> flash -> signing
- * - green: signed transaction, signing -> USB -> Suite -> network
+ * Builds the three journeys and when each traveller reaches each element:
+ * - unsigned transaction: Suite -> USB -> firmware -> screen
+ * - private key: secure elements -> flash -> signing
+ * - signed transaction: signing -> USB -> Suite -> network
+ * Every traveller keeps the route of its own phase, so it can stop at the
+ * end of it while the next one follows a different route.
  */
 function measure(
   stage: HTMLDivElement,
@@ -267,13 +318,18 @@ function measure(
 
   const amberLength = polyLength(amberPoints);
   const goldLength = polyLength(goldPoints);
-  const fullLength = amberLength + goldLength + polyLength(greenPoints);
+  const signedLength = polyLength(greenPoints);
 
-  const amberMs = ms(amberLength);
-  const totalMs = ms(fullLength);
+  const unsignedMs = ms(amberLength);
+  const keyMs = ms(goldLength);
+  const signedMs = ms(signedLength);
 
-  const goldStart = amberMs;
-  const goldOffsetsMs = {
+  // Each traveller waits for the previous one to stop before setting off.
+  const keyDelayMs = unsignedMs + HANDOVER_MS;
+  const signedDelayMs = keyDelayMs + keyMs + HANDOVER_MS;
+  const totalMs = signedDelayMs + signedMs;
+
+  const keyOffsetsMs = {
     secureElements: ms(connectorLength),
     flash: ms(connectorLength + waveLength(5) + connectorLength),
     signing: ms(
@@ -303,9 +359,9 @@ function measure(
           connectorLength,
       ),
     },
-    { id: "secure-elements", ms: goldStart + goldOffsetsMs.secureElements },
-    { id: "flash", ms: goldStart + goldOffsetsMs.flash },
-    { id: "signing", ms: goldStart + goldOffsetsMs.signing },
+    { id: "secure-elements", ms: keyDelayMs + keyOffsetsMs.secureElements },
+    { id: "flash", ms: keyDelayMs + keyOffsetsMs.flash },
+    { id: "signing", ms: keyDelayMs + keyOffsetsMs.signing },
     { id: "network", ms: totalMs - ms(connectorLength) },
   ];
 
@@ -335,13 +391,26 @@ function measure(
 
   return {
     cards,
-    fullPath: toPath([...amberPoints, ...goldPoints, ...greenPoints]),
+    tracks: {
+      unsigned: {
+        path: toPath(amberPoints),
+        delayMs: 0,
+        durationMs: unsignedMs,
+      },
+      key: {
+        path: toPath(goldPoints),
+        delayMs: keyDelayMs,
+        durationMs: keyMs,
+      },
+      signed: {
+        path: toPath(greenPoints),
+        delayMs: signedDelayMs,
+        durationMs: signedMs,
+      },
+    },
     railPath: toPath(railPoints),
     totalMs,
     milestones,
-    amberEndPct: Math.round((amberLength / fullLength) * 1000) / 10,
-    goldEndPct:
-      Math.round(((amberLength + goldLength) / fullLength) * 1000) / 10,
     railY,
     broadcastLabel: {
       x: (rect(0).r + rect(1).l) / 2,
@@ -357,41 +426,39 @@ function measure(
 }
 
 /**
- * One dot, three meanings. The keyframes hold the colour (and glow) of the
- * current role: amber while it is the unsigned transaction, gold while it
- * is the private key, green once it is the signed transaction. The dot
- * stays visible for the whole run.
+ * One traveller: a badge with the icon of what is moving. While `rest` is
+ * set it is parked at that point of its route (the start before the run,
+ * the end after it); otherwise it animates along the route and stays there
+ * when the animation is over.
  */
-function travelKeyframes(amberEndPct: number, goldEndPct: number) {
-  return `
-@keyframes kp-travel {
-  0% {
-    offset-distance: 0%;
-    background-color: rgb(245 158 11);
-    box-shadow: 0 4px 10px rgb(245 158 11 / 0.45);
-  }
-  ${amberEndPct}% {
-    background-color: rgb(245 158 11);
-    box-shadow: 0 4px 10px rgb(245 158 11 / 0.45);
-  }
-  ${amberEndPct + 0.5}% {
-    background-color: rgb(250 204 21);
-    box-shadow: 0 0 0 2px rgb(254 240 138), 0 4px 10px rgb(250 204 21 / 0.55);
-  }
-  ${goldEndPct}% {
-    background-color: rgb(250 204 21);
-    box-shadow: 0 0 0 2px rgb(254 240 138), 0 4px 10px rgb(250 204 21 / 0.55);
-  }
-  ${goldEndPct + 0.5}% {
-    background-color: rgb(16 185 129);
-    box-shadow: 0 4px 10px rgb(16 185 129 / 0.5);
-  }
-  100% {
-    offset-distance: 100%;
-    background-color: rgb(16 185 129);
-    box-shadow: 0 4px 10px rgb(16 185 129 / 0.5);
-  }
-}`;
+function Traveller({
+  actor,
+  track,
+  rest,
+}: {
+  actor: Actor;
+  track: Track;
+  rest?: 0 | 100;
+}) {
+  const Icon = actor.icon;
+  const parked = rest !== undefined;
+
+  return (
+    <div
+      data-track={parked ? undefined : actor.id}
+      className={`kp-actor shadow-md ring-2 ${actor.badge}`}
+      style={{
+        offsetPath: `path('${track.path}')`,
+        offsetDistance: parked ? `${rest}%` : undefined,
+        opacity: parked ? 1 : undefined,
+        animation: parked
+          ? undefined
+          : `kp-travel ${track.durationMs}ms linear ${track.delayMs}ms forwards`,
+      }}
+    >
+      <Icon className="h-4 w-4" />
+    </div>
+  );
 }
 
 function PlayGlyph() {
@@ -415,14 +482,28 @@ function ResetGlyph() {
   );
 }
 
-type Timeline = { start: number; totalMs: number };
+type Timeline = {
+  start: number;
+  totalMs: number;
+  tracks: Record<TrackId, Track>;
+};
+
+/** Which traveller is on the move (or resting at its last stop) right now. */
+function activeTrack(
+  tracks: Record<TrackId, Track>,
+  elapsed: number,
+): TrackId {
+  if (elapsed >= tracks.signed.delayMs) return "signed";
+  if (elapsed >= tracks.key.delayMs) return "key";
+  return "unsigned";
+}
 
 /**
- * Animated key path: one dot follows a bitcoin send through a Trezor
- * Safe 7 and changes colour as its meaning changes — amber for the
- * unsigned transaction, gold for the private key (which never leaves the
- * device), green for the signed transaction. The dot stays at its last
- * stop until the user resets the simulation.
+ * Animated key path: three travellers follow a bitcoin send through a
+ * Trezor Safe 7 — the unsigned transaction from Trezor Suite in, the
+ * private key inside the device, and the signed transaction back out.
+ * Each one stops where its job ends; all three stay on the diagram until
+ * the user resets the simulation.
  */
 export function KeyPathDiagram() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -466,8 +547,8 @@ export function KeyPathDiagram() {
   }
 
   /**
-   * Pans the scroll container so the traveling dot stays centred. While
-   * the simulation runs the container is not scrollable by the user.
+   * Pans the scroll container so the traveller on the move stays centred.
+   * While the simulation runs the container is not scrollable by the user.
    */
   function startFollow(timeline: Timeline) {
     stopFollow();
@@ -483,13 +564,16 @@ export function KeyPathDiagram() {
       const elapsed = performance.now() - timelineRef.current.start;
       if (elapsed > timelineRef.current.totalMs) return;
 
-      const dot = stage.querySelector<HTMLSpanElement>(".kp-dot");
-      if (dot) {
-        const dotRect = dot.getBoundingClientRect();
+      const trackId = activeTrack(timelineRef.current.tracks, elapsed);
+      const actor = stage.querySelector<HTMLElement>(
+        `[data-track="${trackId}"]`,
+      );
+      if (actor) {
+        const actorRect = actor.getBoundingClientRect();
         const stageRect = stage.getBoundingClientRect();
         // Both rects are viewport-relative, so their difference is already
-        // the dot's position inside the stage content.
-        const contentX = dotRect.left - stageRect.left;
+        // the traveller's position inside the stage content.
+        const contentX = actorRect.left - stageRect.left;
         const maxScroll = scroller.scrollWidth - scroller.clientWidth;
         scroller.scrollLeft = Math.min(
           Math.max(0, contentX - scroller.clientWidth / 2),
@@ -529,6 +613,7 @@ export function KeyPathDiagram() {
     startFollow({
       start: performance.now(),
       totalMs: geometry.totalMs,
+      tracks: geometry.tracks,
     });
 
     geometry.milestones.forEach((milestone) => {
@@ -553,24 +638,10 @@ export function KeyPathDiagram() {
 
   const status =
     phase === "playing"
-      ? "Following the transaction through the device…"
+      ? "Following the send: the unsigned transaction travels in, the private key moves inside the device, the signed transaction goes out."
       : phase === "done"
-        ? "Signed: the private key never left the Trezor Safe 7 — only the signature went out. Reset the animation to run it again."
+        ? "Signed: the private key never left the Trezor Safe 7 — only the signature went out. The three travellers stay here until you reset."
         : "Press play to follow what happens to the keys when the Trezor signs a send.";
-
-  const dotIdleStyle = {
-    offsetPath: geometry ? `path('${geometry.fullPath}')` : undefined,
-    offsetDistance: "0%",
-    backgroundColor: "rgb(245 158 11)",
-    boxShadow: "0 4px 10px rgb(245 158 11 / 0.45)",
-  };
-
-  const dotDoneStyle = {
-    offsetPath: geometry ? `path('${geometry.fullPath}')` : undefined,
-    offsetDistance: "100%",
-    backgroundColor: "rgb(16 185 129)",
-    boxShadow: "0 4px 10px rgb(16 185 129 / 0.5)",
-  };
 
   return (
     <figure className="flex flex-col gap-4 rounded-3xl bg-white p-3 text-zinc-900 [color-scheme:light] sm:p-4">
@@ -580,38 +651,44 @@ export function KeyPathDiagram() {
           40% { transform: scale(1.04); }
           100% { transform: scale(1); }
         }
-        .kp-dot {
+        @keyframes kp-travel {
+          from { offset-distance: 0%; opacity: 1; }
+          to { offset-distance: 100%; opacity: 1; }
+        }
+        .kp-actor {
           position: absolute;
           top: 0;
           left: 0;
-          width: 16px;
-          height: 16px;
+          display: flex;
+          width: 28px;
+          height: 28px;
+          align-items: center;
+          justify-content: center;
           border-radius: 9999px;
-          offset-anchor: 0% 50%;
-          margin-left: -8px;
+          background-color: #fff;
+          offset-anchor: 50% 50%;
+          opacity: 0;
         }
         .kp-reached {
           animation: kp-reach-pulse 0.6s ease;
         }
-        ${geometry
-          ? travelKeyframes(geometry.amberEndPct, geometry.goldEndPct)
-          : ""}
       `}</style>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-zinc-600">
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />
-            Unsigned transaction
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-yellow-400 ring-2 ring-yellow-200" />
-            Private key
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            Signed transaction
-          </span>
+          {ACTORS.map((actor) => {
+            const Icon = actor.icon;
+            return (
+              <span key={actor.id} className="inline-flex items-center gap-1.5">
+                <span
+                  className={`flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm ring-2 ${actor.badge}`}
+                >
+                  <Icon className="h-3 w-3" />
+                </span>
+                {actor.label}
+              </span>
+            );
+          })}
           <span className="inline-flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-[4px] border border-sky-300 bg-sky-100" />
             Reached element
@@ -761,32 +838,47 @@ export function KeyPathDiagram() {
                 </text>
               </svg>
 
-              {/* The traveling dot: one dot, three roles, three colours. */}
+              {/* Three travellers, one after another. Each one follows its
+                  own route, stops where its job ends, and stays there: at
+                  the end of the run all three sit on the diagram. */}
               {phase === "playing" && (
                 <div
                   key={runId}
                   className="pointer-events-none absolute inset-0 z-30"
                 >
-                  <span
-                    className="kp-dot"
-                    style={{
-                      offsetPath: `path('${geometry.fullPath}')`,
-                      animation: `kp-travel ${geometry.totalMs}ms linear 0ms both`,
-                    }}
+                  {ACTORS.map((actor) => (
+                    <Traveller
+                      key={actor.id}
+                      actor={actor}
+                      track={geometry.tracks[actor.id]}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* At rest only the unsigned transaction waits at the start of
+                  its route. */}
+              {phase === "idle" && (
+                <div className="pointer-events-none absolute inset-0 z-30">
+                  <Traveller
+                    actor={ACTORS[0]}
+                    track={geometry.tracks.unsigned}
+                    rest={0}
                   />
                 </div>
               )}
 
-              {/* At rest the dot waits at its stop: the start before the
-                  first run, the network after a finished one. */}
-              {phase === "idle" && (
-                <div className="pointer-events-none absolute inset-0 z-30">
-                  <span className="kp-dot" style={dotIdleStyle} />
-                </div>
-              )}
+              {/* After the run every traveller stays where it stopped. */}
               {phase === "done" && (
                 <div className="pointer-events-none absolute inset-0 z-30">
-                  <span className="kp-dot" style={dotDoneStyle} />
+                  {ACTORS.map((actor) => (
+                    <Traveller
+                      key={actor.id}
+                      actor={actor}
+                      track={geometry.tracks[actor.id]}
+                      rest={100}
+                    />
+                  ))}
                 </div>
               )}
             </>
