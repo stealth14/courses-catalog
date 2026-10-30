@@ -295,10 +295,11 @@ function measure(
     { id: "network", ms: travelEndMs },
   ];
 
-  const deviceIcons = icons.slice(DEVICE_RANGE[0], DEVICE_RANGE[1] + 1);
-  const left = Math.min(...deviceIcons.map((item) => item.l));
-  const right = Math.max(...deviceIcons.map((item) => item.r));
-  const top = Math.min(...deviceIcons.map((item) => item.t));
+  // The device elements, labels included, so the box never cuts them.
+  const deviceCards = cards.slice(DEVICE_RANGE[0], DEVICE_RANGE[1] + 1);
+  const left = Math.min(...deviceCards.map((item) => item.l));
+  const right = Math.max(...deviceCards.map((item) => item.r));
+  const top = Math.min(...deviceCards.map((item) => item.t));
 
   return {
     cards,
@@ -327,13 +328,13 @@ function measure(
       x: (stopX(0) + stopX(1)) / 2,
       y: laneY + 18,
     },
-    // The box covers the device icons, their labels, their connectors and
-    // the lane segment the key travels, which never leaves it.
+    // The box covers the device elements with their floating labels, their
+    // connectors and the lane segment the key travels, which never leaves it.
     deviceBox: {
       left: left - 16,
-      top: top - 52,
+      top: top - 14,
       width: right - left + 32,
-      height: laneY + 18 - (top - 52),
+      height: laneY + 18 - (top - 14),
     },
   };
 }
