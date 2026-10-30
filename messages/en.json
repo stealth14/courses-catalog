@@ -390,6 +390,169 @@
     "methodBinance": "Binance",
     "methodWhatsapp": "WhatsApp"
   },
+  "DiagramsPage": {
+    "metadataTitle": "Who reaches your private keys",
+    "metadataDescription": "Compare Blockstream Jade, Trezor and an offline Bitcoin Core wallet by the software and hardware that can see your private keys, and the action that hands them over.",
+    "title": "Who reaches your private keys?",
+    "subtitle": "Pick a wallet and see its whole ecosystem laid out. The highlighted elements can reach your keys at some point, and the count tells you how wide that surface is."
+  },
+  "KeyAccessDiagram": {
+    "selectorLabel": "Choose a wallet",
+    "countSummary": "{count} of {total} elements can reach your keys",
+    "countLabel": "Elements with key access",
+    "layerCount": "{count} of {total}",
+    "legendAccess": "Highlighted: this element sits on the path to your private keys at some point.",
+    "legendNoAccess": "Dashed: part of the same ecosystem, but it never holds key material.",
+    "noAccessShort": "No key access",
+    "prompt": "Select any element to see which of your actions opens it to the keys.",
+    "actionLabel": "Your action",
+    "actionNone": "Nothing you do here hands over a key: it sees addresses, signatures or public data only.",
+    "levels": {
+      "full": {
+        "label": "Full keys",
+        "note": "a readable copy of the keys exists there: the seed, or every key in the wallet file."
+      },
+      "transient": {
+        "label": "In memory",
+        "note": "the keys are decrypted into it while it signs, then wiped."
+      },
+      "partial": {
+        "label": "Partial",
+        "note": "it holds a passphrase or one multisig share, never the whole key."
+      }
+    },
+    "layers": {
+      "device": "The device",
+      "host": "Computer and browser",
+      "services": "Online services",
+      "media": "Removable media",
+      "paper": "Paper and steel"
+    },
+    "caption": "Three concrete setups side by side: Jade with Blockstream Green, Trezor Safe 3 or Model T with Trezor Suite, and Bitcoin Core on an air-gapped Raspberry Pi. Every element of each ecosystem is drawn once; the highlighted ones can reach your private keys at some point, and the count above is the size of that surface. Compare the numbers before you compare the brands.",
+    "wallets": {
+      "jade": {
+        "name": "Blockstream Jade",
+        "model": "signer + Green, USB or QR",
+        "summary": "An open-source signer with a secure element. Paired with Green it only signs, and the seed stays inside the chip until you unlock it. Keep it single-sig and the Green side never sees a key.",
+        "elements": {
+          "secure-element": {
+            "name": "Jade secure element",
+            "action": "You type your PIN on the device: the seed lives here, and that PIN is all that separates it from plaintext."
+          },
+          "chip": {
+            "name": "Jade main chip",
+            "action": "You approve a transaction on the device: the chip decrypts the seed into its own memory, signs, then wipes it."
+          },
+          "firmware": {
+            "name": "Jade firmware"
+          },
+          "green-app": {
+            "name": "Blockstream Green app"
+          },
+          "link": {
+            "name": "USB or QR link"
+          },
+          "green-server": {
+            "name": "Blockstream key server",
+            "action": "You create a Protected multisig wallet in Green: Blockstream holds one of the multisig keys and co-signs every spend, though it cannot sign alone."
+          },
+          "oracle": {
+            "name": "Blind oracle (UTXO lookup)"
+          },
+          "backup": {
+            "name": "Paper or steel backup",
+            "action": "You choose “show recovery phrase” at setup or recovery and copy the words: that paper is the key."
+          }
+        }
+      },
+      "trezor": {
+        "name": "Trezor",
+        "model": "Safe 3 / Model T + Suite, USB",
+        "summary": "A device with a secure element, driven by Trezor Suite. The seed stays on the device, but two flows put key material on the computer: the passphrase, and recovery on older models.",
+        "elements": {
+          "secure-element": {
+            "name": "Trezor secure element",
+            "action": "You type your PIN on the device: the seed is stored here encrypted, and the PIN unlocks it."
+          },
+          "chip": {
+            "name": "Trezor main chip",
+            "action": "You confirm a transaction on the touchscreen: the seed is decrypted into the chip’s memory, used to sign, then cleared."
+          },
+          "firmware": {
+            "name": "Trezor firmware"
+          },
+          "suite": {
+            "name": "Trezor Suite on your computer",
+            "action": "You accept the default “enter passphrase on computer”: the passphrase is typed into Suite and stays in its memory."
+          },
+          "browser": {
+            "name": "Suite Web or a Trezor Connect site",
+            "action": "You type the passphrase into a web page: the page and any extension running in it can read that field."
+          },
+          "bridge": {
+            "name": "Trezor Bridge and the USB link"
+          },
+          "host-recovery": {
+            "name": "Host-side recovery (Model One)",
+            "action": "You recover a wallet by typing the words into Suite: the whole seed ends up on the computer."
+          },
+          "servers": {
+            "name": "Trezor backend servers"
+          },
+          "connect-sites": {
+            "name": "Sites using Trezor Connect"
+          },
+          "backup": {
+            "name": "Paper, steel or SLIP-39 backup",
+            "action": "You write the 12/24 words, or the Shamir shares, at setup: that backup is the key."
+          }
+        }
+      },
+      "core": {
+        "name": "Bitcoin Core",
+        "model": "air-gapped Raspberry Pi, PSBT over USB",
+        "summary": "No vendor, no server: a Raspberry Pi that never joins a network holds the wallet, and you verify the Core release yourself. Every element that can reach the keys is on that board, on its card, or in your hands.",
+        "elements": {
+          "os": {
+            "name": "Pi OS and the Core binary",
+            "action": "You install or update Core: whichever binary you run can read the wallet file and every key you unlock, so verify the release signature first."
+          },
+          "memory": {
+            "name": "Raspberry Pi memory",
+            "action": "You unlock the wallet to sign a PSBT: every decrypted key sits in RAM until you lock the wallet or reboot."
+          },
+          "keyboard": {
+            "name": "Keyboard, screen and shell history",
+            "action": "You type the wallet passphrase: it crosses the keyboard, the OS and the terminal in clear text."
+          },
+          "online": {
+            "name": "Your online watch-only machine"
+          },
+          "network": {
+            "name": "The network (the Pi never joins one)"
+          },
+          "gpg": {
+            "name": "GPG keyring for verifying releases"
+          },
+          "wallet-file": {
+            "name": "wallet.dat on the microSD card",
+            "action": "You create or restore the wallet: the keys are written to this file, readable until you set an encryption passphrase."
+          },
+          "dump": {
+            "name": "dumpwallet output or wallet copy",
+            "action": "You run dumpwallet and every private key is written in plain text, or backupwallet and the whole file leaves on a USB stick."
+          },
+          "psbt": {
+            "name": "The PSBT on the USB stick"
+          },
+          "paper-passphrase": {
+            "name": "The passphrase you write down",
+            "action": "You write the passphrase on paper so you never lose it: that paper unlocks any copy of the wallet file."
+          }
+        }
+      }
+    }
+  },
   "Common": {
     "copy": "Copy",
     "copied": "Copied"

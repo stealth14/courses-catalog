@@ -390,6 +390,169 @@
     "methodBinance": "Binance",
     "methodWhatsapp": "WhatsApp"
   },
+  "DiagramsPage": {
+    "metadataTitle": "Quién alcanza tus claves privadas",
+    "metadataDescription": "Compara Blockstream Jade, Trezor y una cartera Bitcoin Core sin conexión según el software y el hardware que pueden ver tus claves privadas, y la acción con la que se las entregas.",
+    "title": "¿Quién alcanza tus claves privadas?",
+    "subtitle": "Elige una cartera y mira su ecosistema completo desplegado. Los elementos resaltados llegan a tus claves en algún momento, y la cifra te dice qué tan ancha es esa superficie."
+  },
+  "KeyAccessDiagram": {
+    "selectorLabel": "Elige una cartera",
+    "countSummary": "{count} de {total} elementos llegan a tus claves",
+    "countLabel": "Elementos con acceso a las claves",
+    "layerCount": "{count} de {total}",
+    "legendAccess": "Resaltado: este elemento está en el camino a tus claves privadas en algún momento.",
+    "legendNoAccess": "Discontinuo: forma parte del mismo ecosistema, pero nunca guarda material de claves.",
+    "noAccessShort": "Sin acceso a claves",
+    "prompt": "Selecciona cualquier elemento para ver qué acción tuya le abre el acceso a las claves.",
+    "actionLabel": "Tu acción",
+    "actionNone": "Nada de lo que haces aquí entrega una clave: solo ve direcciones, firmas o datos públicos.",
+    "levels": {
+      "full": {
+        "label": "Claves completas",
+        "note": "existe ahí una copia legible de las claves: la semilla o todas las claves del archivo de cartera."
+      },
+      "transient": {
+        "label": "En memoria",
+        "note": "las claves se descifran dentro mientras firma y después se borran."
+      },
+      "partial": {
+        "label": "Parcial",
+        "note": "guarda una frase de paso o una parte multifirma, nunca la clave completa."
+      }
+    },
+    "layers": {
+      "device": "El dispositivo",
+      "host": "Ordenador y navegador",
+      "services": "Servicios en línea",
+      "media": "Medios extraíbles",
+      "paper": "Papel y acero"
+    },
+    "caption": "Tres montajes concretos uno al lado del otro: Jade con Blockstream Green, Trezor Safe 3 o Model T con Trezor Suite, y Bitcoin Core en una Raspberry Pi aislada. Cada ecosistema se dibuja completo una vez; lo resaltado llega a tus claves privadas en algún momento y el número de arriba es el tamaño de esa superficie. Compara las cifras antes de comparar las marcas.",
+    "wallets": {
+      "jade": {
+        "name": "Blockstream Jade",
+        "model": "firmante + Green, USB o QR",
+        "summary": "Firmante de código abierto con elemento seguro. Junto a Green solo firma y la semilla se queda dentro del chip hasta que lo desbloqueas. Si la cartera es de firma única, el lado de Green nunca ve una clave.",
+        "elements": {
+          "secure-element": {
+            "name": "Elemento seguro de Jade",
+            "action": "Introduces tu PIN en el dispositivo: la semilla está aquí y ese PIN es lo único que la separa del texto plano."
+          },
+          "chip": {
+            "name": "Chip principal de Jade",
+            "action": "Apruebas una transacción en el dispositivo: el chip descifra la semilla en su propia memoria, firma y la borra."
+          },
+          "firmware": {
+            "name": "Firmware de Jade"
+          },
+          "green-app": {
+            "name": "App Blockstream Green"
+          },
+          "link": {
+            "name": "Enlace USB o QR"
+          },
+          "green-server": {
+            "name": "Servidor de claves de Blockstream",
+            "action": "Creas una cartera multifirma Protected en Green: Blockstream guarda una de las claves de la multifirma y cofirma cada gasto, pero no puede firmar solo."
+          },
+          "oracle": {
+            "name": "Oráculo ciego (consulta de UTXO)"
+          },
+          "backup": {
+            "name": "Copia en papel o acero",
+            "action": "Eliges «mostrar frase de recuperación» al configurar o recuperar y copias las palabras: ese papel es la clave."
+          }
+        }
+      },
+      "trezor": {
+        "name": "Trezor",
+        "model": "Safe 3 / Model T + Suite, USB",
+        "summary": "Dispositivo con elemento seguro manejado por Trezor Suite. La semilla se queda en el dispositivo, pero dos flujos ponen material de clave en el ordenador: la frase de paso y la recuperación en modelos antiguos.",
+        "elements": {
+          "secure-element": {
+            "name": "Elemento seguro de Trezor",
+            "action": "Introduces el PIN en el dispositivo: la semilla está aquí cifrada y el PIN la desbloquea."
+          },
+          "chip": {
+            "name": "Chip principal de Trezor",
+            "action": "Confirmas una transacción en la pantalla táctil: la semilla se descifra en la memoria del chip, se usa para firmar y se borra."
+          },
+          "firmware": {
+            "name": "Firmware de Trezor"
+          },
+          "suite": {
+            "name": "Trezor Suite en tu ordenador",
+            "action": "Aceptas la opción por defecto «introducir la frase de paso en el ordenador»: la frase se escribe en Suite y se queda en su memoria."
+          },
+          "browser": {
+            "name": "Suite Web o un sitio con Trezor Connect",
+            "action": "Escribes la frase de paso en una página web: la página y cualquier extensión que corra en ella pueden leer ese campo."
+          },
+          "bridge": {
+            "name": "Trezor Bridge y el enlace USB"
+          },
+          "host-recovery": {
+            "name": "Recuperación en el ordenador (Model One)",
+            "action": "Recuperas una cartera escribiendo las palabras en Suite: la semilla completa acaba en el ordenador."
+          },
+          "servers": {
+            "name": "Servidores de Trezor"
+          },
+          "connect-sites": {
+            "name": "Sitios que usan Trezor Connect"
+          },
+          "backup": {
+            "name": "Copia en papel, acero o SLIP-39",
+            "action": "Escribes las 12/24 palabras, o las partes Shamir, al configurar: esa copia es la clave."
+          }
+        }
+      },
+      "core": {
+        "name": "Bitcoin Core",
+        "model": "Raspberry Pi aislada, PSBT por USB",
+        "summary": "Sin proveedor y sin servidor: una Raspberry Pi que nunca se conecta a una red guarda la cartera, y tú verificas la versión de Core. Todo lo que puede llegar a las claves está en esa placa, en su tarjeta o en tus manos.",
+        "elements": {
+          "os": {
+            "name": "SO de la Pi y binario de Core",
+            "action": "Instalas o actualizas Core: el binario que ejecutes puede leer el archivo de cartera y cualquier clave que desbloquees, así que verifica antes la firma de la versión."
+          },
+          "memory": {
+            "name": "Memoria de la Raspberry Pi",
+            "action": "Desbloqueas la cartera para firmar un PSBT: todas las claves descifradas están en RAM hasta que bloqueas la cartera o reinicias."
+          },
+          "keyboard": {
+            "name": "Teclado, pantalla e historial",
+            "action": "Escribes la frase de paso: pasa por el teclado, el sistema y la terminal en texto plano."
+          },
+          "online": {
+            "name": "Tu equipo en línea de solo lectura"
+          },
+          "network": {
+            "name": "La red (la Pi nunca se conecta)"
+          },
+          "gpg": {
+            "name": "Llavero GPG para verificar versiones"
+          },
+          "wallet-file": {
+            "name": "wallet.dat en la tarjeta microSD",
+            "action": "Creas o restauras la cartera: las claves se escriben en este archivo, legible hasta que le pones una frase de paso de cifrado."
+          },
+          "dump": {
+            "name": "Salida de dumpwallet o copia de la cartera",
+            "action": "Ejecutas dumpwallet y todas las claves privadas quedan en texto plano, o backupwallet y el archivo entero sale en un USB."
+          },
+          "psbt": {
+            "name": "El PSBT en el USB"
+          },
+          "paper-passphrase": {
+            "name": "La frase de paso que escribes",
+            "action": "Escribes la frase de paso en papel para no perderla: ese papel abre cualquier copia del archivo de cartera."
+          }
+        }
+      }
+    }
+  },
   "Common": {
     "copy": "Copiar",
     "copied": "Copiado"

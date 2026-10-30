@@ -201,6 +201,65 @@ export function BatteryIcon(props: FirmwareIconProps) {
   );
 }
 
+export function PackageIcon(props: FirmwareIconProps) {
+  return (
+    <FirmwareIcon {...props}>
+      <path d="M12 3 20.5 7.3v9.4L12 21l-8.5-4.3V7.3L12 3Z" />
+      <path d="M3.5 7.3 12 11.6l8.5-4.3M12 11.6V21" />
+    </FirmwareIcon>
+  );
+}
+
+export function GlobeIcon(props: FirmwareIconProps) {
+  return (
+    <FirmwareIcon {...props}>
+      <circle cx="12" cy="12" r="8.6" />
+      <path d="M3.4 12h17.2" />
+      <path d="M12 3.4c2.2 2.4 3.4 5.4 3.4 8.6S14.2 18.2 12 20.6c-2.2-2.4-3.4-5.4-3.4-8.6S9.8 5.8 12 3.4Z" />
+    </FirmwareIcon>
+  );
+}
+
+export function QrIcon(props: FirmwareIconProps) {
+  return (
+    <FirmwareIcon {...props}>
+      <rect x="3.2" y="3.2" width="7" height="7" rx="1.6" />
+      <rect x="13.8" y="3.2" width="7" height="7" rx="1.6" />
+      <rect x="3.2" y="13.8" width="7" height="7" rx="1.6" />
+      <path d="M14 14h2.4v2.4H14zM18.6 18.6H21V21h-2.4zM13.8 20.8h.01M20.8 13.8h.01" />
+    </FirmwareIcon>
+  );
+}
+
+export function ServerIcon(props: FirmwareIconProps) {
+  return (
+    <FirmwareIcon {...props}>
+      <rect x="3" y="3.5" width="18" height="7" rx="2" />
+      <rect x="3" y="13.5" width="18" height="7" rx="2" />
+      <path d="M7 7h.01M7 17h.01" />
+    </FirmwareIcon>
+  );
+}
+
+export function LaptopIcon(props: FirmwareIconProps) {
+  return (
+    <FirmwareIcon {...props}>
+      <rect x="4" y="4.5" width="16" height="11" rx="2" />
+      <path d="M2 19.5h20" />
+    </FirmwareIcon>
+  );
+}
+
+export function NoteIcon(props: FirmwareIconProps) {
+  return (
+    <FirmwareIcon {...props}>
+      <path d="M5.5 3.5h9l4 4v13h-13v-17Z" />
+      <path d="M14.5 3.5v4h4" />
+      <path d="M8.5 12h7M8.5 15.5h4.5" />
+    </FirmwareIcon>
+  );
+}
+
 export function ExternalLinkIcon(props: FirmwareIconProps) {
   return (
     <FirmwareIcon {...props}>

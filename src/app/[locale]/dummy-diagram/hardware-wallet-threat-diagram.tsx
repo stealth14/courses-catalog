@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, type ComponentType } from "react";
 import { useTranslations } from "next-intl";
@@ -17,7 +17,7 @@ import {
   WarningIcon,
   WirelessIcon,
   type FirmwareIconProps,
-} from "./firmware-icons";
+} from "@/components/icons/firmware-icons";
 
 type HardwareTarget = {
   id:
@@ -129,7 +129,7 @@ function HardwareHub() {
 
 /**
  * Generic threat model for commercial hardware wallets: the hub is malicious
- * firmware, the ring is every component it sits in front of — the ones shipped
+ * firmware, the ring is every component it sits in front of â€” the ones shipped
  * today and the ones newer models are adding.
  */
 export function HardwareWalletThreatDiagram() {

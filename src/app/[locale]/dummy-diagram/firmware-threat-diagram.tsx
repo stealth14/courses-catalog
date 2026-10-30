@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, type ComponentType } from "react";
 import { useTranslations } from "next-intl";
@@ -14,7 +14,7 @@ import {
   UsbIcon,
   WarningIcon,
   type FirmwareIconProps,
-} from "./firmware-icons";
+} from "@/components/icons/firmware-icons";
 
 type FirmwareTarget = {
   id:
