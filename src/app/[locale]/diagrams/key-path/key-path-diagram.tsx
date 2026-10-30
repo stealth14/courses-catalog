@@ -187,6 +187,8 @@ type Milestone = { id: StepId; ms: number };
 
 type Geometry = {
   cards: CardRect[];
+  /** The icon containers the connectors meet. */
+  icons: CardRect[];
   tracks: Record<TrackId, Track>;
   /** Vertical centre of the lane the travellers ride on. */
   laneY: number;
@@ -227,12 +229,13 @@ function polyLength(points: Point[]) {
 function measure(
   stage: HTMLDivElement,
   nodes: (HTMLButtonElement | null)[],
+  iconNodes: (HTMLSpanElement | null)[],
   pxPerMs: number,
 ) {
   const stageRect = stage.getBoundingClientRect();
 
   const fallback: CardRect = { l: 0, t: 0, r: 0, b: 0, cy: 0 };
-  const cards: CardRect[] = nodes.map((node) => {
+  const toRect = (node: Element | null): CardRect => {
     if (!node) return fallback;
     const rect = node.getBoundingClientRect();
     return {
@@ -242,7 +245,10 @@ function measure(
       b: rect.bottom - stageRect.top,
       cy: rect.top + rect.height / 2 - stageRect.top,
     };
-  });
+  };
+
+  const cards: CardRect[] = nodes.map(toRect);
+  const icons: CardRect[] = iconNodes.map(toRect);
 
   // Cards in reading order: 0 network, 1 suite, 2 usb, 3 firmware,
   // 4 screen, 5 secure elements, 6 flash, 7 signing.
@@ -289,27 +295,14 @@ function measure(
     { id: "network", ms: travelEndMs },
   ];
 
-  const deviceNodes = nodes
-    .slice(DEVICE_RANGE[0], DEVICE_RANGE[1] + 1)
-    .filter((node): node is HTMLButtonElement => node !== null);
-  const left = Math.min(
-    ...deviceNodes.map(
-      (node) => node.getBoundingClientRect().left - stageRect.left,
-    ),
-  );
-  const right = Math.max(
-    ...deviceNodes.map(
-      (node) => node.getBoundingClientRect().right - stageRect.left,
-    ),
-  );
-  const top = Math.min(
-    ...deviceNodes.map(
-      (node) => node.getBoundingClientRect().top - stageRect.top,
-    ),
-  );
+  const deviceIcons = icons.slice(DEVICE_RANGE[0], DEVICE_RANGE[1] + 1);
+  const left = Math.min(...deviceIcons.map((item) => item.l));
+  const right = Math.max(...deviceIcons.map((item) => item.r));
+  const top = Math.min(...deviceIcons.map((item) => item.t));
 
   return {
     cards,
+    icons,
     tracks: {
       unsigned: {
         path: toPath(amberPoints),
@@ -334,13 +327,13 @@ function measure(
       x: (stopX(0) + stopX(1)) / 2,
       y: laneY + 18,
     },
-    // The box covers the device cards, their connectors and the lane
-    // segment the key travels, which never leaves it.
+    // The box covers the device icons, their labels, their connectors and
+    // the lane segment the key travels, which never leaves it.
     deviceBox: {
       left: left - 16,
-      top: top - 30,
+      top: top - 52,
       width: right - left + 32,
-      height: laneY + 18 - (top - 30),
+      height: laneY + 18 - (top - 52),
     },
   };
 }
@@ -459,6 +452,7 @@ export function KeyPathDiagram() {
   const stageRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const iconRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const timersRef = useRef<number[]>([]);
   const rafRef = useRef(0);
   const timelineRef = useRef<Timeline | null>(null);
@@ -486,7 +480,14 @@ export function KeyPathDiagram() {
     if (!stage) return;
 
     const update = () =>
-      setGeometry(measure(stage, nodeRefs.current, SPEEDS[speed].pxPerMs));
+      setGeometry(
+        measure(
+          stage,
+          nodeRefs.current,
+          iconRefs.current,
+          SPEEDS[speed].pxPerMs,
+        ),
+      );
     update();
 
     const observer = new ResizeObserver(update);
@@ -752,7 +753,7 @@ export function KeyPathDiagram() {
       >
         <div
           ref={stageRef}
-          className="relative flex w-max items-stretch gap-6 px-10 pt-16 pb-28"
+          className="relative flex w-max items-end gap-6 px-10 pt-20 pb-28"
         >
           {geometry && (
             <>
@@ -783,7 +784,8 @@ export function KeyPathDiagram() {
                 />
 
                 {STEPS.map((step, index) => {
-                  const card = geometry.cards[index] ?? { l: 0, r: 0, b: 0 };
+                  const card = geometry.cards[index] ?? { l: 0, r: 0 };
+                  const iconBox = geometry.icons[index] ?? { b: 0 };
                   const cx = (card.l + card.r) / 2;
                   const isReached = reached.has(step.id);
                   const isTouched = step.touchesKeys && isReached;
@@ -794,9 +796,10 @@ export function KeyPathDiagram() {
                       : "stroke-zinc-300 fill-white";
                   return (
                     <g key={step.id}>
+                      {/* The connector meets the icon container itself. */}
                       <line
                         x1={cx}
-                        y1={card.b}
+                        y1={iconBox.b}
                         x2={cx}
                         y2={geometry.laneY}
                         strokeWidth={1.5}
@@ -875,35 +878,22 @@ export function KeyPathDiagram() {
             const isTouched = step.touchesKeys && isReached;
 
             return (
-              <button
+              <div
                 key={step.id}
-                type="button"
-                ref={(node) => {
-                  nodeRefs.current[index] = node;
-                }}
-                onClick={() => setDetailId(step.id)}
-                aria-haspopup="dialog"
-                className={`relative z-20 flex w-40 shrink-0 cursor-pointer flex-col gap-2 rounded-2xl border bg-white p-3 text-left shadow-sm transition-all duration-500 ${
-                  isTouched
-                    ? "kp-reached border-yellow-400 bg-yellow-50 shadow-md shadow-yellow-200/60"
-                    : isReached
-                      ? "kp-reached border-sky-400 bg-sky-50 shadow-md shadow-sky-200/60"
-                      : "border-zinc-200 hover:border-zinc-400 hover:shadow-md"
-                }`}
+                className="relative z-20 flex w-36 shrink-0 justify-center"
               >
-                <span className="flex items-center gap-2">
-                  <span
-                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ring-1 transition-colors duration-500 ring-inset ${
-                      isTouched
-                        ? "bg-yellow-100 text-yellow-700 ring-yellow-300"
-                        : isReached
-                          ? "bg-sky-100 text-sky-700 ring-sky-300"
-                          : "bg-zinc-100 text-zinc-600 ring-zinc-200"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <span className="min-w-0 flex-1">
+                <button
+                  type="button"
+                  ref={(node) => {
+                    nodeRefs.current[index] = node;
+                  }}
+                  onClick={() => setDetailId(step.id)}
+                  aria-haspopup="dialog"
+                  aria-label={`${step.hardware} (${step.software}). Show details`}
+                  className="group flex cursor-pointer flex-col items-center gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-500"
+                >
+                  {/* The label floats above the icon, outside any box. */}
+                  <span className="text-center">
                     <span className="block text-sm leading-5 font-semibold text-zinc-900">
                       {step.hardware}
                     </span>
@@ -911,16 +901,36 @@ export function KeyPathDiagram() {
                       {step.software}
                     </span>
                   </span>
-                  <svg
-                    viewBox="0 0 12 12"
-                    className="h-3.5 w-3.5 shrink-0 fill-none stroke-zinc-400 stroke-[1.2]"
-                    aria-hidden="true"
+
+                  <span
+                    ref={(node) => {
+                      iconRefs.current[index] = node;
+                    }}
+                    className={`relative flex h-16 w-16 items-center justify-center rounded-2xl ring-1 transition-all duration-500 ring-inset group-hover:-translate-y-0.5 group-hover:shadow-md ${
+                      isTouched
+                        ? "kp-reached bg-yellow-50 text-yellow-700 ring-yellow-400 shadow-yellow-200/60"
+                        : isReached
+                          ? "kp-reached bg-sky-50 text-sky-700 ring-sky-400 shadow-sky-200/60"
+                          : "bg-white text-zinc-600 ring-zinc-200 group-hover:ring-zinc-400"
+                    }`}
                   >
-                    <circle cx="6" cy="6" r="4.6" />
-                    <path d="M6 5.4v2.9M6 9.3v.1" strokeLinecap="round" />
-                  </svg>
-                </span>
-              </button>
+                    <Icon className="h-8 w-8" />
+                    {step.touchesKeys && (
+                      <span
+                        aria-hidden="true"
+                        title="Touches the keys"
+                        className={`absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full text-[9px] ring-1 ring-inset transition-colors duration-500 ${
+                          isTouched
+                            ? "bg-yellow-400 text-yellow-950 ring-yellow-500"
+                            : "bg-zinc-100 text-zinc-500 ring-zinc-300"
+                        }`}
+                      >
+                        <KeyIcon className="h-3 w-3" />
+                      </span>
+                    )}
+                  </span>
+                </button>
+              </div>
             );
           })}
         </div>
