@@ -113,21 +113,6 @@ const STEPS: Step[] = [
 /** First device-internal step and last device-internal step (inclusive). */
 const DEVICE_RANGE = [3, 7] as const;
 
-/**
- * Which components talk to each other during a send. The wallet only
- * communicates with Trezor Suite over USB, and only Suite reaches the
- * Bitcoin network — so signing never connects to the network directly.
- */
-const CONNECTED_PAIRS: [StepId, StepId][] = [
-  ["network", "suite"],
-  ["suite", "usb"],
-  ["usb", "firmware"],
-  ["firmware", "screen"],
-  ["screen", "secure-elements"],
-  ["secure-elements", "flash"],
-  ["flash", "signing"],
-];
-
 /** Selectable trace speeds, in px/ms. Fast is the original pace. */
 const SPEEDS = {
   fast: { label: "Fast", pxPerMs: 0.45 },
@@ -203,10 +188,10 @@ type Milestone = { id: StepId; ms: number };
 type Geometry = {
   cards: CardRect[];
   tracks: Record<TrackId, Track>;
-  railPath: string;
+  /** Vertical centre of the lane the travellers ride on. */
+  laneY: number;
   totalMs: number;
   milestones: Milestone[];
-  railY: number;
   broadcastLabel: Point;
   deviceBox: { left: number; top: number; width: number; height: number };
 };
@@ -230,16 +215,18 @@ function polyLength(points: Point[]) {
 }
 
 /**
- * Builds the three journeys and when each traveller reaches each element:
+ * Builds the three straight journeys along the lane and when each traveller
+ * reaches each stop:
  * - unsigned transaction: Suite -> USB -> firmware -> screen
  * - private key: secure elements -> flash -> signing
  * - signed transaction: signing -> USB -> Suite -> network
- * Every traveller keeps the route of its own phase, so it can stop at the
- * end of it while the next one follows a different route.
+ * The cards sit above the lane, each linked to its stop by a connector, and
+ * every traveller keeps the route of its own phase so it can stop at the end
+ * of it while the next one follows a different route.
  */
 function measure(
   stage: HTMLDivElement,
-  nodes: (HTMLDivElement | null)[],
+  nodes: (HTMLButtonElement | null)[],
   pxPerMs: number,
 ) {
   const stageRect = stage.getBoundingClientRect();
@@ -260,77 +247,29 @@ function measure(
   // Cards in reading order: 0 network, 1 suite, 2 usb, 3 firmware,
   // 4 screen, 5 secure elements, 6 flash, 7 signing.
   const rect = (index: number) => cards[index] ?? fallback;
-  const wave = (index: number): Point[] => {
-    const card = rect(index);
-    return [
-      { x: card.l, y: card.cy },
-      { x: card.l, y: card.t },
-      { x: card.r, y: card.t },
-      { x: card.r, y: card.cy },
-    ];
-  };
-  const connector = (from: number, to: number): Point[] => [
-    { x: rect(from).r, y: rect(from).cy },
-    { x: rect(to).l, y: rect(to).cy },
-  ];
+
+  // The lane runs straight across the stage, below the cards.
+  const laneY = stage.offsetHeight - 40;
+  const stopX = (index: number) => (rect(index).l + rect(index).r) / 2;
+  const laneStop = (index: number): Point => ({ x: stopX(index), y: laneY });
 
   // Amber phase: the unsigned transaction travels host -> device.
-  const amberPoints = [
-    ...wave(1),
-    ...connector(1, 2),
-    ...wave(2),
-    ...connector(2, 3),
-    ...wave(3),
-    ...connector(3, 4),
-    ...wave(4),
-  ];
+  const amberPoints = [1, 2, 3, 4].map(laneStop);
 
   // Gold phase: the private key moves only inside the device.
-  const goldPoints = [
-    ...connector(4, 5),
-    ...wave(5),
-    ...connector(5, 6),
-    ...wave(6),
-    ...connector(6, 7),
-    ...wave(7),
-  ];
+  const goldPoints = [4, 5, 6, 7].map(laneStop);
 
   // Green phase: the signed transaction returns through the USB cable
   // to Trezor Suite, which broadcasts it to the network.
-  const railY = stage.offsetHeight - 26;
-  const greenPoints = [
-    { x: rect(7).r, y: rect(7).cy },
-    { x: rect(7).r, y: railY },
-    { x: rect(2).r, y: railY },
-    { x: rect(2).r, y: rect(2).cy },
-    { x: rect(2).l, y: rect(2).cy },
-    { x: rect(1).r, y: rect(1).cy },
-    { x: rect(1).l, y: rect(1).cy },
-    { x: rect(0).r, y: rect(0).cy },
-  ];
-
-  const railPoints = [
-    { x: rect(7).r, y: rect(7).cy },
-    { x: rect(7).r, y: railY },
-    { x: rect(2).r, y: railY },
-    { x: rect(2).r, y: rect(2).cy },
-  ];
+  const greenPoints = [7, 2, 1, 0].map(laneStop);
 
   const ms = (length: number) => Math.round(length / pxPerMs);
+  const segMs = (from: number, to: number) =>
+    ms(Math.abs(stopX(from) - stopX(to)));
 
-  const waveLength = (index: number) => polyLength(wave(index));
-  const connectorLength = segmentLength(
-    { x: rect(4).r, y: rect(4).cy },
-    { x: rect(5).l, y: rect(5).cy },
-  );
-
-  const amberLength = polyLength(amberPoints);
-  const goldLength = polyLength(goldPoints);
-  const signedLength = polyLength(greenPoints);
-
-  const unsignedMs = ms(amberLength);
-  const keyMs = ms(goldLength);
-  const signedMs = ms(signedLength);
+  const unsignedMs = ms(polyLength(amberPoints));
+  const keyMs = ms(polyLength(goldPoints));
+  const signedMs = ms(polyLength(greenPoints));
 
   // Each traveller waits for the previous one to stop and spin before it
   // sets off; the last one spins too, so the run ends only once it settles.
@@ -339,45 +278,20 @@ function measure(
   const travelEndMs = signedDelayMs + signedMs;
   const totalMs = travelEndMs + HANDOVER_MS;
 
-  const keyOffsetsMs = {
-    secureElements: ms(connectorLength),
-    flash: ms(connectorLength + waveLength(5) + connectorLength),
-    signing: ms(
-      connectorLength +
-        waveLength(5) +
-        connectorLength +
-        waveLength(6) +
-        connectorLength,
-    ),
-  };
-
   const milestones: Milestone[] = [
     { id: "suite", ms: 0 },
-    { id: "usb", ms: ms(waveLength(1) + connectorLength) },
-    {
-      id: "firmware",
-      ms: ms(waveLength(1) + connectorLength + waveLength(2) + connectorLength),
-    },
-    {
-      id: "screen",
-      ms: ms(
-        waveLength(1) +
-          connectorLength +
-          waveLength(2) +
-          connectorLength +
-          waveLength(3) +
-          connectorLength,
-      ),
-    },
-    { id: "secure-elements", ms: keyDelayMs + keyOffsetsMs.secureElements },
-    { id: "flash", ms: keyDelayMs + keyOffsetsMs.flash },
-    { id: "signing", ms: keyDelayMs + keyOffsetsMs.signing },
-    { id: "network", ms: travelEndMs - ms(connectorLength) },
+    { id: "usb", ms: segMs(1, 2) },
+    { id: "firmware", ms: segMs(1, 2) + segMs(2, 3) },
+    { id: "screen", ms: unsignedMs },
+    { id: "secure-elements", ms: keyDelayMs + segMs(4, 5) },
+    { id: "flash", ms: keyDelayMs + segMs(4, 5) + segMs(5, 6) },
+    { id: "signing", ms: keyDelayMs + keyMs },
+    { id: "network", ms: travelEndMs },
   ];
 
   const deviceNodes = nodes
     .slice(DEVICE_RANGE[0], DEVICE_RANGE[1] + 1)
-    .filter((node): node is HTMLDivElement => node !== null);
+    .filter((node): node is HTMLButtonElement => node !== null);
   const left = Math.min(
     ...deviceNodes.map(
       (node) => node.getBoundingClientRect().left - stageRect.left,
@@ -391,11 +305,6 @@ function measure(
   const top = Math.min(
     ...deviceNodes.map(
       (node) => node.getBoundingClientRect().top - stageRect.top,
-    ),
-  );
-  const bottom = Math.max(
-    ...deviceNodes.map(
-      (node) => node.getBoundingClientRect().bottom - stageRect.top,
     ),
   );
 
@@ -418,19 +327,20 @@ function measure(
         durationMs: signedMs,
       },
     },
-    railPath: toPath(railPoints),
+    laneY,
     totalMs,
     milestones,
-    railY,
     broadcastLabel: {
-      x: (rect(0).r + rect(1).l) / 2,
-      y: 46,
+      x: (stopX(0) + stopX(1)) / 2,
+      y: laneY + 18,
     },
+    // The box covers the device cards, their connectors and the lane
+    // segment the key travels, which never leaves it.
     deviceBox: {
       left: left - 16,
       top: top - 30,
       width: right - left + 32,
-      height: bottom - top + 44,
+      height: laneY + 18 - (top - 30),
     },
   };
 }
@@ -548,7 +458,7 @@ function activeTrack(
 export function KeyPathDiagram() {
   const stageRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const nodeRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const timersRef = useRef<number[]>([]);
   const rafRef = useRef(0);
   const timelineRef = useRef<Timeline | null>(null);
@@ -558,6 +468,18 @@ export function KeyPathDiagram() {
   const [phase, setPhase] = useState<"idle" | "playing" | "done">("idle");
   const [reached, setReached] = useState<ReadonlySet<StepId>>(new Set());
   const [runId, setRunId] = useState(0);
+  const [detailId, setDetailId] = useState<StepId | null>(null);
+
+  const detailStep = STEPS.find((step) => step.id === detailId) ?? null;
+
+  useEffect(() => {
+    if (!detailStep) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDetailId(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [detailStep]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -681,7 +603,7 @@ export function KeyPathDiagram() {
       ? "Following the send: the unsigned transaction travels in, the private key moves inside the device, the signed transaction goes out."
       : phase === "done"
         ? "Signed: the private key never left the Trezor Safe 7 — only the signature went out. The three travellers stay here until you reset."
-        : "Press play to follow what happens to the keys when the Trezor signs a send.";
+        : "Press play to follow what happens to the keys when the Trezor signs a send. Click a component to read what it does.";
 
   return (
     <figure className="flex flex-col gap-4 rounded-3xl bg-white p-3 text-zinc-900 [color-scheme:light] sm:p-4">
@@ -830,7 +752,7 @@ export function KeyPathDiagram() {
       >
         <div
           ref={stageRef}
-          className="relative flex w-max items-stretch gap-6 px-10 pt-16 pb-14"
+          className="relative flex w-max items-stretch gap-6 px-10 pt-16 pb-28"
         >
           {geometry && (
             <>
@@ -845,62 +767,52 @@ export function KeyPathDiagram() {
                 </span>
               </div>
 
-              {/* Connectors and lanes. */}
+              {/* Lane, card connectors and lane stops. */}
               <svg
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 z-10 h-full w-full"
               >
-                {CONNECTED_PAIRS.map(([fromId, toId]) => {
-                  const fromIndex = STEPS.findIndex(
-                    (step) => step.id === fromId,
-                  );
-                  const toIndex = STEPS.findIndex((step) => step.id === toId);
-                  const from = geometry.cards[fromIndex] ?? { r: 0, cy: 0 };
-                  const to = geometry.cards[toIndex] ?? { l: 0, cy: 0 };
-                  const gold =
-                    (fromId === "secure-elements" && reached.has("flash")) ||
-                    (fromId === "flash" && reached.has("signing")) ||
-                    (fromId === "screen" &&
-                      reached.has("secure-elements"));
+                <line
+                  x1={(geometry.cards[0].l + geometry.cards[0].r) / 2}
+                  y1={geometry.laneY}
+                  x2={(geometry.cards[7].l + geometry.cards[7].r) / 2}
+                  y2={geometry.laneY}
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  className="stroke-zinc-300"
+                />
+
+                {STEPS.map((step, index) => {
+                  const card = geometry.cards[index] ?? { l: 0, r: 0, b: 0 };
+                  const cx = (card.l + card.r) / 2;
+                  const isReached = reached.has(step.id);
+                  const isTouched = step.touchesKeys && isReached;
+                  const lit = isTouched
+                    ? "stroke-yellow-400 fill-yellow-400"
+                    : isReached
+                      ? "stroke-sky-400 fill-sky-400"
+                      : "stroke-zinc-300 fill-white";
                   return (
-                    <line
-                      key={fromId}
-                      x1={from.r}
-                      y1={from.cy}
-                      x2={to.l}
-                      y2={to.cy}
-                      strokeWidth={gold ? 2.5 : 1.5}
-                      strokeLinecap="round"
-                      className={
-                        gold
-                          ? "stroke-yellow-400 transition-colors duration-500"
-                          : "stroke-zinc-300"
-                      }
-                    />
+                    <g key={step.id}>
+                      <line
+                        x1={cx}
+                        y1={card.b}
+                        x2={cx}
+                        y2={geometry.laneY}
+                        strokeWidth={1.5}
+                        className={`transition-colors duration-500 ${lit}`}
+                      />
+                      <circle
+                        cx={cx}
+                        cy={geometry.laneY}
+                        r={4}
+                        strokeWidth={1.5}
+                        className={`transition-colors duration-500 ${lit}`}
+                      />
+                    </g>
                   );
                 })}
 
-                <path
-                  d={geometry.railPath}
-                  fill="none"
-                  strokeWidth={1.5}
-                  strokeLinejoin="round"
-                  className="stroke-emerald-300"
-                  strokeDasharray="1 7"
-                />
-
-                <text
-                  x={
-                    ((geometry.cards[7]?.r ?? 0) +
-                      (geometry.cards[2]?.r ?? 0)) /
-                    2
-                  }
-                  y={geometry.railY + 16}
-                  textAnchor="middle"
-                  className="select-none fill-emerald-600 text-[10px] font-medium"
-                >
-                  signed transaction
-                </text>
                 <text
                   x={geometry.broadcastLabel.x}
                   y={geometry.broadcastLabel.y}
@@ -963,20 +875,23 @@ export function KeyPathDiagram() {
             const isTouched = step.touchesKeys && isReached;
 
             return (
-              <div
+              <button
                 key={step.id}
+                type="button"
                 ref={(node) => {
                   nodeRefs.current[index] = node;
                 }}
-                className={`relative z-20 flex w-44 shrink-0 flex-col gap-2 rounded-2xl border bg-white p-3 shadow-sm transition-all duration-500 ${
+                onClick={() => setDetailId(step.id)}
+                aria-haspopup="dialog"
+                className={`relative z-20 flex w-40 shrink-0 cursor-pointer flex-col gap-2 rounded-2xl border bg-white p-3 text-left shadow-sm transition-all duration-500 ${
                   isTouched
                     ? "kp-reached border-yellow-400 bg-yellow-50 shadow-md shadow-yellow-200/60"
                     : isReached
                       ? "kp-reached border-sky-400 bg-sky-50 shadow-md shadow-sky-200/60"
-                      : "border-zinc-200"
+                      : "border-zinc-200 hover:border-zinc-400 hover:shadow-md"
                 }`}
               >
-                <div className="flex items-start gap-2">
+                <span className="flex items-center gap-2">
                   <span
                     className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ring-1 transition-colors duration-500 ring-inset ${
                       isTouched
@@ -988,34 +903,88 @@ export function KeyPathDiagram() {
                   >
                     <Icon className="h-4 w-4" />
                   </span>
-                  <div className="min-w-0">
-                    <p className="text-sm leading-5 font-semibold text-zinc-900">
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm leading-5 font-semibold text-zinc-900">
                       {step.hardware}
-                    </p>
-                    <p className="text-xs leading-4 text-zinc-500">
+                    </span>
+                    <span className="block text-xs leading-4 text-zinc-500">
                       {step.software}
-                    </p>
-                  </div>
-                </div>
-
-                <p className="text-xs leading-5 text-zinc-600">{step.action}</p>
-
-                {step.touchesKeys && (
-                  <span
-                    className={`self-start rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase transition-colors duration-500 ${
-                      isTouched
-                        ? "bg-yellow-400 text-yellow-950"
-                        : "bg-zinc-100 text-zinc-500 ring-1 ring-zinc-200 ring-inset"
-                    }`}
-                  >
-                    Touches the keys
+                    </span>
                   </span>
-                )}
-              </div>
+                  <svg
+                    viewBox="0 0 12 12"
+                    className="h-3.5 w-3.5 shrink-0 fill-none stroke-zinc-400 stroke-[1.2]"
+                    aria-hidden="true"
+                  >
+                    <circle cx="6" cy="6" r="4.6" />
+                    <path d="M6 5.4v2.9M6 9.3v.1" strokeLinecap="round" />
+                  </svg>
+                </span>
+              </button>
             );
           })}
         </div>
       </div>
+
+      {detailStep && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/40 p-4"
+          role="presentation"
+          onClick={() => setDetailId(null)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="kp-detail-title"
+            onClick={(event) => event.stopPropagation()}
+            className="w-full max-w-sm rounded-2xl bg-white p-5 text-zinc-900 shadow-xl"
+          >
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-600 ring-1 ring-zinc-200 ring-inset">
+                {(() => {
+                  const Icon = detailStep.icon;
+                  return <Icon className="h-5 w-5" />;
+                })()}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p
+                  id="kp-detail-title"
+                  className="text-base leading-6 font-semibold text-zinc-900"
+                >
+                  {detailStep.hardware}
+                </p>
+                <p className="text-sm leading-5 text-zinc-500">
+                  {detailStep.software}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDetailId(null)}
+                aria-label="Close details"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600"
+              >
+                <svg
+                  viewBox="0 0 12 12"
+                  className="h-4 w-4 fill-none stroke-current stroke-[1.4]"
+                  aria-hidden="true"
+                >
+                  <path d="M2.5 2.5l7 7M9.5 2.5l-7 7" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
+
+            <p className="mt-4 text-sm leading-6 text-zinc-600">
+              {detailStep.action}
+            </p>
+
+            {detailStep.touchesKeys && (
+              <span className="mt-3 inline-block rounded-full bg-yellow-400 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-yellow-950 uppercase">
+                Touches the keys
+              </span>
+            )}
+          </div>
+        </div>
+      )}
     </figure>
   );
 }
