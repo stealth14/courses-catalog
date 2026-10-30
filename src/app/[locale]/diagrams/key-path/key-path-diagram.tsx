@@ -137,10 +137,13 @@ const SPEEDS = {
 type SpeedId = keyof typeof SPEEDS;
 
 /**
- * How long each traveller rests where its job ends before the next one sets
- * off, so the hand-over is visible instead of one blur.
+ * How long a traveller spins in place once it reaches its destination, to
+ * mark the change of phase, plus the beat it rests there before the next
+ * traveller sets off.
  */
-const HANDOVER_MS = 400;
+const SPIN_MS = 700;
+const SETTLE_MS = 160;
+const HANDOVER_MS = SPIN_MS + SETTLE_MS;
 
 /** The three things that move through the diagram, in the order they appear. */
 type TrackId = "unsigned" | "key" | "signed";
@@ -156,8 +159,10 @@ type Actor = {
   id: TrackId;
   label: string;
   icon: ComponentType<FirmwareIconProps>;
-  /** Ring and icon colours of the traveller badge. */
-  badge: string;
+  /** Colours of the icon and of the pointer that shows where it is going. */
+  tone: string;
+  /** Ring around the badge. */
+  ring: string;
 };
 
 /**
@@ -170,19 +175,22 @@ const ACTORS: Actor[] = [
     id: "unsigned",
     label: "Unsigned transaction",
     icon: NoteIcon,
-    badge: "text-orange-600 ring-orange-400",
+    tone: "text-orange-600",
+    ring: "ring-orange-400",
   },
   {
     id: "key",
     label: "Private key",
     icon: KeyIcon,
-    badge: "text-yellow-600 ring-yellow-400",
+    tone: "text-yellow-600",
+    ring: "ring-yellow-400",
   },
   {
     id: "signed",
     label: "Signed transaction",
     icon: SignedNoteIcon,
-    badge: "text-emerald-600 ring-emerald-400",
+    tone: "text-emerald-600",
+    ring: "ring-emerald-400",
   },
 ];
 
@@ -324,10 +332,12 @@ function measure(
   const keyMs = ms(goldLength);
   const signedMs = ms(signedLength);
 
-  // Each traveller waits for the previous one to stop before setting off.
+  // Each traveller waits for the previous one to stop and spin before it
+  // sets off; the last one spins too, so the run ends only once it settles.
   const keyDelayMs = unsignedMs + HANDOVER_MS;
   const signedDelayMs = keyDelayMs + keyMs + HANDOVER_MS;
-  const totalMs = signedDelayMs + signedMs;
+  const travelEndMs = signedDelayMs + signedMs;
+  const totalMs = travelEndMs + HANDOVER_MS;
 
   const keyOffsetsMs = {
     secureElements: ms(connectorLength),
@@ -362,7 +372,7 @@ function measure(
     { id: "secure-elements", ms: keyDelayMs + keyOffsetsMs.secureElements },
     { id: "flash", ms: keyDelayMs + keyOffsetsMs.flash },
     { id: "signing", ms: keyDelayMs + keyOffsetsMs.signing },
-    { id: "network", ms: totalMs - ms(connectorLength) },
+    { id: "network", ms: travelEndMs - ms(connectorLength) },
   ];
 
   const deviceNodes = nodes
@@ -426,10 +436,12 @@ function measure(
 }
 
 /**
- * One traveller: a badge with the icon of what is moving. While `rest` is
- * set it is parked at that point of its route (the start before the run,
- * the end after it); otherwise it animates along the route and stays there
- * when the animation is over.
+ * One traveller: a badge with the icon of what is moving. The badge itself
+ * never turns — the icon keeps its orientation — while a pointer on its
+ * leading edge takes the direction of the route. On arrival the pointer
+ * goes away and the badge spins once in place to mark the change of phase,
+ * then stays where it stopped. With `rest` it is parked at that point of
+ * its route instead (the start before the run, the end after it).
  */
 function Traveller({
   actor,
@@ -441,23 +453,51 @@ function Traveller({
   rest?: 0 | 100;
 }) {
   const Icon = actor.icon;
-  const parked = rest !== undefined;
+  const badge = `kp-badge shadow-md ring-2 ${actor.tone} ${actor.ring}`;
+  const path = `path('${track.path}')`;
+
+  if (rest !== undefined) {
+    return (
+      <div
+        className={badge}
+        style={{
+          offsetPath: path,
+          offsetDistance: `${rest}%`,
+          opacity: 1,
+        }}
+      >
+        <Icon className="h-4 w-4" />
+      </div>
+    );
+  }
+
+  const arrivalMs = track.delayMs + track.durationMs;
+  const travel = `kp-travel ${track.durationMs}ms linear ${track.delayMs}ms forwards`;
 
   return (
-    <div
-      data-track={parked ? undefined : actor.id}
-      className={`kp-actor shadow-md ring-2 ${actor.badge}`}
-      style={{
-        offsetPath: `path('${track.path}')`,
-        offsetDistance: parked ? `${rest}%` : undefined,
-        opacity: parked ? 1 : undefined,
-        animation: parked
-          ? undefined
-          : `kp-travel ${track.durationMs}ms linear ${track.delayMs}ms forwards`,
-      }}
-    >
-      <Icon className="h-4 w-4" />
-    </div>
+    <>
+      <div
+        className={`kp-marker ${actor.tone}`}
+        style={{ offsetPath: path, animation: travel }}
+      >
+        <span
+          className="kp-nose"
+          style={{
+            animation: `kp-nose-out 160ms linear ${arrivalMs}ms forwards`,
+          }}
+        />
+      </div>
+      <div
+        data-track={actor.id}
+        className={badge}
+        style={{
+          offsetPath: path,
+          animation: `${travel}, kp-spin ${SPIN_MS}ms ease-in-out ${arrivalMs}ms forwards`,
+        }}
+      >
+        <Icon className="h-4 w-4" />
+      </div>
+    </>
   );
 }
 
@@ -655,7 +695,16 @@ export function KeyPathDiagram() {
           from { offset-distance: 0%; opacity: 1; }
           to { offset-distance: 100%; opacity: 1; }
         }
-        .kp-actor {
+        @keyframes kp-spin {
+          from { transform: rotate(0deg) scale(1); }
+          50% { transform: rotate(180deg) scale(1.14); }
+          to { transform: rotate(360deg) scale(1); }
+        }
+        @keyframes kp-nose-out {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+        .kp-badge {
           position: absolute;
           top: 0;
           left: 0;
@@ -667,7 +716,31 @@ export function KeyPathDiagram() {
           border-radius: 9999px;
           background-color: #fff;
           offset-anchor: 50% 50%;
+          offset-rotate: 0deg;
           opacity: 0;
+        }
+        /* Carries the pointer and nothing else: it is the only part that
+           turns with the route. */
+        .kp-marker {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 28px;
+          height: 28px;
+          offset-anchor: 50% 50%;
+          offset-rotate: auto;
+          opacity: 0;
+        }
+        .kp-nose {
+          position: absolute;
+          top: 50%;
+          left: 25px;
+          width: 0;
+          height: 0;
+          margin-top: -5px;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 9px solid currentColor;
         }
         .kp-reached {
           animation: kp-reach-pulse 0.6s ease;
@@ -681,7 +754,7 @@ export function KeyPathDiagram() {
             return (
               <span key={actor.id} className="inline-flex items-center gap-1.5">
                 <span
-                  className={`flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm ring-2 ${actor.badge}`}
+                  className={`flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm ring-2 ${actor.tone} ${actor.ring}`}
                 >
                   <Icon className="h-3 w-3" />
                 </span>
