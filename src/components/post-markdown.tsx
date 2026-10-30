@@ -1,9 +1,51 @@
+"use client";
+
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Timeline from "./charts/timeline/Timeline";
+import type { ContentBlocks } from "@/models/post";
 
 const BODY = "text-base leading-7 text-zinc-600 dark:text-zinc-400";
 const HEADING =
   "text-xl font-semibold tracking-tight text-black dark:text-zinc-50";
+
+/**
+ * A chart placeholder occupying a whole row of the Markdown body, e.g.
+ * `[timeline/trezor_incidents]` renders the timeline stored in
+ * `blocks.trezor_incidents`.
+ */
+const CHART_TOKEN = /^\[([a-z][\w-]*)\/([\w.-]+)\]$/;
+
+type MarkdownSegment =
+  | { type: "markdown"; content: string }
+  | { type: "chart"; chartType: string; blockKey: string };
+
+/** Splits the body into Markdown chunks and the chart tokens between them. */
+function splitChartTokens(markdown: string): MarkdownSegment[] {
+  const segments: MarkdownSegment[] = [];
+  let chunk: string[] = [];
+
+  const flush = () => {
+    const content = chunk.join("\n");
+    if (content.trim()) segments.push({ type: "markdown", content });
+    chunk = [];
+  };
+
+  for (const line of markdown.split(/\r?\n/)) {
+    const token = CHART_TOKEN.exec(line.trim());
+
+    if (!token) {
+      chunk.push(line);
+      continue;
+    }
+
+    flush();
+    segments.push({ type: "chart", chartType: token[1], blockKey: token[2] });
+  }
+
+  flush();
+  return segments;
+}
 
 /**
  * Strapi v5 `markdown` fields are plain Markdown strings, so they are
@@ -75,19 +117,60 @@ const COMPONENTS: Components = {
   ),
 };
 
-/** Renders the Markdown body of a post; empty bodies render nothing. */
+/** Renders a chart block, or nothing when the referenced block is missing. */
+function ChartBlock({
+  chartType,
+  blockKey,
+  blocks,
+}: {
+  chartType: string;
+  blockKey: string;
+  blocks: ContentBlocks | undefined;
+}) {
+  const config = blocks?.[blockKey];
+
+  if (!config) return null;
+
+  if (chartType === "timeline" && Array.isArray(config.events)) {
+    return <Timeline config={config} />;
+  }
+
+  return null;
+}
+
+/**
+ * Renders the Markdown body of a post, replacing `[timeline/<key>]` rows with
+ * the matching chart from `blocks`; empty bodies render nothing.
+ */
 export function PostMarkdown({
   markdown,
+  blocks,
 }: {
   markdown: string | null | undefined;
+  blocks?: ContentBlocks;
 }) {
   if (!markdown?.trim()) return null;
 
   return (
     <div className="flex flex-col gap-4">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={COMPONENTS}>
-        {markdown}
-      </ReactMarkdown>
+      {splitChartTokens(markdown).map((segment, index) =>
+        segment.type === "markdown" ? (
+          <ReactMarkdown
+            key={index}
+            remarkPlugins={[remarkGfm]}
+            components={COMPONENTS}
+          >
+            {segment.content}
+          </ReactMarkdown>
+        ) : (
+          <ChartBlock
+            key={index}
+            chartType={segment.chartType}
+            blockKey={segment.blockKey}
+            blocks={blocks}
+          />
+        )
+      )}
     </div>
   );
 }

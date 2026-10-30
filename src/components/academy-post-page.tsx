@@ -30,7 +30,10 @@ export function AcademyPostPage({
           {localized.description}
         </p>
 
-        <PostMarkdown markdown={localized.markdown} />
+        <PostMarkdown
+          markdown={localized.markdown}
+          blocks={localized.blocks}
+        />
       </article>
     </main>
   );

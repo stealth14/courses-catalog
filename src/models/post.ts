@@ -1,12 +1,19 @@
+import type { PostChart } from "@/interfaces/chart";
 import type { Meta } from "@/interfaces/results";
 import type { StrapiMarkdown } from "@/interfaces/strapi-markdown";
 import type { StrapiMedia } from "@/interfaces/strapi-media";
 import api from "@/utils/api";
 
-export type PostText = {
+/** Chart payloads keyed by the id used in `[<chartType>/<key>]` tokens. */
+export type ContentBlocks = {
+  [key: string]: PostChart;
+};
+
+export type PostContent = {
   title: string;
   description: string;
   markdown: StrapiMarkdown;
+  blocks: ContentBlocks;
 };
 
 /** Strapi v5 post entry with localized text and populated media relations. */
@@ -14,8 +21,8 @@ export type PostData = {
   id: number;
   documentId: string;
   slug: string;
-  en: PostText;
-  es: PostText;
+  en: PostContent;
+  es: PostContent;
   thumbnail: StrapiMedia | null;
   cover: StrapiMedia | null;
   createdAt: string;
@@ -47,8 +54,8 @@ export class Post {
   readonly id: number;
   readonly documentId: string;
   readonly slug: string;
-  readonly en: PostText;
-  readonly es: PostText;
+  readonly en: PostContent;
+  readonly es: PostContent;
   readonly thumbnail: StrapiMedia | null;
   readonly cover: StrapiMedia | null;
   readonly createdAt: string;
@@ -80,16 +87,20 @@ export class Post {
   }
 
   /** Resolves a post's text for the active locale, defaulting to English. */
-  static localize(post: Pick<PostData, "en" | "es">, locale: string): PostText {
+  static localize(
+    post: Pick<PostData, "en" | "es">,
+    locale: string
+  ): PostContent {
     return locale === "es" ? post.es : post.en;
   }
 
   /** Strapi returns `null` for an unfilled locale component. */
-  private static normalizeText(text: PostText | null): PostText {
+  private static normalizeText(text: PostContent | null): PostContent {
     return {
       title: text?.title ?? "",
       description: text?.description ?? "",
       markdown: text?.markdown ?? "",
+      blocks: text?.blocks ?? {},
     };
   }
 
