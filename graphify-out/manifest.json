@@ -564,9 +564,9 @@
     "semantic_hash": "ee17fd1c97c735e9f3564e3f5251f125"
   },
   "AGENTS.md": {
-    "mtime": 1793058814.983534,
-    "seen": 1793332374.81335,
-    "ast_hash": "efb888862c9f94a087a633f105bfafb5",
+    "mtime": 1793385047.7703855,
+    "seen": 1793385103.4168215,
+    "ast_hash": "d689661e84361b283c77831d502ea731",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
@@ -738,9 +738,9 @@
     "semantic_hash": ""
   },
   "src/app/[locale]/diagrams/key-path/page.tsx": {
-    "mtime": 1793332347.1201787,
-    "seen": 1793332374.813265,
-    "ast_hash": "8a2b502538c27541eb48cc184f9712b1",
+    "mtime": 1793333197.1501617,
+    "seen": 1793385103.4167423,
+    "ast_hash": "7b09919c950e0675266e6869fd58247b",
     "semantic_hash": ""
   },
   "src/app/[locale]/diagrams/page.tsx": {
@@ -762,9 +762,9 @@
     "semantic_hash": ""
   },
   "src/components/icons/firmware-icons.tsx": {
-    "mtime": 1793325265.2551405,
-    "seen": 1793332374.8133037,
-    "ast_hash": "065462cc5c15701f436e87b6278f4d46",
+    "mtime": 1793376649.8194346,
+    "seen": 1793385103.4167774,
+    "ast_hash": "d94be6221085d3fa65668c9e29e20070",
     "semantic_hash": ""
   },
   "src/components/post-markdown.tsx": {
@@ -843,6 +843,12 @@
     "mtime": 1793215724.1895475,
     "seen": 1793332374.8133602,
     "ast_hash": "02a69731268922519eedc55c5f5ee276",
+    "semantic_hash": ""
+  },
+  "src/app/[locale]/diagrams/key-path/key-path-diagram.tsx": {
+    "mtime": 1793384045.6300163,
+    "seen": 1793385103.4167407,
+    "ast_hash": "4ec6cd5f43b84e349492cf843e375468",
     "semantic_hash": ""
   }
 }
