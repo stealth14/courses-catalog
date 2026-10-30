@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { KeyPathDiagram } from "./key-path-diagram";
 
 export const metadata: Metadata = {
   title: "Key path",
-  description: "Placeholder page for the key path diagram.",
+  description:
+    "Animated journey of the private keys when a Trezor Safe 7 signs a bitcoin transaction.",
 };
 
 /**
- * Placeholder route for the key path diagram. The drawing and its
- * translations land here.
+ * Key path diagram: an animated walkthrough of where the private keys go
+ * while a Trezor Safe 7 sends bitcoin, and which components touch them.
  */
 export default function KeyPathPage() {
   return (
@@ -18,11 +20,13 @@ export default function KeyPathPage() {
             Key path
           </h1>
           <p className="max-w-2xl text-pretty text-base leading-7 text-zinc-600 dark:text-zinc-400">
-            Placeholder: the key path diagram will be drawn here.
+            Follow a bitcoin send from Trezor Suite to the network: the
+            unsigned transaction travels in, the private key moves only inside
+            the device, and only the signature comes out.
           </p>
         </header>
 
-        <section aria-label="Key path diagram" />
+        <KeyPathDiagram />
       </div>
     </main>
   );
