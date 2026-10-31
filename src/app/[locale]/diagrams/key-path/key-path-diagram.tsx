@@ -113,22 +113,35 @@ const STEPS: Step[] = [
 /** First device-internal step and last device-internal step (inclusive). */
 const DEVICE_RANGE = [3, 7] as const;
 
-/** Selectable trace speeds, in px/ms. Fast is the original pace. */
+/**
+ * Selectable trace speeds, in px/ms. Slow enough that the eye can follow
+ * each traveller and read the stop it lands on.
+ */
 const SPEEDS = {
-  fast: { label: "Fast", pxPerMs: 0.45 },
+  fast: { label: "Fast", pxPerMs: 0.3 },
   normal: { label: "Normal", pxPerMs: 0.18 },
 } as const;
 
 type SpeedId = keyof typeof SPEEDS;
 
 /**
- * How long a traveller spins in place once it reaches its destination, to
- * mark the change of phase, plus the beat it rests there before the next
- * traveller sets off.
+ * The beat a traveller keeps once it reaches its stop, so the arrival
+ * registers before the next one sets off.
  */
-const SPIN_MS = 700;
-const SETTLE_MS = 160;
-const HANDOVER_MS = SPIN_MS + SETTLE_MS;
+const HOLD_MS = 900;
+
+/**
+ * How long the private key takes to come into being at the secure element,
+ * before it starts to move.
+ */
+const BIRTH_MS = 700;
+
+/**
+ * How long the two arrivals at the signing microcontroller breathe against
+ * each other while it builds the signature, before the signed transaction
+ * leaves from between them.
+ */
+const SIGN_MS = 1400;
 
 /** The three things that move through the diagram, in the order they appear. */
 type TrackId = "unsigned" | "key" | "signed";
@@ -138,6 +151,10 @@ type Track = {
   path: string;
   delayMs: number;
   durationMs: number;
+  /** The same route as points and their cumulative lengths, so the camera
+   * can work out where a traveller is without reading the DOM. */
+  points: Point[];
+  cum: number[];
 };
 
 type Actor = {
@@ -193,7 +210,17 @@ type Geometry = {
   /** Vertical centre of the lane the travellers ride on. */
   laneY: number;
   totalMs: number;
+  /** When the unsigned transaction and the key both stand on the signing
+   * chip, and when the signed one leaves. */
+  signStartMs: number;
+  /** When the key materializes at the secure element, before it moves. */
+  keyBornMs: number;
+  /** When the signed transaction lands on the network, which starts the
+   * broadcast. */
+  travelEndMs: number;
   milestones: Milestone[];
+  signingPoint: Point;
+  broadcastPoint: Point;
   broadcastLabel: Point;
   deviceBox: { left: number; top: number; width: number; height: number };
 };
@@ -208,23 +235,53 @@ function toPath(points: Point[]) {
     .join(" ");
 }
 
-function polyLength(points: Point[]) {
-  let length = 0;
+/** Running length of a polyline at each of its points. */
+function cumulativeLength(points: Point[]) {
+  const cum = [0];
   for (let index = 1; index < points.length; index++) {
-    length += segmentLength(points[index - 1], points[index]);
+    cum.push(cum[index - 1] + segmentLength(points[index - 1], points[index]));
   }
-  return length;
+  return cum;
 }
 
 /**
- * Builds the three straight journeys along the lane and when each traveller
+ * Where a traveller sits on its route at a moment of the run. The routes are
+ * polylines travelled at a constant speed, so this matches the CSS animation
+ * exactly while costing no layout reads.
+ */
+function pointAt(track: Track, ms: number): Point {
+  const progress = Math.min(
+    1,
+    Math.max(0, (ms - track.delayMs) / track.durationMs),
+  );
+  const total = track.cum[track.cum.length - 1] || 1;
+  const distance = progress * total;
+
+  for (let index = 1; index < track.points.length; index++) {
+    if (distance <= track.cum[index] || index === track.points.length - 1) {
+      const span = track.cum[index] - track.cum[index - 1] || 1;
+      const t = (distance - track.cum[index - 1]) / span;
+      const from = track.points[index - 1];
+      const to = track.points[index];
+      return {
+        x: from.x + (to.x - from.x) * t,
+        y: from.y + (to.y - from.y) * t,
+      };
+    }
+  }
+  return track.points[track.points.length - 1];
+}
+
+/**
+ * Builds the three journeys along the lane and when each traveller
  * reaches each stop:
- * - unsigned transaction: Suite -> USB -> firmware -> screen
- * - private key: secure elements -> flash -> signing
+ * - unsigned transaction: Suite -> USB -> firmware -> screen -> signing
+ * - private key: born at the secure element -> flash -> signing
  * - signed transaction: signing -> USB -> Suite -> network
- * The cards sit above the lane, each linked to its stop by a connector, and
- * every traveller keeps the route of its own phase so it can stop at the end
- * of it while the next one follows a different route.
+ * The cards sit above the lane, each linked to its stop by a connector.
+ * The two travellers that meet at the signing chip stop on either side of
+ * it, so both stay visible while the signature is built, and the signed
+ * one leaves from the middle of them.
  */
 function measure(
   stage: HTMLDivElement,
@@ -257,40 +314,71 @@ function measure(
   // The lane runs straight across the stage, below the cards.
   const laneY = stage.offsetHeight - 40;
   const stopX = (index: number) => (rect(index).l + rect(index).r) / 2;
-  const laneStop = (index: number): Point => ({ x: stopX(index), y: laneY });
+  const laneStop = (index: number, dx = 0): Point => ({
+    x: stopX(index) + dx,
+    y: laneY,
+  });
 
-  // Amber phase: the unsigned transaction travels host -> device.
-  const amberPoints = [1, 2, 3, 4].map(laneStop);
+  // How far each of the two arrivals at the signing chip parks from its
+  // centre, just enough for the pair to sit side by side without touching.
+  const SIGN_GAP = 20;
 
-  // Gold phase: the private key moves only inside the device.
-  const goldPoints = [4, 5, 6, 7].map(laneStop);
+  // Amber phase: the unsigned transaction travels host -> device, is shown
+  // on the screen and ends on the signing chip.
+  const amberPoints = [
+    laneStop(1),
+    laneStop(2),
+    laneStop(3),
+    laneStop(4),
+    laneStop(7, -SIGN_GAP),
+  ];
+
+  // The key is not carried in from anywhere: the secure element releases
+  // it, so it appears on that card's stop and only then sets off.
+  const goldPoints = [laneStop(5), laneStop(6), laneStop(7, SIGN_GAP)];
 
   // Green phase: the signed transaction returns through the USB cable
   // to Trezor Suite, which broadcasts it to the network.
-  const greenPoints = [7, 2, 1, 0].map(laneStop);
+  const greenPoints = [laneStop(7), laneStop(2), laneStop(1), laneStop(0)];
 
   const ms = (length: number) => Math.round(length / pxPerMs);
-  const segMs = (from: number, to: number) =>
-    ms(Math.abs(stopX(from) - stopX(to)));
 
-  const unsignedMs = ms(polyLength(amberPoints));
-  const keyMs = ms(polyLength(goldPoints));
-  const signedMs = ms(polyLength(greenPoints));
+  /** When a traveller reaches each point of its own route. */
+  const legs = (points: Point[]) => {
+    const times = [0];
+    for (let index = 1; index < points.length; index++) {
+      times.push(
+        times[index - 1] + ms(segmentLength(points[index - 1], points[index])),
+      );
+    }
+    return times;
+  };
 
-  // Each traveller waits for the previous one to stop and spin before it
-  // sets off; the last one spins too, so the run ends only once it settles.
-  const keyDelayMs = unsignedMs + HANDOVER_MS;
-  const signedDelayMs = keyDelayMs + keyMs + HANDOVER_MS;
+  const amberTimes = legs(amberPoints);
+  const goldTimes = legs(goldPoints);
+  const greenTimes = legs(greenPoints);
+
+  const unsignedMs = amberTimes[amberTimes.length - 1];
+  const keyMs = goldTimes[goldTimes.length - 1];
+  const signedMs = greenTimes[greenTimes.length - 1];
+
+  // Each traveller waits for the previous one to settle, the key is born
+  // before it sets off, the two that meet at the chip hold while it signs,
+  // and the run ends only once the last traveller settles on the network.
+  const keyBornMs = unsignedMs + HOLD_MS;
+  const keyDelayMs = keyBornMs + BIRTH_MS;
+  const signStartMs = keyDelayMs + keyMs + HOLD_MS;
+  const signedDelayMs = signStartMs + SIGN_MS;
   const travelEndMs = signedDelayMs + signedMs;
-  const totalMs = travelEndMs + HANDOVER_MS;
+  const totalMs = travelEndMs + HOLD_MS;
 
   const milestones: Milestone[] = [
     { id: "suite", ms: 0 },
-    { id: "usb", ms: segMs(1, 2) },
-    { id: "firmware", ms: segMs(1, 2) + segMs(2, 3) },
-    { id: "screen", ms: unsignedMs },
-    { id: "secure-elements", ms: keyDelayMs + segMs(4, 5) },
-    { id: "flash", ms: keyDelayMs + segMs(4, 5) + segMs(5, 6) },
+    { id: "usb", ms: amberTimes[1] },
+    { id: "firmware", ms: amberTimes[2] },
+    { id: "screen", ms: amberTimes[3] },
+    { id: "secure-elements", ms: keyBornMs },
+    { id: "flash", ms: keyDelayMs + goldTimes[1] },
     { id: "signing", ms: keyDelayMs + keyMs },
     { id: "network", ms: travelEndMs },
   ];
@@ -301,29 +389,34 @@ function measure(
   const right = Math.max(...deviceCards.map((item) => item.r));
   const top = Math.min(...deviceCards.map((item) => item.t));
 
+  const track = (
+    points: Point[],
+    delayMs: number,
+    durationMs: number,
+  ): Track => ({
+    path: toPath(points),
+    delayMs,
+    durationMs,
+    points,
+    cum: cumulativeLength(points),
+  });
+
   return {
     cards,
     icons,
     tracks: {
-      unsigned: {
-        path: toPath(amberPoints),
-        delayMs: 0,
-        durationMs: unsignedMs,
-      },
-      key: {
-        path: toPath(goldPoints),
-        delayMs: keyDelayMs,
-        durationMs: keyMs,
-      },
-      signed: {
-        path: toPath(greenPoints),
-        delayMs: signedDelayMs,
-        durationMs: signedMs,
-      },
+      unsigned: track(amberPoints, 0, unsignedMs),
+      key: track(goldPoints, keyDelayMs, keyMs),
+      signed: track(greenPoints, signedDelayMs, signedMs),
     },
     laneY,
     totalMs,
+    signStartMs,
+    keyBornMs,
+    travelEndMs,
     milestones,
+    signingPoint: laneStop(7),
+    broadcastPoint: laneStop(0),
     broadcastLabel: {
       x: (stopX(0) + stopX(1)) / 2,
       y: laneY + 18,
@@ -339,22 +432,54 @@ function measure(
   };
 }
 
+/** Wifi arcs leaving the network node once the transaction is broadcast. */
+function BroadcastWaves({
+  point,
+  delayMs,
+}: {
+  point: Point;
+  delayMs: number;
+}) {
+  return (
+    <div
+      className="kp-waves"
+      style={{ left: point.x, top: point.y }}
+      aria-hidden="true"
+    >
+      {[0, 1, 2].map((index) => (
+        <span
+          key={index}
+          className="kp-wave"
+          style={{ animationDelay: `${delayMs + index * 240}ms` }}
+        />
+      ))}
+    </div>
+  );
+}
+
 /**
  * One traveller: a badge with the icon of what is moving. The badge itself
  * never turns — the icon keeps its orientation — while a pointer on its
  * leading edge takes the direction of the route. On arrival the pointer
- * goes away and the badge spins once in place to mark the change of phase,
- * then stays where it stopped. With `rest` it is parked at that point of
- * its route instead (the start before the run, the end after it).
+ * goes away and the badge holds that stop long enough to be read. A
+ * traveller with `born` is not carried in from anywhere: it materializes at
+ * the start of its route before it sets off. With `rest` it is parked at
+ * that point of its route instead (the start before the run, the end after
+ * it); with `hold` it keeps breathing there once the signing chip has both
+ * of its visitors.
  */
 function Traveller({
   actor,
   track,
   rest,
+  born,
+  hold,
 }: {
   actor: Actor;
   track: Track;
   rest?: 0 | 100;
+  born?: number;
+  hold?: number;
 }) {
   const Icon = actor.icon;
   const badge = `kp-badge shadow-md ring-2 ${actor.tone} ${actor.ring}`;
@@ -377,6 +502,12 @@ function Traveller({
 
   const arrivalMs = track.delayMs + track.durationMs;
   const travel = `kp-travel ${track.durationMs}ms linear ${track.delayMs}ms forwards`;
+  const appear =
+    born === undefined
+      ? ""
+      : `, kp-born ${BIRTH_MS}ms cubic-bezier(0.4, 0, 0.2, 1) ${born}ms forwards`;
+  const breathe =
+    hold === undefined ? "" : `, kp-work ${SIGN_MS}ms ease-in-out ${hold}ms`;
 
   return (
     <>
@@ -391,13 +522,28 @@ function Traveller({
           }}
         />
       </div>
+      {/* A spark opens out of the route's first point as the traveller
+          materializes there. */}
+      {born !== undefined && (
+        <div
+          className={`kp-birth ${actor.tone}`}
+          style={{ offsetPath: path, offsetDistance: "0%" }}
+          aria-hidden="true"
+        >
+          <span
+            className="kp-birth-ring"
+            style={{ animationDelay: `${born}ms` }}
+          />
+          <span
+            className="kp-birth-glow"
+            style={{ animationDelay: `${born}ms` }}
+          />
+        </div>
+      )}
       <div
         data-track={actor.id}
         className={badge}
-        style={{
-          offsetPath: path,
-          animation: `${travel}, kp-spin ${SPIN_MS}ms ease-in-out ${arrivalMs}ms forwards`,
-        }}
+        style={{ offsetPath: path, animation: `${travel}${appear}${breathe}` }}
       >
         <Icon className="h-4 w-4" />
       </div>
@@ -446,8 +592,9 @@ function activeTrack(
  * Animated key path: three travellers follow a bitcoin send through a
  * Trezor Safe 7 — the unsigned transaction from Trezor Suite in, the
  * private key inside the device, and the signed transaction back out.
- * Each one stops where its job ends; all three stay on the diagram until
- * the user resets the simulation.
+ * The first two meet on the signing chip, where they stay while the
+ * signature is built, and the network keeps broadcasting once everything
+ * has landed. All three stay on the diagram until the user resets it.
  */
 export function KeyPathDiagram() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -513,36 +660,62 @@ export function KeyPathDiagram() {
   /**
    * Pans the scroll container so the traveller on the move stays centred.
    * While the simulation runs the container is not scrollable by the user.
+   *
+   * The traveller's position is computed from its route instead of measured
+   * in the DOM, and the container is only scrolled when the target really
+   * moved: reading rects or rewriting the same scroll offset every frame
+   * makes the browser repaint the whole stage, which shows up as stutter.
    */
   function startFollow(timeline: Timeline) {
     stopFollow();
     timelineRef.current = timeline;
 
-    const tick = () => {
-      if (!timelineRef.current) return;
+    let camera: {
+      originX: number;
+      halfView: number;
+      maxScroll: number;
+    } | null = null;
+    let written = Number.NaN;
 
+    /**
+     * Measured on the first frame rather than now: the run has not switched
+     * the container to `overflow-x: hidden` yet, and that changes
+     * `clientWidth` by the width of the scrollbar.
+     */
+    const measureCamera = () => {
       const scroller = scrollerRef.current;
       const stage = stageRef.current;
-      if (!scroller || !stage) return;
+      if (!scroller || !stage) return null;
+      return {
+        originX:
+          stage.getBoundingClientRect().left -
+          scroller.getBoundingClientRect().left -
+          scroller.clientLeft +
+          scroller.scrollLeft,
+        halfView: scroller.clientWidth / 2,
+        maxScroll: scroller.scrollWidth - scroller.clientWidth,
+      };
+    };
 
-      const elapsed = performance.now() - timelineRef.current.start;
-      if (elapsed > timelineRef.current.totalMs) return;
+    const tick = () => {
+      const current = timelineRef.current;
+      if (!current) return;
 
-      const trackId = activeTrack(timelineRef.current.tracks, elapsed);
-      const actor = stage.querySelector<HTMLElement>(
-        `[data-track="${trackId}"]`,
+      const scroller = scrollerRef.current;
+      const elapsed = performance.now() - current.start;
+      if (!scroller || elapsed > current.totalMs) return;
+
+      camera = camera ?? measureCamera();
+      if (!camera) return;
+
+      const track = current.tracks[activeTrack(current.tracks, elapsed)];
+      const next = Math.min(
+        Math.max(0, camera.originX + pointAt(track, elapsed).x - camera.halfView),
+        camera.maxScroll,
       );
-      if (actor) {
-        const actorRect = actor.getBoundingClientRect();
-        const stageRect = stage.getBoundingClientRect();
-        // Both rects are viewport-relative, so their difference is already
-        // the traveller's position inside the stage content.
-        const contentX = actorRect.left - stageRect.left;
-        const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-        scroller.scrollLeft = Math.min(
-          Math.max(0, contentX - scroller.clientWidth / 2),
-          maxScroll,
-        );
+      if (!(Math.abs(next - written) < 1)) {
+        scroller.scrollLeft = next;
+        written = next;
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -602,9 +775,9 @@ export function KeyPathDiagram() {
 
   const status =
     phase === "playing"
-      ? "Following the send: the unsigned transaction travels in, the private key moves inside the device, the signed transaction goes out."
+      ? "Following the send: the unsigned transaction travels in, meets the private key on the signing chip, and the signed transaction goes out."
       : phase === "done"
-        ? "Signed: the private key never left the Trezor Safe 7 — only the signature went out. The three travellers stay here until you reset."
+        ? "Signed: the private key never left the Trezor Safe 7 — only the signature went out, and the network keeps broadcasting it. The travellers stay here until you reset."
         : "Press play to follow what happens to the keys when the Trezor signs a send. Click a component to read what it does.";
 
   return (
@@ -619,10 +792,42 @@ export function KeyPathDiagram() {
           from { offset-distance: 0%; opacity: 1; }
           to { offset-distance: 100%; opacity: 1; }
         }
-        @keyframes kp-spin {
-          from { transform: rotate(0deg) scale(1); }
-          50% { transform: rotate(180deg) scale(1.14); }
-          to { transform: rotate(360deg) scale(1); }
+        /* The badge grows into place: one direction, no overshoot, so it
+           reads as appearing rather than wobbling. */
+        @keyframes kp-born {
+          from { opacity: 0; transform: scale(0.3); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        /* The spark that opens out of the node when the key materializes:
+           a ring that widens away and a glow that swells under it. */
+        @keyframes kp-birth-ring {
+          from { opacity: 0.9; transform: scale(0.3); }
+          to { opacity: 0; transform: scale(2.2); }
+        }
+        @keyframes kp-birth-glow {
+          from { opacity: 0.5; transform: scale(0.4); }
+          to { opacity: 0; transform: scale(1.7); }
+        }
+        /* The two arrivals at the signing chip breathe together, once, while
+           it works: a single slow swell instead of a back-and-forth. */
+        @keyframes kp-work {
+          from { transform: scale(1); }
+          50% { transform: scale(1.07); }
+          to { transform: scale(1); }
+        }
+        /* A dashed ring turns around the pair while the signature is built,
+           then dissolves. */
+        @keyframes kp-sign {
+          from { opacity: 0; transform: rotate(0deg) scale(0.85); }
+          12% { opacity: 1; transform: rotate(24deg) scale(1); }
+          86% { opacity: 1; transform: rotate(300deg) scale(1); }
+          to { opacity: 0; transform: rotate(320deg) scale(1); }
+        }
+        /* Wifi arcs: each one grows out of the node and fades away. */
+        @keyframes kp-wave {
+          0% { opacity: 0; transform: scale(0.4); }
+          25% { opacity: 0.85; }
+          100% { opacity: 0; transform: scale(1.7); }
         }
         @keyframes kp-nose-out {
           from { opacity: 1; }
@@ -642,6 +847,7 @@ export function KeyPathDiagram() {
           offset-anchor: 50% 50%;
           offset-rotate: 0deg;
           opacity: 0;
+          will-change: transform, opacity;
         }
         /* Carries the pointer and nothing else: it is the only part that
            turns with the route. */
@@ -655,6 +861,82 @@ export function KeyPathDiagram() {
           offset-rotate: auto;
           opacity: 0;
         }
+        /* Sits on the first point of the route; its children do the
+           showing, so nothing here needs an opacity of its own. */
+        .kp-birth {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 28px;
+          height: 28px;
+          offset-anchor: 50% 50%;
+          offset-rotate: 0deg;
+        }
+        .kp-birth span {
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          will-change: transform, opacity;
+        }
+        .kp-birth-ring {
+          border: 2px solid currentColor;
+          animation: kp-birth-ring ${BIRTH_MS}ms ease-out both;
+        }
+        .kp-birth-glow {
+          background-color: currentColor;
+          animation: kp-birth-glow ${BIRTH_MS}ms ease-out both;
+        }
+        /* Anchored on the signing node, wide enough to enclose both of the
+           travellers waiting on it. */
+        .kp-sign {
+          position: absolute;
+          width: 0;
+          height: 0;
+          color: #ca8a04;
+          opacity: 0;
+        }
+        .kp-sign-ring,
+        .kp-sign-core {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          border-radius: 9999px;
+        }
+        .kp-sign-ring {
+          width: 92px;
+          height: 92px;
+          margin: -46px 0 0 -46px;
+          border: 2px dashed currentColor;
+          will-change: transform, opacity;
+        }
+        .kp-sign-core {
+          width: 54px;
+          height: 54px;
+          margin: -27px 0 0 -27px;
+          background-color: currentColor;
+          opacity: 0.14;
+          will-change: transform, opacity;
+        }
+        /* Each arc is a ring showing only its top quarter, so it reads as a
+           wifi wave climbing out of the node. */
+        .kp-waves {
+          position: absolute;
+          width: 0;
+          height: 0;
+          color: #059669;
+        }
+        .kp-wave {
+          position: absolute;
+          top: -44px;
+          left: -22px;
+          width: 44px;
+          height: 44px;
+          border: 2px solid transparent;
+          border-top-color: currentColor;
+          border-radius: 9999px;
+          opacity: 0;
+          animation: kp-wave 1.3s ease-out infinite;
+        }
         .kp-nose {
           position: absolute;
           top: 50%;
@@ -666,8 +948,12 @@ export function KeyPathDiagram() {
           border-bottom: 5px solid transparent;
           border-left: 9px solid currentColor;
         }
+        /* Promoting the pulsing card and the travellers keeps their scale
+           animations off the main thread, so a shadow is not re-rasterized
+           frame by frame. */
         .kp-reached {
           animation: kp-reach-pulse 0.6s ease;
+          will-change: transform;
         }
       `}</style>
 
@@ -827,6 +1113,20 @@ export function KeyPathDiagram() {
                 </text>
               </svg>
 
+              {/* Once the signed transaction lands, the network node keeps
+                  emitting wifi waves until the diagram is reset. */}
+              {phase !== "idle" && (
+                <div
+                  key={`waves-${runId}`}
+                  className="pointer-events-none absolute inset-0 z-20"
+                >
+                  <BroadcastWaves
+                    point={geometry.broadcastPoint}
+                    delayMs={geometry.travelEndMs}
+                  />
+                </div>
+              )}
+
               {/* Three travellers, one after another. Each one follows its
                   own route, stops where its job ends, and stays there: at
                   the end of the run all three sit on the diagram. */}
@@ -840,8 +1140,30 @@ export function KeyPathDiagram() {
                       key={actor.id}
                       actor={actor}
                       track={geometry.tracks[actor.id]}
+                      born={
+                        actor.id === "key" ? geometry.keyBornMs : undefined
+                      }
+                      hold={
+                        actor.id === "signed"
+                          ? undefined
+                          : geometry.signStartMs
+                      }
                     />
                   ))}
+
+                  {/* The signing chip works on the pair it has in hand. */}
+                  <div
+                    className="kp-sign"
+                    aria-hidden="true"
+                    style={{
+                      left: geometry.signingPoint.x,
+                      top: geometry.signingPoint.y,
+                      animation: `kp-sign ${SIGN_MS}ms ease-in-out ${geometry.signStartMs}ms forwards`,
+                    }}
+                  >
+                    <span className="kp-sign-core" />
+                    <span className="kp-sign-ring" />
+                  </div>
                 </div>
               )}
 
