@@ -151,6 +151,9 @@ type Track = {
   path: string;
   delayMs: number;
   durationMs: number;
+  /** When the camera should start following this traveller: its birth, so
+   * the pan to where it appears happens while it is still materializing. */
+  focusMs: number;
   /** The same route as points and their cumulative lengths, so the camera
    * can work out where a traveller is without reading the DOM. */
   points: Point[];
@@ -215,6 +218,8 @@ type Geometry = {
   signStartMs: number;
   /** When the key materializes at the secure element, before it moves. */
   keyBornMs: number;
+  /** When the unsigned transaction is built at Trezor Suite. */
+  unsignedBornMs: number;
   /** When the signed transaction lands on the network, which starts the
    * broadcast. */
   travelEndMs: number;
@@ -362,10 +367,13 @@ function measure(
   const keyMs = goldTimes[goldTimes.length - 1];
   const signedMs = greenTimes[greenTimes.length - 1];
 
-  // Each traveller waits for the previous one to settle, the key is born
-  // before it sets off, the two that meet at the chip hold while it signs,
-  // and the run ends only once the last traveller settles on the network.
-  const keyBornMs = unsignedMs + HOLD_MS;
+  // Nothing is already in flight: the unsigned transaction is built at
+  // Trezor Suite and only then travels in, the key is released by the secure
+  // element, the two that meet at the chip hold while it signs, and the run
+  // ends once the signed transaction settles on the network.
+  const unsignedBornMs = 0;
+  const unsignedDelayMs = unsignedBornMs + BIRTH_MS;
+  const keyBornMs = unsignedDelayMs + unsignedMs + HOLD_MS;
   const keyDelayMs = keyBornMs + BIRTH_MS;
   const signStartMs = keyDelayMs + keyMs + HOLD_MS;
   const signedDelayMs = signStartMs + SIGN_MS;
@@ -374,9 +382,9 @@ function measure(
 
   const milestones: Milestone[] = [
     { id: "suite", ms: 0 },
-    { id: "usb", ms: amberTimes[1] },
-    { id: "firmware", ms: amberTimes[2] },
-    { id: "screen", ms: amberTimes[3] },
+    { id: "usb", ms: unsignedDelayMs + amberTimes[1] },
+    { id: "firmware", ms: unsignedDelayMs + amberTimes[2] },
+    { id: "screen", ms: unsignedDelayMs + amberTimes[3] },
     { id: "secure-elements", ms: keyBornMs },
     { id: "flash", ms: keyDelayMs + goldTimes[1] },
     { id: "signing", ms: keyDelayMs + keyMs },
@@ -391,12 +399,14 @@ function measure(
 
   const track = (
     points: Point[],
+    focusMs: number,
     delayMs: number,
     durationMs: number,
   ): Track => ({
     path: toPath(points),
     delayMs,
     durationMs,
+    focusMs,
     points,
     cum: cumulativeLength(points),
   });
@@ -405,14 +415,15 @@ function measure(
     cards,
     icons,
     tracks: {
-      unsigned: track(amberPoints, 0, unsignedMs),
-      key: track(goldPoints, keyDelayMs, keyMs),
-      signed: track(greenPoints, signedDelayMs, signedMs),
+      unsigned: track(amberPoints, 0, unsignedDelayMs, unsignedMs),
+      key: track(goldPoints, keyBornMs, keyDelayMs, keyMs),
+      signed: track(greenPoints, signedDelayMs, signedDelayMs, signedMs),
     },
     laneY,
     totalMs,
     signStartMs,
     keyBornMs,
+    unsignedBornMs,
     travelEndMs,
     milestones,
     signingPoint: laneStop(7),
@@ -578,13 +589,13 @@ type Timeline = {
   tracks: Record<TrackId, Track>;
 };
 
-/** Which traveller is on the move (or resting at its last stop) right now. */
+/** Which traveller the camera follows (or rests on) right now. */
 function activeTrack(
   tracks: Record<TrackId, Track>,
   elapsed: number,
 ): TrackId {
-  if (elapsed >= tracks.signed.delayMs) return "signed";
-  if (elapsed >= tracks.key.delayMs) return "key";
+  if (elapsed >= tracks.signed.focusMs) return "signed";
+  if (elapsed >= tracks.key.focusMs) return "key";
   return "unsigned";
 }
 
@@ -658,13 +669,15 @@ export function KeyPathDiagram() {
   }
 
   /**
-   * Pans the scroll container so the traveller on the move stays centred.
+   * Pans the scroll container so the traveller being followed stays centred.
    * While the simulation runs the container is not scrollable by the user.
    *
    * The traveller's position is computed from its route instead of measured
-   * in the DOM, and the container is only scrolled when the target really
-   * moved: reading rects or rewriting the same scroll offset every frame
+   * in the DOM: reading rects and rewriting the scroll offset every frame
    * makes the browser repaint the whole stage, which shows up as stutter.
+   * The pan itself is smoothed, because the camera hands over from one
+   * traveller to the next at different points of the lane and snapping there
+   * would read as a jolt.
    */
   function startFollow(timeline: Timeline) {
     stopFollow();
@@ -675,7 +688,11 @@ export function KeyPathDiagram() {
       halfView: number;
       maxScroll: number;
     } | null = null;
+    /** How quickly the pan catches up with its target, in ms. */
+    const EASE_MS = 150;
+    let offset = Number.NaN;
     let written = Number.NaN;
+    let lastFrame = 0;
 
     /**
      * Measured on the first frame rather than now: the run has not switched
@@ -697,25 +714,41 @@ export function KeyPathDiagram() {
       };
     };
 
-    const tick = () => {
+    const tick = (now: number) => {
       const current = timelineRef.current;
       if (!current) return;
 
       const scroller = scrollerRef.current;
-      const elapsed = performance.now() - current.start;
+      const elapsed = now - current.start;
       if (!scroller || elapsed > current.totalMs) return;
 
       camera = camera ?? measureCamera();
       if (!camera) return;
 
       const track = current.tracks[activeTrack(current.tracks, elapsed)];
-      const next = Math.min(
-        Math.max(0, camera.originX + pointAt(track, elapsed).x - camera.halfView),
+      // Leading the target by the easing time cancels the lag the smoothing
+      // would otherwise show while a traveller is on the move.
+      const target = Math.min(
+        Math.max(
+          0,
+          camera.originX +
+            pointAt(track, elapsed + EASE_MS).x -
+            camera.halfView,
+        ),
         camera.maxScroll,
       );
-      if (!(Math.abs(next - written) < 1)) {
-        scroller.scrollLeft = next;
-        written = next;
+
+      if (Number.isNaN(offset)) {
+        offset = target;
+      } else {
+        const dt = lastFrame ? Math.min(64, now - lastFrame) : 16;
+        offset += (target - offset) * (1 - Math.exp(-dt / EASE_MS));
+      }
+      lastFrame = now;
+
+      if (!(Math.abs(offset - written) < 0.5)) {
+        scroller.scrollLeft = offset;
+        written = offset;
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -1141,7 +1174,11 @@ export function KeyPathDiagram() {
                       actor={actor}
                       track={geometry.tracks[actor.id]}
                       born={
-                        actor.id === "key" ? geometry.keyBornMs : undefined
+                        actor.id === "signed"
+                          ? undefined
+                          : actor.id === "key"
+                            ? geometry.keyBornMs
+                            : geometry.unsignedBornMs
                       }
                       hold={
                         actor.id === "signed"
