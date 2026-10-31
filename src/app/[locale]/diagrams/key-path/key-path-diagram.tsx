@@ -166,6 +166,8 @@ type Actor = {
   icon: ComponentType<FirmwareIconProps>;
   /** Colours of the icon and of the pointer that shows where it is going. */
   tone: string;
+  /** Filled badge colours, used by all three travellers. */
+  badgeTone: string;
   /** Ring around the badge. */
   ring: string;
 };
@@ -181,6 +183,7 @@ const ACTORS: Actor[] = [
     label: "Unsigned transaction",
     icon: NoteIcon,
     tone: "text-orange-600",
+    badgeTone: "bg-orange-100 text-orange-700",
     ring: "ring-orange-400",
   },
   {
@@ -188,6 +191,7 @@ const ACTORS: Actor[] = [
     label: "Private key",
     icon: KeyIcon,
     tone: "text-yellow-600",
+    badgeTone: "bg-yellow-100 text-yellow-700",
     ring: "ring-yellow-400",
   },
   {
@@ -195,6 +199,7 @@ const ACTORS: Actor[] = [
     label: "Signed transaction",
     icon: SignedNoteIcon,
     tone: "text-emerald-600",
+    badgeTone: "bg-emerald-100 text-emerald-700",
     ring: "ring-emerald-400",
   },
 ];
@@ -220,6 +225,8 @@ type Geometry = {
   keyBornMs: number;
   /** When the unsigned transaction is built at Trezor Suite. */
   unsignedBornMs: number;
+  /** When the signed transaction is created on the signing chip. */
+  signedBornMs: number;
   /** When the signed transaction lands on the network, which starts the
    * broadcast. */
   travelEndMs: number;
@@ -376,7 +383,8 @@ function measure(
   const keyBornMs = unsignedDelayMs + unsignedMs + HOLD_MS;
   const keyDelayMs = keyBornMs + BIRTH_MS;
   const signStartMs = keyDelayMs + keyMs + HOLD_MS;
-  const signedDelayMs = signStartMs + SIGN_MS;
+  const signedBornMs = signStartMs + SIGN_MS;
+  const signedDelayMs = signedBornMs + BIRTH_MS;
   const travelEndMs = signedDelayMs + signedMs;
   const totalMs = travelEndMs + HOLD_MS;
 
@@ -417,13 +425,14 @@ function measure(
     tracks: {
       unsigned: track(amberPoints, 0, unsignedDelayMs, unsignedMs),
       key: track(goldPoints, keyBornMs, keyDelayMs, keyMs),
-      signed: track(greenPoints, signedDelayMs, signedDelayMs, signedMs),
+      signed: track(greenPoints, signedBornMs, signedDelayMs, signedMs),
     },
     laneY,
     totalMs,
     signStartMs,
     keyBornMs,
     unsignedBornMs,
+    signedBornMs,
     travelEndMs,
     milestones,
     signingPoint: laneStop(7),
@@ -493,7 +502,7 @@ function Traveller({
   hold?: number;
 }) {
   const Icon = actor.icon;
-  const badge = `kp-badge shadow-md ring-2 ${actor.tone} ${actor.ring}`;
+  const badge = `kp-badge shadow-md ${actor.badgeTone}`;
   const path = `path('${track.path}')`;
 
   if (rest !== undefined) {
@@ -831,8 +840,8 @@ export function KeyPathDiagram() {
           from { opacity: 0; transform: scale(0.3); }
           to { opacity: 1; transform: scale(1); }
         }
-        /* The spark that opens out of the node when the key materializes:
-           a ring that widens away and a glow that swells under it. */
+        /* A traveller materializes at its origin: a ring widens away and a
+           glow swells underneath it. */
         @keyframes kp-birth-ring {
           from { opacity: 0.9; transform: scale(0.3); }
           to { opacity: 0; transform: scale(2.2); }
@@ -876,7 +885,6 @@ export function KeyPathDiagram() {
           align-items: center;
           justify-content: center;
           border-radius: 9999px;
-          background-color: #fff;
           offset-anchor: 50% 50%;
           offset-rotate: 0deg;
           opacity: 0;
@@ -1174,11 +1182,11 @@ export function KeyPathDiagram() {
                       actor={actor}
                       track={geometry.tracks[actor.id]}
                       born={
-                        actor.id === "signed"
-                          ? undefined
-                          : actor.id === "key"
-                            ? geometry.keyBornMs
-                            : geometry.unsignedBornMs
+                        actor.id === "key"
+                          ? geometry.keyBornMs
+                          : actor.id === "unsigned"
+                            ? geometry.unsignedBornMs
+                            : geometry.signedBornMs
                       }
                       hold={
                         actor.id === "signed"
